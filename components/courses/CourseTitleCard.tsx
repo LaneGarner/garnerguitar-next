@@ -10,6 +10,7 @@ interface Props {
 }
 
 const CourseTitleCard = ({ title, img, url }: Props): JSX.Element => {
+  console.log(url);
   return (
     <Link href={url}>
       <a>

@@ -24,11 +24,11 @@ const Courses = (): JSX.Element => {
           </p>
           <div className="course-title-cards">
             {courses.map((course) => (
-              <CourseTitleCard title={course.title} img={course.img} url={`courses/#${course.url}`} />
+              <CourseTitleCard key={course.url} title={course.title} img={course.img} url={`/courses#${course.url}`} />
             ))}
           </div>
-          {courses.map((course, i) => (
-            <>
+          {courses.map((course) => (
+            <section key={course.url}>
               <h3 className="course-name-heading" id={course.url}>
                 {course.title}
               </h3>
@@ -53,7 +53,7 @@ const Courses = (): JSX.Element => {
                   />
                 ))}
               </div>
-            </>
+            </section>
           ))}
         </CoursesPageStyled>
       </Layout>
@@ -65,6 +65,7 @@ export default Courses;
 
 const CoursesPageStyled = styled.div`
   margin-top: ${theme.sizes.s};
+  margin-bottom: ${theme.sizes.xl};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,7 +86,7 @@ const CoursesPageStyled = styled.div`
     align-items: center;
     gap: ${theme.sizes.l};
     width: 80%;
-    margin-bottom: ${theme.sizes.xxl};
+    margin-bottom: ${theme.sizes.l};
   }
 
   p {

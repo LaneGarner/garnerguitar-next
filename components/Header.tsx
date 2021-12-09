@@ -50,10 +50,10 @@ const Header = (): JSX.Element => {
   }
 
   const headerLinks: HeaderLinkInterface[] = [
-    { name: "Courses", url: "courses" },
-    { name: "Method Book", url: "book" },
-    { name: "Lessons", url: "lessons" },
-    { name: "Resources", url: "resources" },
+    { name: "Courses", url: "/courses" },
+    { name: "Method Book", url: "/book" },
+    { name: "Lessons", url: "/lessons" },
+    { name: "Resources", url: "/resources" },
   ];
 
   return (

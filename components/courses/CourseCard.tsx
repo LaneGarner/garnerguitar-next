@@ -37,13 +37,13 @@ const Card = ({ title, part, courseName, img, description, description2, skills,
       <h3>You will learn:</h3>
       <ul>
         <div>
-          {skills1.map((skill) => (
-            <li>{skill}</li>
+          {skills1.map((skill, i) => (
+            <li key={i}>{skill}</li>
           ))}
         </div>
         <div>
-          {skills2.map((skill) => (
-            <li>{skill}</li>
+          {skills2.map((skill, i) => (
+            <li key={i}>{skill}</li>
           ))}
         </div>
       </ul>

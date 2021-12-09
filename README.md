@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+This is a rebuild of GarnerGuitar.com using next.js, typescript, and styled components.

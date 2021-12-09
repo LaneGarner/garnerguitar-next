@@ -22,7 +22,7 @@ export const courses: CourseCardInterface[] = [
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
     img: "/images/Garner-Guitar-Book-Cover.jpg",
-    url: "/courses/#beginner",
+    url: "beginner",
     parts: [
       {
         part: 1,
@@ -94,7 +94,7 @@ export const courses: CourseCardInterface[] = [
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
     img: "/images/Garner-Guitar-Book-Cover.jpg",
-    url: "/courses/#jazz",
+    url: "jazz",
     parts: [
       {
         part: 1,
@@ -130,7 +130,7 @@ export const courses: CourseCardInterface[] = [
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
     img: "/images/Garner-Guitar-Book-Cover.jpg",
-    url: "/courses/#young-beginner",
+    url: "young-beginner",
     parts: [
       {
         part: 1,

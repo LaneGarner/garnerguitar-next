@@ -24,12 +24,12 @@ const Courses = (): JSX.Element => {
           </p>
           <div className="course-title-cards">
             {courses.map((course) => (
-              <CourseTitleCard title={course.title} img={course.img} url={course.url} />
+              <CourseTitleCard title={course.title} img={course.img} url={`courses/#${course.url}`} />
             ))}
           </div>
           {courses.map((course, i) => (
             <>
-              <h3 className="course-name-heading" id="beginner">
+              <h3 className="course-name-heading" id={course.url}>
                 {course.title}
               </h3>
               <div className="course-description-container">
@@ -77,6 +77,7 @@ const CoursesPageStyled = styled.div`
     font-size: ${theme.sizes.l};
     text-align: center;
     margin: 0 ${theme.sizes.l} ${theme.sizes.xs};
+    scroll-margin: ${theme.sizes.header};
   }
 
   .course-description-container {
@@ -96,7 +97,8 @@ const CoursesPageStyled = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: ${theme.sizes.m};
+    align-items: center;
+    gap: ${theme.sizes.l};
     margin-bottom: ${theme.sizes.l};
   }
 
@@ -106,9 +108,5 @@ const CoursesPageStyled = styled.div`
     justify-content: center;
     gap: ${theme.sizes.l};
     margin-bottom: ${theme.sizes.m};
-  }
-
-  #beginner {
-    scroll-margin: ${theme.sizes.header};
   }
 `;

@@ -85,7 +85,6 @@ const CoursesPageStyled = styled.div`
     display: flex;
     align-items: center;
     gap: ${theme.sizes.l};
-    /* width: 80%; */
     margin: 0 5% ${theme.sizes.l} 5%;
   }
 

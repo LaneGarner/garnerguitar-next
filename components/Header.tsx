@@ -50,10 +50,10 @@ const Header = (): JSX.Element => {
   }
 
   const headerLinks: HeaderLinkInterface[] = [
-    { name: "Courses", url: "/courses" },
-    { name: "Method Book", url: "/book" },
-    { name: "Lessons", url: "/lessons" },
-    { name: "Resources", url: "/resources" },
+    { name: "Courses", url: "courses" },
+    { name: "Method Book", url: "book" },
+    { name: "Lessons", url: "lessons" },
+    { name: "Resources", url: "resources" },
   ];
 
   return (
@@ -68,11 +68,11 @@ const Header = (): JSX.Element => {
         <nav className={small ? "nav-small" : "nav"}>
           {headerLinks.map((link, i) =>
             link.name !== "Resources" ? (
-              <Link key={i} href={link.url}>
+              <Link key={i} href={`/${link.url}`}>
                 <a className={`header-link ${small && "header-link-small"} ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
               </Link>
             ) : (
-              <Link key={i} href={link.url}>
+              <Link key={i} href={`/${link.url}`}>
                 <a className={`header-link ${small && "header-link-small"} ${link.url === currentRoute && "header-link-active"}`}>
                   {link.name}
                   <FaAngleDown />

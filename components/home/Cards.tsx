@@ -36,6 +36,18 @@ const Cards = (): JSX.Element => {
       img: "zoomLogo.png",
       url: "lessons",
     },
+    {
+      title: "Lessons",
+      description: "description",
+      img: "zoomLogo.png",
+      url: "lessons",
+    },
+    {
+      title: "Lessons",
+      description: "description",
+      img: "zoomLogo.png",
+      url: "lessons",
+    },
   ];
   return (
     <CardContainerStyled>
@@ -54,5 +66,5 @@ const CardContainerStyled = styled.section`
   gap: ${theme.sizes.l};
   max-width: 100vw;
   justify-content: center;
-  margin: 0 ${theme.sizes.m} ${theme.sizes.xl};
+  margin: ${theme.sizes.xl} ${theme.sizes.m};
 `;

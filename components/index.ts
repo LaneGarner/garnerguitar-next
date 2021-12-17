@@ -14,7 +14,6 @@ import CourseHeader from "./courses/CourseHeader";
 import CourseContainer from "./courses/CourseContainer";
 import CoursesHome from "./courses/CoursesHome";
 import BeginnerToAdvancedCourseHome from "./courses/beginner-to-advanced/BeginnerToAdvancedCourseHome";
-import { Introduction } from "./courses/beginner-to-advanced/guitar-basics";
 
 export {
   About,
@@ -33,5 +32,4 @@ export {
   Hero,
   Layout,
   Logo,
-  Introduction,
 };

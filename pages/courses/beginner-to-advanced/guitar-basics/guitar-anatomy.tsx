@@ -4,10 +4,13 @@ import { courses } from "../../../../data";
 import styled from "styled-components";
 
 const GuitarAnatomy = (): JSX.Element => {
+  const courseTypeIndex = 0;
+  const courseIndex = 0;
   const page = courses[0].courses[0].pages[1];
+
   return (
-    <CourseContainer title="Beginner to Advanced Guitar Courses" courseTypeIndex={0} courseIndex={0} page={page}>
-      <GuitarAnatomyStyled>{page.title}</GuitarAnatomyStyled>
+    <CourseContainer courseTypeIndex={courseTypeIndex} courseIndex={courseIndex} page={page}>
+      <GuitarAnatomyStyled></GuitarAnatomyStyled>
     </CourseContainer>
   );
 };

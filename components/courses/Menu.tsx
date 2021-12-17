@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CourseInterface } from "../../data/courseData";
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
+import {toKebabCase} from '../../utils'
 
 interface Props {
   course: CourseInterface;
@@ -9,19 +10,14 @@ interface Props {
 
 const Menu = (props: Props): JSX.Element => {
   const { course } = props;
-  const toKebabCase = (title: string) => {
-    return title.toLowerCase().split(" ").join("-");
-  };
-
-  // console.log(toKebabCase(courses.pages[0].))
-  // console.log(course);
+  
   return (
     <MenuStyled className="menu">
       <h2>{course.title}</h2>
       <ul>
         {course.pages.map((page, i) => (
           <li key={i}>
-            <Link href={`${course.url}/${toKebabCase(course.pages[i].title)}`}>
+            <Link href={course.pages[i].title === 'Introduction' ? course.url :`${course.url}/${toKebabCase(course.pages[i].title)}`}>
               <a>
                 {i}
                 {page.title}

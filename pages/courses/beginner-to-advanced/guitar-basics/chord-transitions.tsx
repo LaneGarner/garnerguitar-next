@@ -6,8 +6,8 @@ import styled from "styled-components";
 const ChordTransitions = (): JSX.Element => {
   const page = courses[0].courses[0].pages[15];
   return (
-    <CourseContainer title="Beginner to Advanced Guitar Courses" courseTypeIndex={0} courseIndex={0} page={page}>
-      <ChordTransitionsStyled>{page.title}</ChordTransitionsStyled>
+    <CourseContainer courseTypeIndex={0} courseIndex={0} page={page}>
+      <ChordTransitionsStyled></ChordTransitionsStyled>
     </CourseContainer>
   );
 };

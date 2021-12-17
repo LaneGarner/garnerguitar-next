@@ -1,3 +1,3 @@
-import { capitalize } from "./utils";
+import { capitalize, toKebabCase } from "./utils";
 
-export { capitalize };
+export { capitalize, toKebabCase };

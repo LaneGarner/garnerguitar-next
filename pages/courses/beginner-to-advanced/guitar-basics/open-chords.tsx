@@ -6,8 +6,8 @@ import styled from "styled-components";
 const OpenChords = (): JSX.Element => {
   const page = courses[0].courses[0].pages[20];
   return (
-    <CourseContainer title="Beginner to Advanced Guitar Courses" courseTypeIndex={0} courseIndex={0} page={page}>
-      <OpenChordsStyled>{page.title}</OpenChordsStyled>
+    <CourseContainer courseTypeIndex={0} courseIndex={0} page={page}>
+      <OpenChordsStyled></OpenChordsStyled>
     </CourseContainer>
   );
 };

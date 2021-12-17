@@ -1,24 +1,43 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import { Layout } from "..";
 
 import { courses } from "../../data";
-import { PagesInterface } from "../../data/courseData";
+import { PagesInterface, CourseInterface } from "../../data/courseData";
 import { theme } from "../../utils/styles/theme";
 import Menu from "./Menu";
+import { toKebabCase } from "../../utils";
 
 interface Props {
   children: React.ReactNode;
-  title: string;
   courseTypeIndex: number;
+  course: CourseInterface;
   courseIndex: number;
   page: PagesInterface;
 }
 
 const CourseContainer = (props: Props): JSX.Element => {
-  const { children, title, courseTypeIndex, courseIndex, page } = props;
+  const { children, courseTypeIndex, courseIndex, page } = props;
   const courseType = courses[courseIndex].courses[courseTypeIndex];
+  const maxIndex = courseType.pages.length - 1;
+  const [prevIndex, setPrevIndex] = useState<number>(0);
+  const [nextIndex, setNextIndex] = useState<number>(0);
+
+  const handlePageIndex = (pageIndex: number) => {
+    setPrevIndex(pageIndex - 1);
+    setNextIndex(pageIndex + 1);
+  };
+
+  useEffect(() => {
+    courseType.pages.forEach((p, i) => {
+      p.title === page.title && handlePageIndex(i);
+    });
+  }, []);
+
+  console.log(`page headings: ${page.headings}`);
+
   return (
     <Layout course>
       <Head>
@@ -26,19 +45,13 @@ const CourseContainer = (props: Props): JSX.Element => {
       </Head>
       <CourseContainerStyled>
         <Menu course={courseType} />
-        {/* <aside className="menu">
-          <h2>{course.title}</h2>
-          <ul>
-            {course.pages.map((page, i) => (
-              <li>
-                <Link href={`/beginner-to-advanced/1`}>
-                  <a>{page.title}</a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </aside> */}
-        <section>
+        <section className="container">
+          <div>
+            {page !== courseType.pages[0] && (
+              <Link href={page === courseType.pages[1] ? courseType.url : `${courseType.url}/${toKebabCase(courseType.pages[prevIndex].title)}`}>Back</Link>
+            )}
+            {page !== courseType.pages[maxIndex] && <Link href={`${courseType.url}/${toKebabCase(courseType.pages[nextIndex].title)}`}>Next</Link>}
+          </div>
           <h1>{page.title}</h1>
           {children}
         </section>
@@ -55,4 +68,24 @@ const CourseContainerStyled = styled.div`
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  h1,
+  h2 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+  }
+  h3 {
+    font-size: 1.6em;
+    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+  }
+  p {
+    margin-bottom: 1em;
+  }
+  img {
+    margin: 1em;
+  }
+  .container {
+    padding: 1em;
+  }
 `;

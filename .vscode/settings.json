@@ -1,7 +1,14 @@
 {
+  "cSpell.diagnosticLevel": "Hint",
   "workbench.colorCustomizations": {
     "activityBar.background": "#120A9A",
     "titleBar.activeBackground": "#190ED7",
-    "titleBar.activeForeground": "#FAFAFF"
+    "titleBar.activeForeground": "#FAFAFF",
+    // will change the color of three dots to red
+    "editorHint.foreground": "#ff0000",
+    // will underline the entire word with dots in your chosen color
+    "editorHint.border": "#00ff66", 
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": "active"
   }
 }

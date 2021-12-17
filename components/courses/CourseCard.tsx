@@ -24,8 +24,8 @@ const Card = ({ title, part, courseName, img, description, description2, skills,
   const skills2: string[] = skills.slice(-half);
   return (
     <CardStyled id={`${courseName} ${part}`}>
-      <p className="course-name">{courseName}</p>
-      {part && <h2>Part {part}</h2>}
+      <p className="course-name">{courseName} Guitar Courses</p>
+      {part && <h2>Course {part}</h2>}
       <h3 className="sub-heading">{title}</h3>
       {/* <figure className="course-image">
         <Image src={`/images/${img}`} width={225} height={300} alt={`${courseName}`} />

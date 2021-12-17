@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactElement } from "react";
 
 import { FaGuitar, FaThumbsUp } from "react-icons/fa";
 import { AiFillCheckCircle } from "react-icons/ai";
@@ -8,7 +8,7 @@ import { theme } from "../../utils/styles/theme";
 const Hero = (): JSX.Element => {
   interface HeroInterface {
     name: string;
-    icon: React.ReactElement;
+    icon: ReactElement;
   }
 
   const skills: HeroInterface[] = [

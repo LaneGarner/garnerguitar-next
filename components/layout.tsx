@@ -3,8 +3,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-import { Header, Footer } from "./";
-import CourseHeader from "../pages/courses/CourseHeader";
+import { Header, Footer, CourseHeader } from "./";
 
 export const siteTag = "Garner Guitar - take your playing to the next level";
 

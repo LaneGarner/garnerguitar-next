@@ -6,16 +6,18 @@ import { theme } from "../../utils/styles/theme";
 interface Props {
   title: string;
   img: string;
-  url: string;
+  shortName: string;
 }
 
-const CourseTitleCard = ({ title, img, url }: Props): JSX.Element => {
-  console.log(url);
+const CourseTitleCard = (props: Props): JSX.Element => {
+  const { title, img, shortName } = props;
+
+  console.log(shortName);
   return (
-    <Link href={url}>
+    <Link href={shortName}>
       <a>
         <CourseTitleCardStyled>
-          <h3>{title}</h3>
+          <h3>{title} Guitar Courses</h3>
           <Image className="img" src={img} width={225} height={300} alt={"Garner Guitar Book Cover"} />
         </CourseTitleCardStyled>
       </a>
@@ -35,7 +37,7 @@ const CourseTitleCardStyled = styled.div`
   display: flex;
   box-shadow: ${theme.utils.shadows.primary};
   /* flex-direction: center; */
-  align-items: end;
+  align-items: center;
 
   &:hover {
     transform: translateX(5px);
@@ -48,11 +50,15 @@ const CourseTitleCardStyled = styled.div`
   }
   h3 {
     padding-bottom: ${theme.sizes.xs};
+    transform: translateY(20px);
+    text-align: right;
+    margin-right: ${theme.sizes.xs};
+
     &::before {
       position: absolute;
-      height: 10px;
+      height: 9px;
       width: 200px;
-      transform: translateY(-20px);
+      transform: translateY(-12px);
       content: "";
       background-color: ${theme.colors.gold};
     }

@@ -1,7 +1,5 @@
-import CoursesHome from "./CoursesHome";
+import { CoursesHome } from "../../components";
 
-const Courses = (): JSX.Element => {
-  return <CoursesHome />;
-};
+const Courses = (): JSX.Element => <CoursesHome />;
 
 export default Courses;

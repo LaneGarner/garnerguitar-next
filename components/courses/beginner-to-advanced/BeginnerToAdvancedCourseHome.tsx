@@ -8,9 +8,9 @@ import CourseContainer from "../CourseContainer";
 const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
   const imageSize = 400;
   return (
-    <CourseContainer title="Beginner to Advanced Guitar Courses" courseTypeIndex={0} courseIndex={0}>
+    // <CourseContainer title="Beginner to Advanced Guitar Courses" courseTypeIndex={0} courseIndex={0}>
       <div>hi</div>
-    </CourseContainer>
+    // </CourseContainer>
   );
 };
 

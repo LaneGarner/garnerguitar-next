@@ -1,24 +1,32 @@
+import {useState, useEffect} from 'react';
+import ReactPlayer from 'react-player';
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
-import Video from "./Video";
 
 const VideoLessons = (): JSX.Element => {
+  const [videos, setVideos] = useState(null);
+
+  const YOUTUBE_PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems";
+  const PLAYLIST_ID = "PLHyjW_PUXxkoVT16HUbVkJFHIRa9oW4XP";
+
+
+  const getVideos = async (): Promise<void> => {
+    const res = await fetch(`${YOUTUBE_PLAYLIST_API}?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=20&&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
+    const data = await res.json();
+    setVideos(data.items);
+  };
+
+  useEffect(() => getVideos(), []);
+  useEffect(() => console.log(videos), [videos]);
+
+
   return (
     <VideoLessonsStyled>
       <h2 id="free-video-lessons" className="heading-style">
         Free Video Lessons
       </h2>
       <div className="grid">
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
-        <Video title={"title"} />
+        {videos && videos.map((video, i) => <ReactPlayer width={400} height={226} key={i} url={`https://www.youtube.com/watch?v=${video.snippet.resourceId.videoId}`} />)}
       </div>
     </VideoLessonsStyled>
   );
@@ -30,7 +38,7 @@ const VideoLessonsStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: ${theme.sizes.l};
+  margin-bottom: ${theme.sizes.xxl};
   h2 {
     font-size: 5em;
     margin-bottom: 10px;
@@ -38,10 +46,7 @@ const VideoLessonsStyled = styled.div`
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
     grid-gap: 2em;
-    /* grid-column-gap: 0px; */
-    /* grid-row-gap: 0px; */
   }
   div:nth-of-type(1) {
     grid-area: 1 / 1 / 2 / 2;

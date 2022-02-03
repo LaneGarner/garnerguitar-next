@@ -1,5 +1,5 @@
-// const Introduction = (): JSX.Element => {
-//   return <div>Introduction</div>;
-// };
+const Introduction = (): JSX.Element => {
+  return <div>Introduction</div>;
+};
 
-// export default Introduction;
+export default Introduction;

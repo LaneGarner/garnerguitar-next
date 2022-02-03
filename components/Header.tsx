@@ -8,7 +8,7 @@ import debounce from "lodash.debounce";
 import { FaAngleDown } from "react-icons/fa";
 import { theme } from "../utils/styles/theme";
 
-const ANIMATION_SPEED: string = "200ms";
+const ANIMATION_SPEED: string = "150ms";
 
 const Header = (): JSX.Element => {
   const [small, setSmall] = useState(false);
@@ -125,14 +125,15 @@ const HeaderStyled = styled.header`
   nav {
     display: flex;
     justify-content: center;
-    padding-bottom: 1em;
+    /* padding-bottom: 1em; */
     transition: all ${ANIMATION_SPEED} linear;
 
     .header-link {
       padding: 0 0.5em 0.5em 0.5em;
       margin: 0 0.5em;
       font-size: 1em;
-      padding: 0.5em;
+      /* padding: 0.5em; */
+
       &:last-of-type {
         display: flex;
         align-items: center;
@@ -151,6 +152,7 @@ const HeaderStyled = styled.header`
     .header-link-small {
       margin-bottom: 0;
       transform: translateY(-0.5em);
+      padding: 0.5em;
     }
   }
 

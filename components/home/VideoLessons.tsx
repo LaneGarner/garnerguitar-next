@@ -27,8 +27,11 @@ const VideoLessons = (): JSX.Element => {
         Free Video Lessons
       </h2>
       <div className="grid">
-        {videos && videos.map((video, i) => <ReactPlayer controls width={400} height={226} key={i} url={`https://www.youtube.com/watch?v=${video}`} />)}
-        {/* {videos && videos.map((video, i) => <video width={400} height={226} key={i} src={`https://www.youtube.com/watch?v=${video}`} />)} */}
+        {videos && videos.map((video, i) => 
+        <div style={{borderRadius: theme.sizes.xs, overflow: 'hidden'}}>
+          <ReactPlayer  controls width={400} height={226} key={i} url={`https://www.youtube.com/watch?v=${video}`} />
+        </div>
+        )}
       </div>
     </VideoLessonsStyled>
   );

@@ -21,7 +21,7 @@ const Header = (): JSX.Element => {
 
   useEffect(() => {
     console.log(currentRoute);
-  }, [currentRoute]);
+  }, [currentRoute]); 
 
   //resize header on scroll
   const handleScroll = () => {
@@ -50,6 +50,7 @@ const Header = (): JSX.Element => {
   }
 
   const headerLinks: HeaderLinkInterface[] = [
+    { name: "Home", url: "" },
     { name: "Courses", url: "courses" },
     { name: "Method Book", url: "book" },
     { name: "Lessons", url: "lessons" },

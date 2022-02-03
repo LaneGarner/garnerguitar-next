@@ -28,7 +28,7 @@ const CoursesHome = (): JSX.Element => {
             ))}
           </div>
           {courses.map((courseType) => (
-            <section key={courseType.shortName}>
+            courseType.shortName === "beginner-to-advanced" && (<section key={courseType.shortName}>
               <h3 className="course-name-heading" id={courseType.shortName}>
                 {courseType.title}
                 {courseType.title.split(" ").length > 1 ? <br /> : " "}
@@ -55,7 +55,7 @@ const CoursesHome = (): JSX.Element => {
                   />
                 ))}
               </div>
-            </section>
+            </section>)
           ))}
         </CoursesPageStyled>
       </Layout>

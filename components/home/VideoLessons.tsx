@@ -1,24 +1,25 @@
 import {useState, useEffect} from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy';
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
 
 const VideoLessons = (): JSX.Element => {
-  const [videos, setVideos] = useState(null);
+  const [videos, setVideos] = useState<string[] | null>(null);
 
   const YOUTUBE_PLAYLIST_API = "https://www.googleapis.com/youtube/v3/playlistItems";
   const PLAYLIST_ID = "PLHyjW_PUXxkoVT16HUbVkJFHIRa9oW4XP";
 
 
   const getVideos = async (): Promise<void> => {
+    const videosArr: string[] = [];
     const res = await fetch(`${YOUTUBE_PLAYLIST_API}?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=20&&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
     const data = await res.json();
-    setVideos(data.items);
+    data.items.forEach((item: any)=> videosArr.push(item.snippet.resourceId.videoId))
+    setVideos(videosArr);
   };
 
   useEffect(() => getVideos(), []);
   useEffect(() => console.log(videos), [videos]);
-
 
   return (
     <VideoLessonsStyled>
@@ -26,7 +27,8 @@ const VideoLessons = (): JSX.Element => {
         Free Video Lessons
       </h2>
       <div className="grid">
-        {videos && videos.map((video, i) => <ReactPlayer width={400} height={226} key={i} url={`https://www.youtube.com/watch?v=${video.snippet.resourceId.videoId}`} />)}
+        {videos && videos.map((video, i) => <ReactPlayer controls width={400} height={226} key={i} url={`https://www.youtube.com/watch?v=${video}`} />)}
+        {/* {videos && videos.map((video, i) => <video width={400} height={226} key={i} src={`https://www.youtube.com/watch?v=${video}`} />)} */}
       </div>
     </VideoLessonsStyled>
   );

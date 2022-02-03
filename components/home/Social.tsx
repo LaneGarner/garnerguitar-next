@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaInstagram, FaYoutube, FaFacebook, FaItunesNote } from "react-icons/fa";
 
 const Social = (): JSX.Element => {
-  const size: number = 55;
+  const size: number = 40;
   const iconColor: string = "#111";
 
   return (
@@ -14,7 +14,7 @@ const Social = (): JSX.Element => {
       <a href="https://www.instagram.com/garnerguitar" target="_blank" rel="noopener noreferrer">
         <FaInstagram color={iconColor} size={size} />
       </a>
-      <a href="https://www.facebook.com/GarnerGuitar" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.facebook.com/garnerguitar" target="_blank" rel="noopener noreferrer">
         <FaFacebook color={iconColor} size={size} />
       </a>
       <a href="https://lanegarner.com" target="_blank" rel="noopener noreferrer">

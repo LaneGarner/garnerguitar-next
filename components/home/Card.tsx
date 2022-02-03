@@ -6,7 +6,11 @@ import { theme } from "../../utils/styles/theme";
 interface CardContentProps {
   description: string;
   title: string;
-  img: string;
+  img: {
+    file: string,
+    width: number,
+    height: number,
+  };
 }
 
 interface CardProps extends CardContentProps {
@@ -20,7 +24,7 @@ const CardContent = ({ title, description, img }: CardContentProps): JSX.Element
         {title}
       </h2>
       {/* <p>{description}</p> */}
-      <Image src={`/images/${img}`} width={225} height={300} alt="courses" />
+      <Image src={`/images/${img.file}`} width={img.width} height={img.height} alt="courses" />
     </CardStyled>
   );
 };
@@ -47,10 +51,13 @@ export default Card;
 
 const CardStyled = styled.article`
   width: 17em;
+  height: 25em;
   box-shadow: ${theme.utils.shadows.primary};
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: space-between; */
+  /* padding-bottom: ${theme.sizes.xl}; */
   border-radius: ${theme.sizes.s};
   cursor: pointer;
   &:hover {

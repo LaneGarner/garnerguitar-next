@@ -27,7 +27,7 @@ const EmailListStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: ${theme.sizes.l};
+  padding-top: ${theme.sizes.xl};
   padding-bottom: ${theme.sizes.xxl};
   margin-bottom: ${theme.sizes.xl};
   background-color: ${theme.colors.neutral[2]};

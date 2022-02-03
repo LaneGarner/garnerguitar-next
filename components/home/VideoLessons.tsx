@@ -17,8 +17,10 @@ const VideoLessons = (): JSX.Element => {
     data.items.forEach((item: any)=> videosArr.push(item.snippet.resourceId.videoId))
     setVideos(videosArr);
   };
+  
+  getVideos();
 
-  useEffect(() => getVideos(), []);
+  // useEffect(() => getVideos(), []);
   useEffect(() => console.log(videos), [videos]);
 
   return (

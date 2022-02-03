@@ -69,6 +69,5 @@ const FooterStyled = styled.footer`
   .copyright-text {
     color: #565b5e;
     padding: 5px;
-    font-size: 0.9em;
   }
 `;

@@ -13,7 +13,7 @@ import { toKebabCase } from "../../utils";
 interface Props {
   children: React.ReactNode;
   courseTypeIndex: number;
-  course: CourseInterface;
+  course?: CourseInterface;
   courseIndex: number;
   page: PagesInterface;
 }

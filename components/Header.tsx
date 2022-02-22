@@ -6,7 +6,7 @@ import styled from "styled-components";
 import debounce from "lodash.debounce";
 
 import { FaAngleDown } from "react-icons/fa";
-import { theme } from "../utils/styles/theme";
+import { theme } from "../utils";
 
 const ANIMATION_SPEED: string = "150ms";
 
@@ -124,15 +124,15 @@ const HeaderStyled = styled.header`
 
   nav {
     display: flex;
+    gap: 2em;
     justify-content: center;
     /* padding-bottom: 1em; */
     transition: all ${ANIMATION_SPEED} linear;
 
     .header-link {
-      padding: 0 0.5em 0.5em 0.5em;
-      margin: 0 0.5em;
+      padding: 0 0.1em;
+      margin: 0;
       font-size: 1em;
-      /* padding: 0.5em; */
 
       &:last-of-type {
         display: flex;
@@ -147,16 +147,16 @@ const HeaderStyled = styled.header`
 
     .header-link-active {
       font-weight: bold;
+      border-bottom: 1px ${theme.colors.neutral[2]} dashed;
     }
 
     .header-link-small {
-      margin-bottom: 0;
-      transform: translateY(-0.5em);
-      padding: 0.5em;
+      transform: translateY(-0.7em);
+      padding-top: 0.5em;
     }
   }
 
   .nav-small {
-    padding-bottom: 0;
+    /* padding-bottom: 0; */
   }
 `;

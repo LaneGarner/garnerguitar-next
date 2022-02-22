@@ -18,7 +18,7 @@ const VideoLessons = (): JSX.Element => {
     setVideos(videosArr);
   };
   
-  getVideos();
+  useEffect(() => getVideos(), [])
 
   // useEffect(() => getVideos(), []);
   useEffect(() => console.log(videos), [videos]);

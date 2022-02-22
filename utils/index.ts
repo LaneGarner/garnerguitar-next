@@ -1,3 +1,4 @@
 import { capitalize, toKebabCase } from "./utils";
+import { theme } from "./styles/theme"
 
-export { capitalize, toKebabCase };
+export { capitalize, theme, toKebabCase };

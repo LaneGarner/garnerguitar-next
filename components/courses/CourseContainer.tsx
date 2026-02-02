@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import styled from "styled-components";
 import { Layout } from "..";
+import LessonCompleteButton from "./LessonCompleteButton";
 
 import { courses } from "../../data";
 import { PagesInterface, CourseInterface } from "../../data/courseData";
-import { theme } from "../../utils/styles/theme";
-import Menu from "./Menu";
+import { useLessonProgress } from "../../hooks";
+import { useCourseNavigation } from "../../context";
 import { toKebabCase } from "../../utils";
 
 interface Props {
@@ -21,22 +20,12 @@ interface Props {
 const CourseContainer = (props: Props): JSX.Element => {
   const { children, courseTypeIndex, courseIndex, page } = props;
   const courseType = courses[courseIndex].courses[courseTypeIndex];
-  const maxIndex = courseType.pages.length - 1;
-  const [prevIndex, setPrevIndex] = useState<number>(0);
-  const [nextIndex, setNextIndex] = useState<number>(0);
+  const courseNav = useCourseNavigation();
 
-  const handlePageIndex = (pageIndex: number) => {
-    setPrevIndex(pageIndex - 1);
-    setNextIndex(pageIndex + 1);
-  };
-
-  useEffect(() => {
-    courseType.pages.forEach((p, i) => {
-      p.title === page.title && handlePageIndex(i);
-    });
-  }, []);
-
-  console.log(`page headings: ${page.headings}`);
+  const lessonKey = courseNav
+    ? `${courses[courseNav.courseIndex].shortName}:${toKebabCase(courseNav.course?.title || "")}:${toKebabCase(page.title)}`
+    : null;
+  const { isComplete, toggleComplete } = useLessonProgress(lessonKey);
 
   return (
     <Layout course>
@@ -44,16 +33,12 @@ const CourseContainer = (props: Props): JSX.Element => {
         <title>{courseType.title}</title>
       </Head>
       <CourseContainerStyled>
-        <Menu course={courseType} />
         <section className="container">
-          <div>
-            {page !== courseType.pages[0] && (
-              <Link href={page === courseType.pages[1] ? courseType.url : `${courseType.url}/${toKebabCase(courseType.pages[prevIndex].title)}`}>Back</Link>
-            )}
-            {page !== courseType.pages[maxIndex] && <Link href={`${courseType.url}/${toKebabCase(courseType.pages[nextIndex].title)}`}>Next</Link>}
-          </div>
-          <h1>{page.title}</h1>
           {children}
+          <LessonCompleteButton
+            isComplete={isComplete}
+            onToggle={toggleComplete}
+          />
         </section>
       </CourseContainerStyled>
     </Layout>
@@ -63,16 +48,10 @@ const CourseContainer = (props: Props): JSX.Element => {
 export default CourseContainer;
 
 const CourseContainerStyled = styled.div`
-  display: grid;
-  grid-template-columns: 0.3fr 2fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  h1,
   h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    margin-top: 1.5em;
   }
   h3 {
     font-size: 1.6em;
@@ -83,9 +62,19 @@ const CourseContainerStyled = styled.div`
     margin-bottom: 1em;
   }
   img {
-    margin: 1em;
+    margin: 0.5em 0;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
   }
   .container {
     padding: 1em;
+    padding-left: 2em;
+    max-width: 720px;
+
+    > :first-child > h2:first-child,
+    > :first-child > h3:first-child {
+      margin-top: 0;
+    }
   }
 `;

@@ -1,104 +1,182 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ReactNode } from "react";
 import styled from "styled-components";
-
-import { Button } from "..";
 import { theme } from "../../utils/styles/theme";
 
 interface Props {
   title: string;
   part?: number;
-  courseName: string;
-  img: string;
   description: string;
-  description2?: string;
   skills: string[];
   url: string;
+  lessonCount: number;
+  isFree?: boolean;
+  icon?: ReactNode;
 }
 
-const Card = ({ title, part, courseName, img, description, description2, skills, url }: Props): JSX.Element => {
-  console.log("url", url);
+const CourseCard = ({
+  title,
+  part,
+  description,
+  skills,
+  url,
+  lessonCount,
+  isFree = false,
+  icon,
+}: Props): JSX.Element => {
+  const ariaLabel = `Course ${part}: ${title}${isFree ? " - Free" : ""} - ${lessonCount} lessons`;
 
-  const half: number = Math.ceil(skills.length / 2);
-
-  const skills1: string[] = skills.slice(0, half);
-  const skills2: string[] = skills.slice(-half);
   return (
-    <CardStyled id={`${courseName} ${part}`}>
-      <p className="course-name">{courseName} Guitar Courses</p>
-      {part && <h2>Course {part}</h2>}
-      <h3 className="sub-heading">{title}</h3>
-      {/* <figure className="course-image">
-        <Image src={`/images/${img}`} width={225} height={300} alt={`${courseName}`} />
-      </figure> */}
+    <Link href={url}>
+      <a aria-label={ariaLabel}>
+        <CardStyled>
+          {isFree && <Badge>Free</Badge>}
 
-      <Button link={url}>Start {part && `part ${part}`}</Button>
-      <p className="description">{description}</p>
-      {description2 && <p className="description">{description2}</p>}
-      <h3>You will learn:</h3>
-      <ul>
-        <div>
-          {skills1.map((skill, i) => (
-            <li key={i}>{skill}</li>
-          ))}
-        </div>
-        <div>
-          {skills2.map((skill, i) => (
-            <li key={i}>{skill}</li>
-          ))}
-        </div>
-      </ul>
-    </CardStyled>
+          {icon && <div className="icon">{icon}</div>}
+
+          {part && <p className="course-number">Course {part}</p>}
+          <h3>{title}</h3>
+
+          <p className="lesson-count">{lessonCount} Lessons</p>
+
+          <div className="description-container">
+            <p className="description">{description}</p>
+          </div>
+
+          <div className="skills">
+            {skills.map((skill) => (
+              <span key={skill} className="skill-tag">
+                {skill}
+              </span>
+            ))}
+          </div>
+
+          <span className="cta">
+            Start Learning <span aria-hidden="true">→</span>
+          </span>
+        </CardStyled>
+      </a>
+    </Link>
   );
 };
 
-export default Card;
+export default CourseCard;
 
 const CardStyled = styled.div`
-  background-color: #eee;
-  width: 420px;
+  position: relative;
+  width: 340px;
+  border-radius: ${theme.sizes.s};
+  background-color: ${theme.colors.neutral[3]};
+  color: white;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2em 2em 2em;
-  border-radius: 1em;
+  text-align: center;
   box-shadow: ${theme.utils.shadows.primary};
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-  .course-name {
-    background-color: ${theme.colors.navy};
-    color: white;
-    width: 420px;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    text-align: center;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: ${theme.utils.shadows.dark};
   }
 
-  .sub-heading {
-    font-size: 1.4em;
-    transform: translateY(-20px);
-    text-align: center;
-    margin-top: 0.5em;
+  &:focus-within {
+    outline: 3px solid ${theme.colors.green};
+    outline-offset: 2px;
   }
 
-  .course-image {
-    margin-bottom: 1em;
+  .icon {
+    font-size: 2.25rem;
+    color: ${theme.colors.gold};
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .course-number {
+    color: ${theme.colors.neutral[10]};
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: ${theme.sizes.xs};
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: ${theme.colors.gold};
+      margin: ${theme.sizes.xs} auto 0;
+    }
+  }
+
+  .lesson-count {
+    color: ${theme.colors.neutral[11]};
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .description-container {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 0.5em;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
   }
 
   .description {
-    margin-bottom: 1em;
-    margin-top: 1em;
+    color: ${theme.colors.neutral[13]};
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
   }
 
-  ul {
+  .skills {
     display: flex;
-    margin-top: 0;
-    li {
-      width: 150px;
-    }
-    div {
-      margin: 1.2em;
-    }
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
   }
+
+  .skill-tag {
+    background-color: transparent;
+    color: ${theme.colors.neutral[12]};
+    border: 1px solid ${theme.colors.neutral[6]};
+    padding: 0.3em 0.75em;
+    border-radius: 1em;
+    font-size: 0.7rem;
+  }
+
+  .cta {
+    color: ${theme.colors.green};
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: auto;
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+    max-width: 400px;
+  }
+`;
+
+const Badge = styled.span`
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background-color: ${theme.colors.gold};
+  color: ${theme.colors.neutral[1]};
+  padding: 0.3em 0.75em;
+  border-radius: 1em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 `;

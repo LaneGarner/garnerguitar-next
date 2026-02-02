@@ -44,6 +44,7 @@ interface SizesInterface {
   xxl: string;
   header: string;
   headerSmall: string;
+  sidebarWidth: string;
 }
 
 declare module "styled-components" {
@@ -94,8 +95,9 @@ export const theme: ThemeInterface = {
     l: "3em",
     xl: "4em",
     xxl: "5em",
-    header: "135px",
+    header: "150px",
     headerSmall: "100px",
+    sidebarWidth: "280px",
   },
   utils: {
     shadows: {

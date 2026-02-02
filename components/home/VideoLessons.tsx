@@ -11,16 +11,17 @@ const VideoLessons = (): JSX.Element => {
 
 
   const getVideos = async (): Promise<void> => {
-    const videosArr: string[] = [];
-    const res = await fetch(`${YOUTUBE_PLAYLIST_API}?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=20&&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
+    const res = await fetch(`${YOUTUBE_PLAYLIST_API}?part=snippet&playlistId=${PLAYLIST_ID}&maxResults=20&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`);
     const data = await res.json();
-    data.items.forEach((item: any)=> videosArr.push(item.snippet.resourceId.videoId))
+    if (!data.items) {
+      console.error('YouTube API error:', data.error?.message || 'No items returned');
+      return;
+    }
+    const videosArr = data.items.map((item: any) => item.snippet.resourceId.videoId);
     setVideos(videosArr);
   };
   
-  useEffect(() => getVideos(), [])
-
-  // useEffect(() => getVideos(), []);
+  useEffect(() => { getVideos(); }, []);
   useEffect(() => console.log(videos), [videos]);
 
   return (

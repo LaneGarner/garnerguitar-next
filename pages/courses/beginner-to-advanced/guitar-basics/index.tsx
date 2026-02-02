@@ -15,13 +15,13 @@ const Introduction = (): JSX.Element => {
       <IntroductionStyled>
         <Image src={`${course.imgPath}/${images[0]}`} width={700} height={315} alt="Close up of acoustic guitar" />
         <p>
-          Are you ready to learn to guitar or take your playing to the next level? This book is the culmination of years of compiling resources I've used to teach beginner to
-          intermediate students ages 5-65 over the past 10+ years. It is intended to serve as a method book and also a resource through your journey learning guitar. I hope it will
+          Are you ready to learn to guitar or take your playing to the next level? This course is the culmination of years of compiling resources I've used to teach beginner to
+          intermediate students ages five to sixty-five over the past decade plus. It is intended to serve as a method course and also a resource through your journey learning guitar. I hope it will
           also be useful to guitar instructors to use with students. You can either move chronologically page to page (as the method builds upon itself ) or you can choose your own
           adventure should any particular topics pique your interest.
         </p>
         <p>
-          This book is divided into three parts. Part one starts with guitar basics such as tuning, guitar anatomy, basic chords, and an overview of notation methods for guitar.
+          This course is divided into three parts. Part one starts with guitar basics such as tuning, guitar anatomy, basic chords, and an overview of notation methods for guitar.
           Take your time and be patient with this section as the building blocks are essential. Part two dives into technique, reading, and music theory. You will learn some great
           warm ups, how to read standard notation, and how music is constructed. Part three dives into blues, the CAGED system, and pentatonic scales. Blues is one of the most
           common styles of guitar playing, and so many other styles such as jazz, rock, country, etc. are based on it. The CAGED system is a guitar specific method and a great way
@@ -30,16 +30,16 @@ const Introduction = (): JSX.Element => {
         </p>
         <p>
           Much of this content consists of methods I've either created or come across to explain different concepts related to learning guitar. Many of these methods are frankly
-          things I wish I had been taught while learning. Be aware that the concepts in this book are not the only way to approach these subjects, nor should they be the only ones
+          things I wish I had been taught while learning. Be aware that the concepts in this course are not the only way to approach these subjects, nor should they be the only ones
           you learn. Try seeking out different points of view to come to a more comprehensive understanding of any subject. I like the metaphor of Cubist art to describe this
           mindset. Popularized by artists such as Pablo Picasso and Georges Braque in the early 1900s, Cubism presents views of an object from multiple angles at the same time
           resulting in abstract images. The more perspectives you expose yourself to, the better you will understand. Take my methods with a grain of salt, find some alternative
-          points of view, and use your own wisdom to make sense of it for yourself. This is exactly how I came to many of the conclusions in this book.
+          points of view, and use your own wisdom to make sense of it for yourself. This is exactly how I came to many of the conclusions in this course.
         </p>
         <p>
-          This book may seem long and daunting, but it is intended to be comprehensive. Many guitar methods are so basic that they are confusing. The materials in this book may
+          This course may seem long and daunting, but it is intended to be comprehensive. Many guitar methods are so basic that they are confusing. The materials in this course may
           take years to digest and master, but in that time you will go from novice to accomplished intermediate player. For more resources beyond this book, visit my website at
-          GarnerGuitar.com for all my latest content. Take your time with this book and use it in addition to the many other great materials available to you. Good luck and keep
+          GarnerGuitar.com for all my latest content. Take your time with this course and use it in addition to the many other great materials available to you. Good luck and keep
           practicing.
         </p>
         <h2>Finding & buying the right gear</h2>
@@ -114,7 +114,7 @@ const Introduction = (): JSX.Element => {
         <p>
           The final member of the guitar family we will look at is the bass guitar. Basses typically have four or five strings and cover the low end of the band. The body and
           strings of the bass are larger than they are on the other types of guitars. Every band needs a bassist, and a good bassist will never be out of work...so maybe you should
-          also learn bass! For an intro to the fundamentals of bass guitar check out the resources section of this book.
+          also learn bass! For an intro to the fundamentals of bass guitar check out the resources section of this course.
         </p>
         <p>For a full and regularly updated list of recommended guitar gear for beginners visit GarnerGuitar.com/guitar-gear-for-beginners</p>
       </IntroductionStyled>

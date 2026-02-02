@@ -21,11 +21,14 @@ export interface CourseInterface {
 }
 
 //all courses
-interface CoursesInterface {
+export interface CoursesInterface {
   title: string;
   description: string;
+  tagline: string;
+  highlights: string[];
   img: string;
   shortName: string;
+  isComingSoon?: boolean;
   courses: CourseInterface[];
 }
 
@@ -34,7 +37,9 @@ export const courses: CoursesInterface[] = [
   {
     title: "Beginner to Advanced",
     description:
-      "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+      "This comprehensive course series takes you from your very first chord to confident, expressive playing. Starting with the fundamentals like proper technique, essential chords, and basic music theory, you'll progress through increasingly challenging material designed to build real musical skills. Each course introduces new concepts while reinforcing what you've learned, giving you the tools to play songs, improvise, and understand the instrument at a deeper level.",
+    tagline: "From first chord to confident playing",
+    highlights: ["Beginner Friendly", "Chords", "Theory", "Reading", "Technique", "Blues", "CAGED", "Scales", "Ear Training", "Fretboard Navigation"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "beginner-to-advanced",
     courses: [
@@ -89,13 +94,6 @@ export const courses: CoursesInterface[] = [
           {
             title: "Practicing",
             component: "Practicing",
-            headings: [""],
-            text: [" "],
-            images: [" "],
-          },
-          {
-            title: "Practice log",
-            component: "PracticeLog",
             headings: [""],
             text: [" "],
             images: [" "],
@@ -249,22 +247,36 @@ export const courses: CoursesInterface[] = [
           "Common chord progressions",
         ],
         pages: [
-          {
-            title: " ",
-            component: " ",
-            headings: [""],
-            text: [" ", " ", " "],
-            images: [" ", " ", " "],
-          },
-          {
-            title: "",
-            component: "",
-            headings: [""],
-            text: ["", "", ""],
-            images: ["", "", ""],
-          },
+          { title: "Introduction", component: "Introduction", headings: [""], text: [""], images: [""] },
+          { title: "Finger combination exercise", component: "FingerCombination", headings: [""], text: [""], images: [""] },
+          { title: "String crossing exercise", component: "StringCrossing", headings: [""], text: [""], images: [""] },
+          { title: "Pull-offs & hammer-ons", component: "PullOffsHammerOns", headings: [""], text: [""], images: [""] },
+          { title: "Subdivision studies", component: "SubdivisionStudies", headings: [""], text: [""], images: [""] },
+          { title: "Upstroke exercise", component: "UpstrokeExercise", headings: [""], text: [""], images: [""] },
+          { title: "Spider exercises", component: "SpiderExercises", headings: [""], text: [""], images: [""] },
+          { title: "Rhythmic hierarchy exercise", component: "RhythmicHierarchy", headings: [""], text: [""], images: [""] },
+          { title: "Scales", component: "Scales", headings: [""], text: [""], images: [""] },
+          { title: "Intro to standard notation", component: "StandardNotationIntro", headings: [""], text: [""], images: [""] },
+          { title: "Notes on the staff", component: "NotesOnStaff", headings: [""], text: [""], images: [""] },
+          { title: "Open strings", component: "OpenStrings", headings: [""], text: [""], images: [""] },
+          { title: "First string", component: "FirstString", headings: [""], text: [""], images: [""] },
+          { title: "Second string", component: "SecondString", headings: [""], text: [""], images: [""] },
+          { title: "Third string", component: "ThirdString", headings: [""], text: [""], images: [""] },
+          { title: "Fourth string", component: "FourthString", headings: [""], text: [""], images: [""] },
+          { title: "Fifth string", component: "FifthString", headings: [""], text: [""], images: [""] },
+          { title: "Sixth string", component: "SixthString", headings: [""], text: [""], images: [""] },
+          { title: "Tab and standard notation", component: "TabAndStandardNotation", headings: [""], text: [""], images: [""] },
+          { title: "Music theory", component: "MusicTheory", headings: [""], text: [""], images: [""] },
+          { title: "Guitar geography", component: "GuitarGeography", headings: [""], text: [""], images: [""] },
+          { title: "The chromatic scale", component: "ChromaticScale", headings: [""], text: [""], images: [""] },
+          { title: "Building major scales", component: "BuildingMajorScales", headings: [""], text: [""], images: [""] },
+          { title: "Circle of 4ths & 5ths", component: "CircleOf4ths5ths", headings: [""], text: [""], images: [""] },
+          { title: "Intervals", component: "Intervals", headings: [""], text: [""], images: [""] },
+          { title: "Intro to ear training", component: "EarTrainingIntro", headings: [""], text: [""], images: [""] },
+          { title: "Building triads", component: "BuildingTriads", headings: [""], text: [""], images: [""] },
+          { title: "Functional harmony & progressions", component: "FunctionalHarmony", headings: [""], text: [""], images: [""] },
         ],
-        url: "/courses/",
+        url: "/courses/beginner-to-advanced/technique-reading-theory",
       },
       {
         part: 3,
@@ -272,18 +284,41 @@ export const courses: CoursesInterface[] = [
         img: "../../public/images/logo.jpg",
         imgPath: "/images/beg-to-adv/course-3",
         description:
-          "This intro course is designed to teach you the basics of guitar if you've never taken a lesson or even played before. You will learn foundational concepts with enough content to sustain long term growth as a player.",
-        skills: ["", "", "", "", "", "", "", "", ""],
-        pages: [
-          {
-            title: " ",
-            component: " ",
-            headings: [""],
-            text: [" ", " ", " "],
-            images: [" ", " ", " "],
-          },
+          "This course introduces the blues, one of the most influential styles in American music. You will learn the CAGED system for navigating the fretboard and dive deep into pentatonic and blues scales.",
+        skills: [
+          "12 bar blues form",
+          "Blues shuffle patterns",
+          "Dominant seventh chords",
+          "Minor blues scales",
+          "Blues licks & etudes",
+          "The CAGED system",
+          "CAGED in all 12 keys",
+          "CAGED chord tones",
+          "Pentatonic scale positions",
+          "Minor & major pentatonics",
         ],
-        url: "/courses/",
+        pages: [
+          { title: "Introduction", component: "Introduction", headings: [""], text: [""], images: [""] },
+          { title: "12 bar blues", component: "TwelveBarBlues", headings: [""], text: [""], images: [""] },
+          { title: "Blues shuffle etudes", component: "BluesShuffleEtudes", headings: [""], text: [""], images: [""] },
+          { title: "Dominant seventh chords", component: "DominantSeventhChords", headings: [""], text: [""], images: [""] },
+          { title: "Minor blues scales", component: "MinorBluesScales", headings: [""], text: [""], images: [""] },
+          { title: "Blues licks", component: "BluesLicks", headings: [""], text: [""], images: [""] },
+          { title: "Blues etudes", component: "BluesEtudes", headings: [""], text: [""], images: [""] },
+          { title: "Blues songs", component: "BluesSongs", headings: [""], text: [""], images: [""] },
+          { title: "The CAGED system", component: "Caged", headings: [""], text: [""], images: [""] },
+          { title: "CAGED in 12 keys", component: "CagedTwelveKeys", headings: [""], text: [""], images: [""] },
+          { title: "CAGED chord tones", component: "CagedChordTones", headings: [""], text: [""], images: [""] },
+          { title: "CAGED common progressions", component: "CagedCommonProgressions", headings: [""], text: [""], images: [""] },
+          { title: "Minor pentatonic positions", component: "MinorPentatonicPositions", headings: [""], text: [""], images: [""] },
+          { title: "Pentatonic puzzle pieces", component: "PentatonicPuzzlePieces", headings: [""], text: [""], images: [""] },
+          { title: "Pentatonic shifting", component: "PentatonicShifting", headings: [""], text: [""], images: [""] },
+          { title: "Minor blues scale positions", component: "MinorBluesScalePositions", headings: [""], text: [""], images: [""] },
+          { title: "Major pentatonic positions", component: "MajorPentatonicPositions", headings: [""], text: [""], images: [""] },
+          { title: "Major blues scale positions", component: "MajorBluesScalePositions", headings: [""], text: [""], images: [""] },
+          { title: "Pentatonics & CAGED shapes", component: "PentatonicsCaged", headings: [""], text: [""], images: [""] },
+        ],
+        url: "/courses/beginner-to-advanced/blues-caged-pentatonics",
       },
     ],
   },
@@ -293,8 +328,11 @@ export const courses: CoursesInterface[] = [
     title: "Jazz",
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+    tagline: "Master jazz harmony and improvisation",
+    highlights: ["Voicings", "Comping", "Improv"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "jazz",
+    isComingSoon: true,
     courses: [
       {
         part: 1,
@@ -361,8 +399,11 @@ export const courses: CoursesInterface[] = [
     title: "Young Beginner",
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+    tagline: "Guitar lessons for ages 6-12",
+    highlights: ["Fun Songs", "Basics", "Reading"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "young-beginner",
+    isComingSoon: true,
     courses: [
       {
         part: 1,

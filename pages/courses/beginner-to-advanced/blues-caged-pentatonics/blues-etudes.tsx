@@ -19,15 +19,15 @@ const BluesEtudes = (): JSX.Element => {
 
         <h2>Blues etude 2</h2>
         <p>Etude one in the key of E.</p>
-        <Image src={`${course.imgPath}/blues-etude-2.jpg`} width={600} height={300} alt="Blues etude 2" />
+        <Image src={`${course.imgPath}/blues-etude-2.jpg`} width={600} height={552} alt="Blues etude 2" />
 
         <h2>Blues etude 3</h2>
         <p>This etude makes use of a first and second ending. Play the measure under the first bracket the first time, repeat back to the forward-facing repeat sign, then jump to the second bracket when you get there. Start off playing slowly and as cleanly as possible and gradually increase the tempo. Aim for a smooth transition between measures and play with good time.</p>
-        <Image src={`${course.imgPath}/blues-etude-3.jpg`} width={600} height={350} alt="Blues etude 3" />
+        <Image src={`${course.imgPath}/blues-etude-3.jpg`} width={600} height={902} alt="Blues etude 3" />
 
         <h2>Blues etude 4</h2>
         <p>Etude three in the key of E.</p>
-        <Image src={`${course.imgPath}/blues-etude-4.jpg`} width={600} height={350} alt="Blues etude 4" />
+        <Image src={`${course.imgPath}/blues-etude-4.jpg`} width={600} height={919} alt="Blues etude 4" />
       </BluesEtudesStyled>
     </CourseContainer>
   );

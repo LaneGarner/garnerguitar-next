@@ -17,10 +17,7 @@ const CoursesHome = (): JSX.Element => {
         <CoursesPageStyled>
           <h2 className="heading-style">Online Guitar Courses</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore dolorem voluptates quis, reiciendis iusto iste nam quisquam eos similique maxime tempora dolor sint
-            enim fuga pariatur voluptatibus illum, sunt at consequuntur veritatis in veniam praesentium. Minus voluptate voluptas odio, deserunt a quisquam. Culpa provident nulla
-            laboriosam veniam explicabla consequuntur alias eaque veniam natus possimus sunt tempora amet exercitationem, quisquam, deleniti dolore quam. Tempora perferendis
-            expedita doloremque aut dolores corrupti, itaque, adipisci tenetur inventore velit sunt ipsam, perspiciatis debitis sint.
+            Whether you're picking up the guitar for the first time or looking to refine your technique, these courses provide a structured path to help you grow as a player. Each lesson builds on the last, covering essential skills like chord shapes, strumming patterns, music theory, and fretboard navigation. Work through video lessons at your own pace, practice with guided exercises, and develop the musicianship needed to play the songs you love.
           </p>
           <div className="course-title-cards">
             {courses.map((course) => (

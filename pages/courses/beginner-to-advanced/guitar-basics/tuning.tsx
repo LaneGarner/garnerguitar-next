@@ -46,7 +46,7 @@ const Tuning = (): JSX.Element => {
         <h2>Tuning a guitar to itself</h2>
         <p>When tuning a guitar to itself, it is helpful to use a reference pitch. A reference pitch may be available from another guitar, a piano or keyboard, or another instrument. If it is not possible to get a reference pitch, such as when picking up a neglected dusty guitar at a friend's house, it is acceptable to approximate the sixth string (E) and tune the rest of the guitar using this reference pitch. If playing with another musician, make sure that both instruments are tuned to the same reference pitch. To tune a guitar to itself, play the sixth-string fifth-fret and tune the open fifth string to match this pitch. Follow the guide below to tune the remaining strings.</p>
 
-        <Image src={`${course.imgPath}/tuning.jpg`} width={600} height={400} alt="Tuning a guitar to itself diagram" />
+        <Image src={`${course.imgPath}/tuning.jpg`} width={600} height={234} alt="Tuning a guitar to itself diagram" />
       </TuningStyled>
     </CourseContainer>
   );

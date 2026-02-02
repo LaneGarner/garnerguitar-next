@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import styled from "styled-components";
 import { Layout } from "..";
 
 import { courses } from "../../data";
 import { PagesInterface, CourseInterface } from "../../data/courseData";
-import { theme } from "../../utils/styles/theme";
 import Menu from "./Menu";
-import { toKebabCase } from "../../utils";
 
 interface Props {
   children: React.ReactNode;
@@ -21,22 +17,10 @@ interface Props {
 const CourseContainer = (props: Props): JSX.Element => {
   const { children, courseTypeIndex, courseIndex, page } = props;
   const courseType = courses[courseIndex].courses[courseTypeIndex];
-  const maxIndex = courseType.pages.length - 1;
-  const [prevIndex, setPrevIndex] = useState<number>(0);
-  const [nextIndex, setNextIndex] = useState<number>(0);
 
-  const handlePageIndex = (pageIndex: number) => {
-    setPrevIndex(pageIndex - 1);
-    setNextIndex(pageIndex + 1);
-  };
-
-  useEffect(() => {
-    courseType.pages.forEach((p, i) => {
-      p.title === page.title && handlePageIndex(i);
-    });
-  }, []);
-
-  console.log(`page headings: ${page.headings}`);
+  const currentPageIndex = courseType.pages.findIndex(
+    (p) => p.title === page.title
+  );
 
   return (
     <Layout course>
@@ -44,14 +28,8 @@ const CourseContainer = (props: Props): JSX.Element => {
         <title>{courseType.title}</title>
       </Head>
       <CourseContainerStyled>
-        <Menu course={courseType} />
+        <Menu course={courseType} currentPageIndex={currentPageIndex} />
         <section className="container">
-          <div>
-            {page !== courseType.pages[0] && (
-              <Link href={page === courseType.pages[1] ? courseType.url : `${courseType.url}/${toKebabCase(courseType.pages[prevIndex].title)}`}>Back</Link>
-            )}
-            {page !== courseType.pages[maxIndex] && <Link href={`${courseType.url}/${toKebabCase(courseType.pages[nextIndex].title)}`}>Next</Link>}
-          </div>
           <h1>{page.title}</h1>
           {children}
         </section>
@@ -89,8 +67,10 @@ const CourseContainerStyled = styled.div`
   img {
     margin: 0.5em 0;
     max-width: 100%;
+    height: auto;
   }
   .container {
     padding: 1em;
+    max-width: 720px;
   }
 `;

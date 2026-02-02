@@ -17,7 +17,7 @@ const TwelveBarBlues = (): JSX.Element => {
         <p>We will learn the most basic versions of the 12 bar blues, which can later be altered in many ways. The basic 12 bar blues uses only three chords: the I, IV, and V chords of a key. Let's begin with the key of A. You already learned how to find these chords in Part Two, but to review:</p>
 
         <p>Begin with the A major scale. Assign a Roman numeral to each scale degree. Remember the I, IV, and V are major, ii, iii and vi are minor, and vii is diminished.</p>
-        <Image src={`${course.imgPath}/a-functional-harmony.jpg`} width={600} height={150} alt="A major functional harmony" />
+        <Image src={`${course.imgPath}/a-functional-harmony.jpg`} width={600} height={188} alt="A major functional harmony" />
 
         <p>This means that in the key of A: I is A, IV is D, and V is E. These are the three chords we need to play an A blues.</p>
 

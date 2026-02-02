@@ -16,7 +16,7 @@ const CagedTwelveKeys = (): JSX.Element => {
 
         <h2>CAGED in C</h2>
         <h3>C-A-G-E-D</h3>
-        <Image src={`${course.imgPath}/caged-in-c.jpg`} width={600} height={150} alt="CAGED in C" />
+        <Image src={`${course.imgPath}/caged-in-c.jpg`} width={600} height={615} alt="CAGED in C" />
 
         <h2>CAGED in A</h2>
         <h3>A-G-E-D-C</h3>
@@ -24,23 +24,23 @@ const CagedTwelveKeys = (): JSX.Element => {
 
         <h2>CAGED in G</h2>
         <h3>G-E-D-C-A</h3>
-        <Image src={`${course.imgPath}/caged-in-g.jpg`} width={600} height={150} alt="CAGED in G" />
+        <Image src={`${course.imgPath}/caged-in-g.jpg`} width={600} height={678} alt="CAGED in G" />
 
         <h2>CAGED in E</h2>
         <h3>E-D-C-A-G</h3>
-        <Image src={`${course.imgPath}/caged-in-e.jpg`} width={600} height={150} alt="CAGED in E" />
+        <Image src={`${course.imgPath}/caged-in-e.jpg`} width={600} height={677} alt="CAGED in E" />
 
         <h2>CAGED in D</h2>
         <h3>D-C-A-G-E</h3>
-        <Image src={`${course.imgPath}/caged-in-d.jpg`} width={600} height={150} alt="CAGED in D" />
+        <Image src={`${course.imgPath}/caged-in-d.jpg`} width={600} height={684} alt="CAGED in D" />
 
         <h2>CAGED in B</h2>
         <h3>Same sequence as A: A-G-E-D-C</h3>
-        <Image src={`${course.imgPath}/caged-in-b.jpg`} width={600} height={150} alt="CAGED in B" />
+        <Image src={`${course.imgPath}/caged-in-b.jpg`} width={600} height={619} alt="CAGED in B" />
 
         <h2>CAGED in F</h2>
         <h3>Same sequence as E: E-D-C-A-G</h3>
-        <Image src={`${course.imgPath}/caged-in-f.jpg`} width={600} height={150} alt="CAGED in F" />
+        <Image src={`${course.imgPath}/caged-in-f.jpg`} width={600} height={622} alt="CAGED in F" />
 
         <h2>CAGED in F#/Gb</h2>
         <h3>Same sequence as E: E-D-C-A-G</h3>

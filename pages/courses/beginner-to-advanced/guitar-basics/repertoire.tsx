@@ -13,7 +13,7 @@ const Repertoire = (): JSX.Element => {
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <RepertoireStyled>
         <h2>Building a repertoire</h2>
-        <Image src={`${course.imgPath}/ag-black-background.jpg`} width={250} height={375} alt="Acoustic guitar with black background" />
+        <Image src={`${course.imgPath}/ag-black-background.jpg`} width={250} height={324} alt="Acoustic guitar with black background" />
         <p>Think about why you decided to play guitar. If you're like most students, you'd like to pick up an instrument and be able to play a song. Throughout this book, we will focus on methods to improve technique and overall understanding of the inner workings of music. It is equally important to develop your repertoire (or what songs you know) as you work through this book. In many ways having a large repertoire of music committed to memory is more important than other skills like understanding theory or reading sheet music. Not only will this repertoire determine what you play when you pick up your instrument but also what you can play with other people. Playing music with others is integral to developing as a musician. Many songs are based on similar chord progressions or melodic content. Building a large repertoire will also help you to recognize patterns and similarities between songs—only increasing your repertoire more.</p>
         <p>It may be difficult to decide which songs to begin with. In many ways, your specific repertoire doesn't really matter. Learning songs you like will help you retain interest in progressing and improving. If you enjoy hearing a song, you'll want to play it. Sounds obvious, right? Start with a list of five songs.</p>
 

@@ -24,8 +24,8 @@ const ChordTransitions = (): JSX.Element => {
 
         <p><strong>C to Amin7:</strong> The first and second fingers are both common fingers. Simply lift the third finger for this chord transition.</p>
 
-        <Image src={`${course.imgPath}/common-fingers.jpg`} width={600} height={200} alt="Common fingers chord progression: G, Em, C, Am7" />
-        <Image src={`${course.imgPath}/ag-field.jpg`} width={500} height={350} alt="Guitarist playing in a field" />
+        <Image src={`${course.imgPath}/common-fingers.jpg`} width={600} height={251} alt="Common fingers chord progression: G, Em, C, Am7" />
+        <Image src={`${course.imgPath}/ag-field.jpg`} width={500} height={223} alt="Guitarist playing in a field" />
 
         <h2>Three steps for smooth chord transitions</h2>
         <p>Smooth chord transitions are one of the trickiest things for many beginning guitarists. One way to break down chord transitions is to think of these three steps. The eventual goal is to place each finger in a chord shape quickly and at the same time.</p>
@@ -42,16 +42,16 @@ const ChordTransitions = (): JSX.Element => {
         <h2>Applying step two: "groups of fingers"</h2>
 
         <p>Transition from the four-finger G to Cadd9 by moving the first and second fingers together as one:</p>
-        <Image src={`${course.imgPath}/groups-of-fingers-1.jpg`} width={400} height={200} alt="G to Cadd9 transition" />
+        <Image src={`${course.imgPath}/groups-of-fingers-1.jpg`} width={400} height={259} alt="G to Cadd9 transition" />
 
         <p>Transition from Amin to E by moving the first, second, and third fingers together:</p>
-        <Image src={`${course.imgPath}/groups-of-fingers-2.jpg`} width={400} height={200} alt="Am to E transition" />
+        <Image src={`${course.imgPath}/groups-of-fingers-2.jpg`} width={400} height={265} alt="Am to E transition" />
 
         <p>Transition from C to D by moving the second and third fingers together from the fifth and fourth strings to the second and first strings:</p>
-        <Image src={`${course.imgPath}/groups-of-fingers-3.jpg`} width={400} height={200} alt="C to D transition" />
+        <Image src={`${course.imgPath}/groups-of-fingers-3.jpg`} width={400} height={248} alt="C to D transition" />
 
         <p>Transition from Amin7 to G by moving the second and first fingers together from the fourth and second strings to the sixth and fifth strings. This transition will also require you to "collapse" the fingers from non-adjacent to adjacent strings.</p>
-        <Image src={`${course.imgPath}/groups-of-fingers-4.jpg`} width={400} height={200} alt="Am7 to G transition" />
+        <Image src={`${course.imgPath}/groups-of-fingers-4.jpg`} width={400} height={241} alt="Am7 to G transition" />
 
         <p>These "groups of fingers" transitions are a starting point. Find your own groups of fingers to smoothly transition within any chord progression.</p>
       </ChordTransitionsStyled>

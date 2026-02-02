@@ -14,7 +14,7 @@ const UpstrokeExercise = (): JSX.Element => {
       <UpstrokeExerciseStyled>
         <p>Upstrokes tend to be weaker than downstrokes for many players. Not only is the motion slightly awkward, but it requires a literal fight against gravity. Therefore, practicing with upstrokes only is a useful challenge. This example applies upstrokes to open strings in quarter notes, though the concept can (and should) be played in any rhythmic or melodic context.</p>
 
-        <Image src={`${course.imgPath}/upstroke-exercise.jpg`} width={600} height={200} alt="Upstroke exercise" />
+        <Image src={`${course.imgPath}/upstroke-exercise.jpg`} width={600} height={574} alt="Upstroke exercise" />
       </UpstrokeExerciseStyled>
     </CourseContainer>
   );

@@ -20,7 +20,7 @@ const GuitarGeography = (): JSX.Element => {
 
         <p>The interval between most notes in the musical alphabet is a whole-step. For instance, A to B and C to D are both whole-steps. The two special cases of half-steps are between the notes E to F and B to C.</p>
 
-        <Image src={`${course.imgPath}/musical-alphabet-with-text.jpg`} width={600} height={200} alt="The musical alphabet with half steps and whole steps" />
+        <Image src={`${course.imgPath}/musical-alphabet-with-text.jpg`} width={600} height={230} alt="The musical alphabet with half steps and whole steps" />
 
         <p><em>**A useful trick to remember the half-steps is to use the names of the first and second open strings: E and B. Half-steps occur from these two notes.</em></p>
 
@@ -36,7 +36,7 @@ const GuitarGeography = (): JSX.Element => {
 
         <p>Going around the circle and through the entire musical alphabet will bring you back to the original note. This interval is called an octave.</p>
 
-        <Image src={`${course.imgPath}/neck-natural-notes.jpg`} width={600} height={300} alt="Natural notes on guitar neck" />
+        <Image src={`${course.imgPath}/neck-natural-notes.jpg`} width={600} height={1511} alt="Natural notes on guitar neck" />
 
         <p>The notes you have learned so far are called <strong>"natural notes"</strong></p>
 
@@ -53,7 +53,7 @@ const GuitarGeography = (): JSX.Element => {
           <li>As a test, put your finger down randomly on the fretboard and ask yourself which note you are playing.</li>
         </ul>
 
-        <Image src={`${course.imgPath}/neck-all-notes.jpg`} width={600} height={300} alt="All notes on guitar neck" />
+        <Image src={`${course.imgPath}/neck-all-notes.jpg`} width={600} height={2459} alt="All notes on guitar neck" />
       </GuitarGeographyStyled>
     </CourseContainer>
   );

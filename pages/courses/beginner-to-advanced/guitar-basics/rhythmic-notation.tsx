@@ -16,39 +16,39 @@ const RhythmicNotation = (): JSX.Element => {
         <p>Note duration is represented by writing notes in different ways.</p>
 
         <h2>Whole note: 4 beats</h2>
-        <Image src={`${course.imgPath}/whole-note.jpg`} width={500} height={100} alt="Whole note on staff" />
+        <Image src={`${course.imgPath}/whole-note.jpg`} width={500} height={52} alt="Whole note on staff" />
 
         <h2>Half note: 2 beats</h2>
-        <Image src={`${course.imgPath}/half-note.jpg`} width={500} height={100} alt="Half note on staff" />
+        <Image src={`${course.imgPath}/half-note.jpg`} width={500} height={80} alt="Half note on staff" />
 
         <h2>Quarter note: 1 beat</h2>
-        <Image src={`${course.imgPath}/quarter-note.jpg`} width={500} height={100} alt="Quarter note on staff" />
+        <Image src={`${course.imgPath}/quarter-note.jpg`} width={500} height={90} alt="Quarter note on staff" />
 
         <h2>Eighth note: 1/2 beat</h2>
-        <Image src={`${course.imgPath}/eighth-note.jpg`} width={500} height={100} alt="Eighth note on staff" />
+        <Image src={`${course.imgPath}/eighth-note.jpg`} width={500} height={82} alt="Eighth note on staff" />
 
         <h2>Sixteenth note: 1/4 beat</h2>
-        <Image src={`${course.imgPath}/sixteenth-note.jpg`} width={500} height={100} alt="Sixteenth note on staff" />
+        <Image src={`${course.imgPath}/sixteenth-note.jpg`} width={500} height={79} alt="Sixteenth note on staff" />
 
         <p>The basic rhythmic values can be extended with dotted and tied notes. A tied note connects the value of two or more notes. A dotted note increases the value of the note by one half of the original value.</p>
 
         <h3>Half note tied to quarter note = dotted half note = 3 beats</h3>
-        <Image src={`${course.imgPath}/dotted-half.jpg`} width={500} height={100} alt="Dotted half note on staff" />
+        <Image src={`${course.imgPath}/dotted-half.jpg`} width={500} height={52} alt="Dotted half note on staff" />
 
         <h3>Quarter note tied to eighth note = dotted quarter note = 1.5 beats</h3>
-        <Image src={`${course.imgPath}/dotted-quarter.jpg`} width={500} height={100} alt="Dotted quarter note on staff" />
+        <Image src={`${course.imgPath}/dotted-quarter.jpg`} width={500} height={56} alt="Dotted quarter note on staff" />
 
         <p>A rest is a silence with the same rhythmic value as a note with the same duration. Mute the strings to "play" a rest.</p>
-        <Image src={`${course.imgPath}/rests.jpg`} width={600} height={150} alt="Rest symbols" />
+        <Image src={`${course.imgPath}/rests.jpg`} width={600} height={244} alt="Rest symbols" />
 
         <p>Practice reading the following rhythms by playing any note. Use a metronome to keep good time.</p>
 
         <div className="rhythm-examples">
-          <Image src={`${course.imgPath}/reading-rhythms-1.jpg`} width={600} height={80} alt="Rhythm practice 1" />
-          <Image src={`${course.imgPath}/reading-rhythms-2.jpg`} width={600} height={80} alt="Rhythm practice 2" />
-          <Image src={`${course.imgPath}/reading-rhythms-3.jpg`} width={600} height={80} alt="Rhythm practice 3" />
-          <Image src={`${course.imgPath}/reading-rhythms-4.jpg`} width={600} height={80} alt="Rhythm practice 4" />
-          <Image src={`${course.imgPath}/reading-rhythms-5.jpg`} width={600} height={80} alt="Rhythm practice 5" />
+          <Image src={`${course.imgPath}/reading-rhythms-1.jpg`} width={600} height={73} alt="Rhythm practice 1" />
+          <Image src={`${course.imgPath}/reading-rhythms-2.jpg`} width={600} height={67} alt="Rhythm practice 2" />
+          <Image src={`${course.imgPath}/reading-rhythms-3.jpg`} width={600} height={67} alt="Rhythm practice 3" />
+          <Image src={`${course.imgPath}/reading-rhythms-4.jpg`} width={600} height={67} alt="Rhythm practice 4" />
+          <Image src={`${course.imgPath}/reading-rhythms-5.jpg`} width={600} height={67} alt="Rhythm practice 5" />
         </div>
 
 
@@ -68,29 +68,29 @@ const RhythmicNotation = (): JSX.Element => {
 
         <p>First, you must learn two symbols: the downstroke symbol resembles a top hat; the upstroke symbol is a V.</p>
         <div className="stroke-symbols">
-          <Image src={`${course.imgPath}/downstroke.jpg`} width={80} height={80} alt="Downstroke symbol" />
-          <Image src={`${course.imgPath}/upstroke.jpg`} width={80} height={80} alt="Upstroke symbol" />
+          <Image src={`${course.imgPath}/downstroke.jpg`} width={80} height={67} alt="Downstroke symbol" />
+          <Image src={`${course.imgPath}/upstroke.jpg`} width={80} height={92} alt="Upstroke symbol" />
         </div>
 
         <h2>Example 1</h2>
         <p>Play even quarter notes with downstrokes. This is the basis for all other strum patterns.</p>
-        <Image src={`${course.imgPath}/strum-1.jpg`} width={500} height={100} alt="Strum pattern 1" />
+        <Image src={`${course.imgPath}/strum-1.jpg`} width={500} height={77} alt="Strum pattern 1" />
 
         <h2>Example 2</h2>
         <p>No additional motion is necessary to play eighth notes; simply play an upstroke on your way back up.</p>
-        <Image src={`${course.imgPath}/strum-2.jpg`} width={500} height={100} alt="Strum pattern 2" />
+        <Image src={`${course.imgPath}/strum-2.jpg`} width={500} height={89} alt="Strum pattern 2" />
 
         <h2>Example 3</h2>
         <p>To connect the and-of-two and beat three with a tie, play a "silent downstroke" on beat three. Make the downstroke motion without actually touching the strings.</p>
-        <Image src={`${course.imgPath}/strum-3.jpg`} width={500} height={100} alt="Strum pattern 3" />
+        <Image src={`${course.imgPath}/strum-3.jpg`} width={500} height={81} alt="Strum pattern 3" />
 
         <h2>Example 4</h2>
         <p>This example is similar to example three but with no upstroke on the and-of-four.</p>
-        <Image src={`${course.imgPath}/strum-4.jpg`} width={500} height={100} alt="Strum pattern 4" />
+        <Image src={`${course.imgPath}/strum-4.jpg`} width={500} height={79} alt="Strum pattern 4" />
 
         <h2>Example 5</h2>
         <p>This example is similar to example four but with no upstroke on the and-of-one.</p>
-        <Image src={`${course.imgPath}/strum-5.jpg`} width={500} height={100} alt="Strum pattern 5" />
+        <Image src={`${course.imgPath}/strum-5.jpg`} width={500} height={82} alt="Strum pattern 5" />
       </RhythmicNotationStyled>
     </CourseContainer>
   );

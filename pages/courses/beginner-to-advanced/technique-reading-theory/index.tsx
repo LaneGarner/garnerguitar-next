@@ -12,7 +12,7 @@ const TechniqueReadingTheoryIntro = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <IntroStyled>
-        <Image src={`${course.imgPath}/jm-closeup.jpg`} width={500} height={350} alt="Jazzmaster headstock closeup" />
+        <Image src={`${course.imgPath}/jm-closeup.jpg`} width={500} height={360} alt="Jazzmaster headstock closeup" />
 
         <p>Guitar technique comes down to two primary factors: left-hand finger independence and coordinating the left and right hands. Finger independence allows you to execute chord transitions, melody lines, scales, solos, etc. One of my guitar teachers used to repeat the quote, "The left hand is the brain, the right hand is the muscle." Coordinating the hands allows you to play in time and is one of the biggest challenges for many beginning guitarists. Any technical aspect of guitar playing can be summed up by both, one, or part of these two factors.</p>
 

@@ -13,20 +13,20 @@ const ThirdString = (): JSX.Element => {
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <ThirdStringStyled>
         <p>Play A on the second fret with the second finger.</p>
-        <Image src={`${course.imgPath}/third-string-notes.jpg`} width={600} height={200} alt="Notes on the third string" />
+        <Image src={`${course.imgPath}/third-string-notes.jpg`} width={600} height={238} alt="Notes on the third string" />
 
-        <Image src={`${course.imgPath}/third-string-exercise-1.jpg`} width={600} height={150} alt="Third string exercise 1" />
-        <Image src={`${course.imgPath}/third-string-exercise-2.jpg`} width={600} height={150} alt="Third string exercise 2" />
-        <Image src={`${course.imgPath}/third-string-exercise-3.jpg`} width={600} height={150} alt="Third string exercise 3" />
+        <Image src={`${course.imgPath}/third-string-exercise-1.jpg`} width={600} height={116} alt="Third string exercise 1" />
+        <Image src={`${course.imgPath}/third-string-exercise-2.jpg`} width={600} height={200} alt="Third string exercise 2" />
+        <Image src={`${course.imgPath}/third-string-exercise-3.jpg`} width={600} height={175} alt="Third string exercise 3" />
 
         <h2>Mary Had a Little Lamb</h2>
-        <Image src={`${course.imgPath}/third-string-exercise-4.jpg`} width={600} height={150} alt="Mary Had a Little Lamb" />
+        <Image src={`${course.imgPath}/third-string-exercise-4.jpg`} width={600} height={244} alt="Mary Had a Little Lamb" />
 
         <h2>Old MacDonald</h2>
-        <Image src={`${course.imgPath}/third-string-exercise-5.jpg`} width={600} height={200} alt="Old MacDonald" />
+        <Image src={`${course.imgPath}/third-string-exercise-5.jpg`} width={600} height={326} alt="Old MacDonald" />
 
         <h2>Twinkle, Twinkle Little Star / Baa Baa Black Sheep / ABCs</h2>
-        <Image src={`${course.imgPath}/third-string-exercise-6.jpg`} width={600} height={200} alt="Twinkle Twinkle Little Star" />
+        <Image src={`${course.imgPath}/third-string-exercise-6.jpg`} width={600} height={237} alt="Twinkle Twinkle Little Star" />
       </ThirdStringStyled>
     </CourseContainer>
   );

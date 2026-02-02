@@ -20,39 +20,39 @@ const BluesLicks = (): JSX.Element => {
 
         <h2>Blues lick 2</h2>
         <p>This familiar lick is in the style of Eric Clapton.</p>
-        <Image src={`${course.imgPath}/blues-lick-2.jpg`} width={600} height={150} alt="Blues lick 2" />
+        <Image src={`${course.imgPath}/blues-lick-2.jpg`} width={600} height={133} alt="Blues lick 2" />
 
         <h2>Blues lick 3</h2>
         <p>Another common blues lick. This is useful for rhythm playing and lead playing.</p>
-        <Image src={`${course.imgPath}/blues-lick-3.jpg`} width={600} height={150} alt="Blues lick 3" />
+        <Image src={`${course.imgPath}/blues-lick-3.jpg`} width={600} height={129} alt="Blues lick 3" />
 
         <h2>Blues lick 4</h2>
         <p>This rock and blues lick sounds great when played fast. Play with picking and pulloffs.</p>
-        <Image src={`${course.imgPath}/blues-lick-4.jpg`} width={600} height={150} alt="Blues lick 4" />
+        <Image src={`${course.imgPath}/blues-lick-4.jpg`} width={600} height={178} alt="Blues lick 4" />
 
         <h2>Blues lick 5</h2>
         <p>This lick is in the style of Chuck Berry. Use one finger of the left hand to barre the strings and slide into the note.</p>
-        <Image src={`${course.imgPath}/blues-lick-5.jpg`} width={600} height={150} alt="Blues lick 5" />
+        <Image src={`${course.imgPath}/blues-lick-5.jpg`} width={600} height={484} alt="Blues lick 5" />
 
         <h2>Blues lick 6</h2>
         <p>Descending blues lick. Try sliding from the first note to the second note with the third finger.</p>
-        <Image src={`${course.imgPath}/blues-lick-6.jpg`} width={600} height={150} alt="Blues lick 6" />
+        <Image src={`${course.imgPath}/blues-lick-6.jpg`} width={600} height={145} alt="Blues lick 6" />
 
         <h2>Blues lick 7</h2>
         <p>Same as lick six but utilizing a bend. The bend should match the first note in the previous lick.</p>
-        <Image src={`${course.imgPath}/blues-lick-7.jpg`} width={600} height={150} alt="Blues lick 7" />
+        <Image src={`${course.imgPath}/blues-lick-7.jpg`} width={600} height={162} alt="Blues lick 7" />
 
         <h2>Blues lick 8</h2>
         <p>Descending blues scale lick. Try sliding from the first note to the second note with the third finger.</p>
-        <Image src={`${course.imgPath}/blues-lick-8.jpg`} width={600} height={150} alt="Blues lick 8" />
+        <Image src={`${course.imgPath}/blues-lick-8.jpg`} width={600} height={131} alt="Blues lick 8" />
 
         <h2>Blues lick 9</h2>
         <p>This lick utilizes the tension of going from the minor third to the major third.</p>
-        <Image src={`${course.imgPath}/blues-lick-9.jpg`} width={600} height={150} alt="Blues lick 9" />
+        <Image src={`${course.imgPath}/blues-lick-9.jpg`} width={600} height={145} alt="Blues lick 9" />
 
         <h2>Blues lick 10</h2>
         <p>Same as lick eight with a bend. The bend should match the first note in the previous lick.</p>
-        <Image src={`${course.imgPath}/blues-lick-10.jpg`} width={600} height={150} alt="Blues lick 10" />
+        <Image src={`${course.imgPath}/blues-lick-10.jpg`} width={600} height={140} alt="Blues lick 10" />
 
         <h2>Blues lick 11</h2>
         <p>This bending lick is in the style of Stevie Ray Vaughan and Freddie King. Hold the bent notes over to match the pitch of the next note.</p>
@@ -60,15 +60,15 @@ const BluesLicks = (): JSX.Element => {
 
         <h2>Blues lick 12</h2>
         <p>A nice blues lick. Try bending from the second to third note as you did in lick ten.</p>
-        <Image src={`${course.imgPath}/blues-lick-12.jpg`} width={600} height={150} alt="Blues lick 12" />
+        <Image src={`${course.imgPath}/blues-lick-12.jpg`} width={600} height={127} alt="Blues lick 12" />
 
         <h2>Blues lick 13</h2>
         <p>This is a <strong>turnaround</strong> lick. Play it over measures nine and ten of the twelve bar blues form.</p>
-        <Image src={`${course.imgPath}/blues-lick-13.jpg`} width={600} height={150} alt="Blues lick 13" />
+        <Image src={`${course.imgPath}/blues-lick-13.jpg`} width={600} height={460} alt="Blues lick 13" />
 
         <h2>Blues lick 14</h2>
         <p>Another great turnaround lick in the style of Stevie Ray Vaughan.</p>
-        <Image src={`${course.imgPath}/blues-lick-14.jpg`} width={600} height={150} alt="Blues lick 14" />
+        <Image src={`${course.imgPath}/blues-lick-14.jpg`} width={600} height={155} alt="Blues lick 14" />
       </BluesLicksStyled>
     </CourseContainer>
   );

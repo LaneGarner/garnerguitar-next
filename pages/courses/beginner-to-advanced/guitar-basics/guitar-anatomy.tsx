@@ -12,8 +12,8 @@ const GuitarAnatomy = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <GuitarAnatomyStyled>
-        <Image src={`${course.imgPath}/guitar-anatomy.jpg`} width={700} height={540} alt="Guitar anatomy diagram" />
-        <Image src={`${course.imgPath}/guitar-anatomy-2.jpg`} width={700} height={540} alt="Guitar anatomy diagram two" />
+        <Image src={`${course.imgPath}/guitar-anatomy.jpg`} width={700} height={634} alt="Guitar anatomy diagram" />
+        <Image src={`${course.imgPath}/guitar-anatomy-2.jpg`} width={700} height={630} alt="Guitar anatomy diagram two" />
         <ul>
           <li><strong>Body:</strong> The large part of the guitar where the strings connect to the bridge.</li>
           <li><strong>Bridge:</strong> Where the strings attach to the body.</li>

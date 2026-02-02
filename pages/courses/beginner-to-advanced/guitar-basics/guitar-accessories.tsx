@@ -12,8 +12,8 @@ const GuitarAccessories = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <GuitarAccessoriesStyled>
-        <Image src={`${course.imgPath}/guitar-accessories.jpg`} width={700} height={467} alt="Guitar accessories" />
-        <Image src={`${course.imgPath}/guitar-accessories-2.jpg`} width={700} height={467} alt="Guitar accessories" />
+        <Image src={`${course.imgPath}/guitar-accessories.jpg`} width={700} height={828} alt="Guitar accessories" />
+        <Image src={`${course.imgPath}/guitar-accessories-2.jpg`} width={700} height={501} alt="Guitar accessories" />
         <ul>
           <li><strong>Amplifier or "Amp":</strong> Device used to amplify the signal of an electric guitar.</li>
           <li><strong>Cable:</strong> Connects and sends electric signal between the guitar and amplifier (and through pedals).</li>

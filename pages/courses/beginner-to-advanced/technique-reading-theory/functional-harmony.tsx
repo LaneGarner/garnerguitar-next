@@ -15,12 +15,12 @@ const FunctionalHarmony = (): JSX.Element => {
 
         <h2>Functional harmony</h2>
         <p>Functional harmony describes the relationship of each chord to the key center. Stacking thirds from each degree of the major scale creates seven chords within a given key. The key will determine whether each interval is a major or minor third. Analyzing these patterns will tell you whether you have a major, minor, or diminished chord. Let's look at the key of C major:</p>
-        <Image src={`${course.imgPath}/functional-harmony.jpg`} width={600} height={200} alt="Functional harmony" />
+        <Image src={`${course.imgPath}/functional-harmony.jpg`} width={600} height={180} alt="Functional harmony" />
 
         <h2>Roman numerals & Nashville numbers</h2>
         <p>There are two common ways to notate chord function. The traditional (i.e. classical) method is to use Roman numerals: uppercase for major and lowercase for minor. Another common method is the Nashville Number System. This system uses Arabic numerals and chord symbols in place of Roman numerals but essentially works in the same way. These systems make it easier to learn songs or teach a chord progression to a fellow musician.</p>
-        <Image src={`${course.imgPath}/roman-numberals-nashville.jpg`} width={600} height={200} alt="Roman numerals and Nashville numbers" />
-        <Image src={`${course.imgPath}/chord-function.jpg`} width={600} height={200} alt="Chord function" />
+        <Image src={`${course.imgPath}/roman-numberals-nashville.jpg`} width={600} height={107} alt="Roman numerals and Nashville numbers" />
+        <Image src={`${course.imgPath}/chord-function.jpg`} width={600} height={494} alt="Chord function" />
 
         <h2>Common chord progressions</h2>
         <p>Most popular music uses the same chord progressions, or patterns, over and over in different keys. Practicing 1, 4, 5, and 6m chords in common guitar keys will help you advance as a guitarist and learn new songs quickly. Use the chart on the previous page for help finding these chords in some common guitar keys.</p>

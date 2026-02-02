@@ -55,20 +55,20 @@ const BluesCagedPentatonicsIntro = (): JSX.Element => {
 
         <h2>Blues shuffle patterns in A</h2>
         <p>We covered the basic blues shuffle patterns and it may be helpful to review them now.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-a.jpg`} width={600} height={300} alt="Blues shuffle patterns in A" />
+        <Image src={`${course.imgPath}/blues-shuffle-a.jpg`} width={600} height={155} alt="Blues shuffle patterns in A" />
 
         <h2>Blues shuffle patterns in E</h2>
         <p>Keep the 6th string open while moving notes on the 5th string.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-e.jpg`} width={600} height={300} alt="Blues shuffle patterns in E" />
+        <Image src={`${course.imgPath}/blues-shuffle-e.jpg`} width={600} height={150} alt="Blues shuffle patterns in E" />
 
         <h2>Blues shuffle patterns in D</h2>
         <p>Keep the 4th string open while moving notes on the 3rd string.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-d.jpg`} width={600} height={300} alt="Blues shuffle patterns in D" />
+        <Image src={`${course.imgPath}/blues-shuffle-d.jpg`} width={600} height={138} alt="Blues shuffle patterns in D" />
 
         <h2>Blues shuffle patterns in B</h2>
         <p>The key of B is more difficult to play than the other keys because the root is not based on an open string. Option one requires large stretches while option two requires muting the fourth string. Transpose by treating any other fret as the root.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-b-1.jpg`} width={600} height={200} alt="Blues shuffle patterns in B option 1" />
-        <Image src={`${course.imgPath}/blues-shuffle-b-2.jpg`} width={600} height={200} alt="Blues shuffle patterns in B option 2" />
+        <Image src={`${course.imgPath}/blues-shuffle-b-1.jpg`} width={600} height={150} alt="Blues shuffle patterns in B option 1" />
+        <Image src={`${course.imgPath}/blues-shuffle-b-2.jpg`} width={600} height={125} alt="Blues shuffle patterns in B option 2" />
       </BluesCagedPentatonicsIntroStyled>
     </CourseContainer>
   );

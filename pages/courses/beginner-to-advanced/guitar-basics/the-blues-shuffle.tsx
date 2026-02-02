@@ -15,22 +15,22 @@ const BluesShuffle = (): JSX.Element => {
 
         <h2>Blues shuffle pattern one</h2>
         <p>This is a common blues rhythm guitar cliché. Play with even timing and no breaks between notes. Keep the 5th string open while moving notes on the 4th string.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-1.jpg`} width={600} height={150} alt="Blues shuffle pattern one" />
+        <Image src={`${course.imgPath}/blues-shuffle-1.jpg`} width={600} height={166} alt="Blues shuffle pattern one" />
 
         <h2>Blues shuffle pattern two</h2>
         <p>This is similar to pattern one but adds the fifth fret (G) on beat three.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-2.jpg`} width={600} height={150} alt="Blues shuffle pattern two" />
+        <Image src={`${course.imgPath}/blues-shuffle-2.jpg`} width={600} height={138} alt="Blues shuffle pattern two" />
 
         <h2>Blues shuffle pattern three</h2>
         <p>This pattern is commonly used in blues and country music. It begins the same as the first two patterns but deviates on beat two with a new bass note.</p>
-        <Image src={`${course.imgPath}/blues-shuffle-3.jpg`} width={600} height={150} alt="Blues shuffle pattern three" />
+        <Image src={`${course.imgPath}/blues-shuffle-3.jpg`} width={600} height={133} alt="Blues shuffle pattern three" />
 
         <h2>Blues shuffle in E</h2>
         <p>For the patterns we've used so far, the root is the open A string (key of A). To transpose the key, move the pattern to other string groups.</p>
         <Image src={`${course.imgPath}/blues-shuffle-e.jpg`} width={600} height={150} alt="Blues shuffle in E" />
 
         <h2>Blues shuffle in D</h2>
-        <Image src={`${course.imgPath}/blues-shuffle-d.jpg`} width={600} height={150} alt="Blues shuffle in D" />
+        <Image src={`${course.imgPath}/blues-shuffle-d.jpg`} width={600} height={138} alt="Blues shuffle in D" />
 
         <h2>Blues shuffle songs to learn</h2>
         <div className="video-container">

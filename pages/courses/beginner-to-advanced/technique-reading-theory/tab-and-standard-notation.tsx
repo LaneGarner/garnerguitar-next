@@ -12,18 +12,18 @@ const TabAndStandardNotation = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <TabAndStandardNotationStyled>
-        <Image src={`${course.imgPath}/jazz-man.jpg`} width={600} height={300} alt="Close up of jazz guitarist" />
+        <Image src={`${course.imgPath}/jazz-man.jpg`} width={600} height={271} alt="Close up of jazz guitarist" />
 
         <p>Occasionally it may be helpful to notate music in tab and standard notation at the same time. This is especially useful to show where to play a note that can be played in many places on the neck. The next few examples use two staves (tab and standard notation) which consist of the exact same written music. Pay attention to the bracket on the left to know which system to move your eyes to next.</p>
 
         <h2>Rock and Roll Arpeggios</h2>
-        <Image src={`${course.imgPath}/rock-arpeggios.jpg`} width={600} height={300} alt="Rock and roll arpeggios notation" />
+        <Image src={`${course.imgPath}/rock-arpeggios.jpg`} width={600} height={436} alt="Rock and roll arpeggios notation" />
 
         <h2>Pentatonic Blues</h2>
-        <Image src={`${course.imgPath}/pentatonic-blues.jpg`} width={600} height={300} alt="Pentatonic blues notation" />
+        <Image src={`${course.imgPath}/pentatonic-blues.jpg`} width={600} height={412} alt="Pentatonic blues notation" />
 
         <h2>Power Chords</h2>
-        <Image src={`${course.imgPath}/power-chords.jpg`} width={600} height={300} alt="Power chords notation" />
+        <Image src={`${course.imgPath}/power-chords.jpg`} width={600} height={320} alt="Power chords notation" />
       </TabAndStandardNotationStyled>
     </CourseContainer>
   );

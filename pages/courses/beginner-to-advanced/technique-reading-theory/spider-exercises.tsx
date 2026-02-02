@@ -16,16 +16,16 @@ const SpiderExercises = (): JSX.Element => {
 
         <h2>Spider exercise one</h2>
         <p>One-finger-per-fret with the first finger at the fifth fret. Once you play a note, leave the finger down on the string until it is needed again—even when changing strings. Like always, start off slowly and intentionally.</p>
-        <Image src={`${course.imgPath}/spider-1.jpg`} width={600} height={300} alt="Spider exercise one" />
+        <Image src={`${course.imgPath}/spider-1.jpg`} width={600} height={464} alt="Spider exercise one" />
 
         <h2>Spider exercise two</h2>
         <p>One-finger-per-fret at the fifth fret. See and feel the fingers walking across the strings. Keep each finger down after a note is played.</p>
 
         <h3>Descending</h3>
-        <Image src={`${course.imgPath}/spider-2-descending.jpg`} width={600} height={300} alt="Spider exercise two descending" />
+        <Image src={`${course.imgPath}/spider-2-descending.jpg`} width={600} height={313} alt="Spider exercise two descending" />
 
         <h3>Ascending</h3>
-        <Image src={`${course.imgPath}/spider-2-ascending.jpg`} width={600} height={300} alt="Spider exercise two ascending" />
+        <Image src={`${course.imgPath}/spider-2-ascending.jpg`} width={600} height={274} alt="Spider exercise two ascending" />
       </SpiderExercisesStyled>
     </CourseContainer>
   );

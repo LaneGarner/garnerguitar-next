@@ -34,7 +34,7 @@ export const courses: CoursesInterface[] = [
   {
     title: "Beginner to Advanced",
     description:
-      "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+      "This comprehensive course series takes you from your very first chord to confident, expressive playing. Starting with the fundamentals like proper technique, essential chords, and basic music theory, you'll progress through increasingly challenging material designed to build real musical skills. Each course introduces new concepts while reinforcing what you've learned, giving you the tools to play songs, improvise, and understand the instrument at a deeper level.",
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "beginner-to-advanced",
     courses: [

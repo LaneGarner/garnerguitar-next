@@ -21,18 +21,18 @@ const BuildingTriads = (): JSX.Element => {
         <p><strong>Augmented triad:</strong> major 3rd, major 3rd</p>
         <p><strong>Diminished triad:</strong> minor 3rd, minor 3rd</p>
 
-        <Image src={`${course.imgPath}/major-triad.jpg`} width={600} height={150} alt="Major triad" />
-        <Image src={`${course.imgPath}/minor-triad.jpg`} width={600} height={150} alt="Minor triad" />
-        <Image src={`${course.imgPath}/augmented-triad.jpg`} width={600} height={150} alt="Augmented triad" />
-        <Image src={`${course.imgPath}/diminished-triad.jpg`} width={600} height={150} alt="Diminished triad" />
+        <Image src={`${course.imgPath}/major-triad.jpg`} width={600} height={166} alt="Major triad" />
+        <Image src={`${course.imgPath}/minor-triad.jpg`} width={600} height={161} alt="Minor triad" />
+        <Image src={`${course.imgPath}/augmented-triad.jpg`} width={600} height={160} alt="Augmented triad" />
+        <Image src={`${course.imgPath}/diminished-triad.jpg`} width={600} height={159} alt="Diminished triad" />
 
         <h2>Building triads with scale degrees</h2>
-        <Image src={`${course.imgPath}/triad-scale-degrees.jpg`} width={600} height={200} alt="Building triads with scale degrees" />
+        <Image src={`${course.imgPath}/triad-scale-degrees.jpg`} width={600} height={240} alt="Building triads with scale degrees" />
         <p>On the previous page we built triads by stacking thirds. Another way to build triads is by scale degree. This method is based on the degrees of the major scale. These are also referred to as "chord tones."</p>
 
         <h2>Chord notation</h2>
         <p>There are several ways to refer to each chord type. Here are some common methods:</p>
-        <Image src={`${course.imgPath}/chord-notation.jpg`} width={600} height={200} alt="Chord notation" />
+        <Image src={`${course.imgPath}/chord-notation.jpg`} width={600} height={194} alt="Chord notation" />
       </BuildingTriadsStyled>
     </CourseContainer>
   );

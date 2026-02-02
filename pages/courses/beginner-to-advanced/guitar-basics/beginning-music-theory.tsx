@@ -16,13 +16,13 @@ const BeginningMusicTheory = (): JSX.Element => {
 
         <h3>Think of the musical alphabet as a circle that returns to A after G</h3>
         <p className="alphabet">A-B-C-D-E-F-G-A-B-C-D-E-F-G-A-B-C-D-E-F-G ...</p>
-        <Image src={`${course.imgPath}/musical-alphabet-2.jpg`} width={400} height={400} alt="Musical alphabet circle" />
+        <Image src={`${course.imgPath}/musical-alphabet-2.jpg`} width={400} height={402} alt="Musical alphabet circle" />
 
         <h2>String names</h2>
         <p>An open string is a string plucked without fretting a note with the left-hand. The open guitar strings are named in two ways: letters and numbers. The thinnest string is the first string and the thickest is the sixth string. The letter names are notes from the musical alphabet. Use this mnemonic device to memorize the letter name of each string:</p>
 
         <h3>Eddie Ate Dynamite Good Bye Eddie</h3>
-        <Image src={`${course.imgPath}/eddie.jpg`} width={400} height={300} alt="Cartoon of Eddie eating dynamite" />
+        <Image src={`${course.imgPath}/eddie.jpg`} width={400} height={400} alt="Cartoon of Eddie eating dynamite" />
 
         <table className="string-table">
           <tbody>

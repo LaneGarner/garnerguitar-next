@@ -16,7 +16,7 @@ const FingerCombination = (): JSX.Element => {
 
         <p>This finger exercise should be practiced in many ways: all combinations on one string, one combination on all strings, as an arpeggio with each combination on a set of four strings, as an arpeggio with string skips, and so on. Practice using different subdivisions with a metronome and pay close attention to coordinating the left and right hands. If you want to get crazy, apply these combinations to the spider exercise. Within the spider, you will not always be able to leave each finger down. When you must lift a finger to play a lower-sounding note, lift as minimally as possible while remaining in the ready position.</p>
 
-        <Image src={`${course.imgPath}/finger-combinations.jpg`} width={600} height={500} alt="Finger combinations chart showing all permutations of 1-2-3-4" />
+        <Image src={`${course.imgPath}/finger-combinations.jpg`} width={600} height={533} alt="Finger combinations chart showing all permutations of 1-2-3-4" />
       </FingerCombinationStyled>
     </CourseContainer>
   );

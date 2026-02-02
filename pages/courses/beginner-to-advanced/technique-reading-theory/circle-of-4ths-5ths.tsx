@@ -21,7 +21,7 @@ const CircleOf4ths5ths = (): JSX.Element => {
         <h2>Flat Keys</h2>
         <p>Follow the circle counterclockwise in fourths. This side works similarly to the sharp side, but rather than raising the seventh scale degree, we will lower the fourth scale degree (GREEN). Tip: the fourth scale degree also happens to be the next key in the circle of fourths.</p>
         <p>For example: the key of F has one flat, B-flat, which is the fourth scale degree in F (or the next key on the circle). For the key of B-flat, keep B-flat, and add the fourth degree (or next key) of E-flat. Continue similarly around the circle of fourths.</p>
-        <Image src={`${course.imgPath}/circle-of-fourths-fifths.jpg`} width={600} height={600} alt="Circle of fourths and fifths" />
+        <Image src={`${course.imgPath}/circle-of-fourths-fifths.jpg`} width={600} height={650} alt="Circle of fourths and fifths" />
 
         <p><em>*G-flat and F-sharp are enharmonically the same.</em></p>
 
@@ -29,7 +29,7 @@ const CircleOf4ths5ths = (): JSX.Element => {
 
         <h2>Key signatures on the staff</h2>
         <p>The key signature is placed between the clef and time signature at the beginning of a piece of music. Sharps or flats are placed on the lines and spaces of the staff to tell you which notes are raised or lowered in a given key. When a key signature indicates raising or lowering a pitch, that pitch remains altered throughout the entire piece.</p>
-        <Image src={`${course.imgPath}/key-sigs.jpg`} width={600} height={400} alt="Key signatures" />
+        <Image src={`${course.imgPath}/key-sigs.jpg`} width={600} height={643} alt="Key signatures" />
       </CircleOf4ths5thsStyled>
     </CourseContainer>
   );

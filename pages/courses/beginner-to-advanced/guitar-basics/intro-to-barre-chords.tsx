@@ -17,19 +17,19 @@ const IntroToBarreChords = (): JSX.Element => {
 
         <h2>E shape</h2>
         <p>Start with the familiar open E chord. *Re-finger with the third, fourth, and second fingers. Move this shape up one fret and barre your first finger across the first fret. The barre frets the strings that were previously open. This shape can be moved anywhere on the neck. Find the root of this barre-chord by the note on the sixth string.</p>
-        <Image src={`${course.imgPath}/e-shape-barrechord.jpg`} width={600} height={250} alt="E shape barre chord" />
+        <Image src={`${course.imgPath}/e-shape-barrechord.jpg`} width={600} height={229} alt="E shape barre chord" />
 
         <h2>E minor shape</h2>
         <p>*Re-finger E minor with the third and fourth fingers. Move this shape up one fret and barre your first finger to play the strings that were previously open. Find the root of this barre-chord with the note on the sixth, fourth, or third string. Notice how similar this shape is to the E-shape. The only difference is that the note on the third string is now barred. Adjust your first finger accordingly to ensure sufficient pressure on the third string.</p>
-        <Image src={`${course.imgPath}/e-minor-shape-barrechord.jpg`} width={600} height={250} alt="E minor shape barre chord" />
+        <Image src={`${course.imgPath}/e-minor-shape-barrechord.jpg`} width={600} height={219} alt="E minor shape barre chord" />
 
         <h2>A shape</h2>
         <p>There are two ways to finger an A-shape barre-chord. One option is to use the original 2, 3, and 4 fingering. Another option is to re-finger with a third finger barre. Move this shape up one fret and use your first finger to play the previously open fifth string. Find the root on the fifth string.</p>
-        <Image src={`${course.imgPath}/a-shape-barrechord.jpg`} width={600} height={250} alt="A shape barre chord" />
+        <Image src={`${course.imgPath}/a-shape-barrechord.jpg`} width={600} height={254} alt="A shape barre chord" />
 
         <h2>A minor shape</h2>
         <p>*Re-finger A minor with the third and fourth fingers. Move this shape up one fret and barre your first finger to play the strings that were previously open. Find the root on the sixth, fourth, or third string. Note that A and A minor are the same except for one note. Also note the similarity between the A-minor and E shapes.</p>
-        <Image src={`${course.imgPath}/a-minor-shape-barrechord.jpg`} width={600} height={250} alt="A minor shape barre chord" />
+        <Image src={`${course.imgPath}/a-minor-shape-barrechord.jpg`} width={600} height={229} alt="A minor shape barre chord" />
 
         <div className="video-container">
           <iframe

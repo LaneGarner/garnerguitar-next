@@ -12,7 +12,7 @@ const MusicTheory = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <MusicTheoryStyled>
-        <Image src={`${course.imgPath}/music-theory-image.jpg`} width={600} height={300} alt="Music theory cover photo" />
+        <Image src={`${course.imgPath}/music-theory-image.jpg`} width={600} height={770} alt="Music theory cover photo" />
 
         <p>If music is a language, then music theory is grammar and sentence structure. Theory aims to explain how and why music works as it does. Understanding theory will make you a better musician. That said, don't forget to put emotion and feeling into your music. Many beginning guitarists gloss over or have a limited understanding of music theory which can hold them back as players. Learning a language strictly through immersion leaves you illiterate. Learning to read a new language is a start, but studying the inner workings of sentence structure is the only way to write a story or a poem. Music theory teaches you to analyze the music of other musicians so that you can then intelligently create music of your own. Simply understanding the intervals used to build a particular chord will allow you to manipulate that chord into many other chords. In this section, you will learn how to construct scales, key signatures, intervals, and chords.</p>
 

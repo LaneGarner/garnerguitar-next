@@ -13,13 +13,13 @@ const BuildingMajorScales = (): JSX.Element => {
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <BuildingMajorScalesStyled>
         <p>You might recognize the major scale from the song "Do-Re-Mi" from The Sound of Music. Most Western music is based on the major scale. We will first learn all twelve major scales on single strings starting with the E major scale. Play on the first or sixth string at these frets:</p>
-        <Image src={`${course.imgPath}/major-ascending.jpg`} width={600} height={100} alt="Major scale ascending frets" />
+        <Image src={`${course.imgPath}/major-ascending.jpg`} width={600} height={92} alt="Major scale ascending frets" />
 
         <p>Going up in pitch is called <em><strong>ascending</strong></em>. Also play the scale <em><strong>descending</strong></em>, or going down.</p>
-        <Image src={`${course.imgPath}/major-descending.jpg`} width={600} height={100} alt="Major scale descending frets" />
+        <Image src={`${course.imgPath}/major-descending.jpg`} width={600} height={92} alt="Major scale descending frets" />
 
         <p>An <em><strong>interval</strong></em> is the distance between two notes. The first two intervals to learn are the <em><strong>half-step</strong></em> and the <em><strong>whole-step</strong></em>. On the guitar, a half step is one fret and a whole step is two frets. Analyzing the notes of the E major scale will reveal a pattern of half-steps and whole-steps.</p>
-        <Image src={`${course.imgPath}/major-intervals.jpg`} width={600} height={150} alt="Major scale intervals" />
+        <Image src={`${course.imgPath}/major-intervals.jpg`} width={600} height={156} alt="Major scale intervals" />
 
         <p>All major scales always contain all seven letters of the musical alphabet (A-G). These letters go in order and start on the same letter name as the major scale name. For example, the C major scale starts with the note C.</p>
 
@@ -41,13 +41,13 @@ const BuildingMajorScales = (): JSX.Element => {
         <p>Start from any note and use W-W-H-W-W-W-H and all seven letters of the musical alphabet to find each key signature.</p>
 
         <h2>Single string major scales</h2>
-        <Image src={`${course.imgPath}/c-major.jpg`} width={600} height={200} alt="C major scale" />
+        <Image src={`${course.imgPath}/c-major.jpg`} width={600} height={323} alt="C major scale" />
 
         <h2>Sharp keys</h2>
-        <Image src={`${course.imgPath}/sharp-keys.jpg`} width={600} height={400} alt="Sharp keys" />
+        <Image src={`${course.imgPath}/sharp-keys.jpg`} width={600} height={1631} alt="Sharp keys" />
 
         <h2>Flat keys</h2>
-        <Image src={`${course.imgPath}/flat-keys.jpg`} width={600} height={400} alt="Flat keys" />
+        <Image src={`${course.imgPath}/flat-keys.jpg`} width={600} height={1866} alt="Flat keys" />
       </BuildingMajorScalesStyled>
     </CourseContainer>
   );

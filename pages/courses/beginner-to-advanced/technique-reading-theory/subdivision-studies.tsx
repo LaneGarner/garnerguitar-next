@@ -14,7 +14,7 @@ const SubdivisionStudies = (): JSX.Element => {
       <SubdivisionStudiesStyled>
         <p>Subdivision practice is a useful way to work on technique, time, and reading. Apply these subdivisions to single notes, scales, chords, exercises, or really anything. Practice slowly and intentionally with a metronome. Try to "bury" the beat so that you almost don't hear the click of the metronome. Use all possible picking patterns.</p>
 
-        <Image src={`${course.imgPath}/subdivision-studies.jpg`} width={600} height={400} alt="Subdivision studies exercise" />
+        <Image src={`${course.imgPath}/subdivision-studies.jpg`} width={600} height={660} alt="Subdivision studies exercise" />
       </SubdivisionStudiesStyled>
     </CourseContainer>
   );

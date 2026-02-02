@@ -19,16 +19,16 @@ const IntroToPentatonics = (): JSX.Element => {
         <h2>The A minor pentatonic</h2>
         <p>The first pentatonic scale to learn is A minor pentatonic. Start with your first finger on A at the sixth-string fifth-fret using the one-finger-per-fret rule. Practice ascending and descending, then try mixing up the notes to solo on an A blues.</p>
 
-        <Image src={`${course.imgPath}/a-minor-pent-1.jpg`} width={200} height={250} alt="A minor pentatonic scale on neck diagram" />
-        <Image src={`${course.imgPath}/a-minor-pent-2.jpg`} width={600} height={150} alt="A minor pentatonic scale staff and tab" />
+        <Image src={`${course.imgPath}/a-minor-pent-1.jpg`} width={200} height={205} alt="A minor pentatonic scale on neck diagram" />
+        <Image src={`${course.imgPath}/a-minor-pent-2.jpg`} width={600} height={159} alt="A minor pentatonic scale staff and tab" />
 
         <h2>E minor pentatonic</h2>
         <p>Start with your first finger on E at the sixth-string twelfth-fret using the one-finger-per-fret rule. This is the same fingering as the A-minor pentatonic scale you have already learned. E minor pentatonic can also be played in the open position. Practice ascending and descending in each position, then try mixing up the notes to solo on an E blues.</p>
 
-        <Image src={`${course.imgPath}/e-minor-pent-1.jpg`} width={200} height={250} alt="E minor pentatonic fretted position on neck" />
-        <Image src={`${course.imgPath}/e-minor-pent-2.jpg`} width={600} height={150} alt="E minor pentatonic fretted staff and tab" />
-        <Image src={`${course.imgPath}/e-minor-pent-3.jpg`} width={200} height={250} alt="E minor pentatonic open position on neck" />
-        <Image src={`${course.imgPath}/e-minor-pent-4.jpg`} width={600} height={150} alt="E minor pentatonic open position staff and tab" />
+        <Image src={`${course.imgPath}/e-minor-pent-1.jpg`} width={200} height={190} alt="E minor pentatonic fretted position on neck" />
+        <Image src={`${course.imgPath}/e-minor-pent-2.jpg`} width={600} height={159} alt="E minor pentatonic fretted staff and tab" />
+        <Image src={`${course.imgPath}/e-minor-pent-3.jpg`} width={200} height={188} alt="E minor pentatonic open position on neck" />
+        <Image src={`${course.imgPath}/e-minor-pent-4.jpg`} width={600} height={130} alt="E minor pentatonic open position staff and tab" />
       </IntroToPentatonicsStyled>
     </CourseContainer>
   );

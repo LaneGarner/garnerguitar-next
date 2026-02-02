@@ -43,10 +43,11 @@ const Header = (): JSX.Element => {
   }, []);
 
   // Interpolate values based on scroll position (0 to 200px)
-  const headerHeight = interpolate(scrollY, [0, 200], [140, 70]);
+  const headerHeight = interpolate(scrollY, [0, 200], [140, 90]);
   const logoSize = interpolate(scrollY, [0, 200], [54, 40]);
   const titleSize = interpolate(scrollY, [0, 200], [4, 2.5]);
   const navOffset = interpolate(scrollY, [0, 200], [0, -12]);
+  const navPadding = interpolate(scrollY, [0, 200], [0, 8]);
 
   interface HeaderLinkInterface {
     name: string;
@@ -56,7 +57,6 @@ const Header = (): JSX.Element => {
   const headerLinks: HeaderLinkInterface[] = [
     { name: "Home", url: "" },
     { name: "Courses", url: "courses" },
-    { name: "Method Book", url: "book" },
     { name: "Resources", url: "resources" },
   ];
 
@@ -68,7 +68,7 @@ const Header = (): JSX.Element => {
           <h1 className="heading-style title" style={{ fontSize: `${titleSize}rem` }}>GarnerGuitar.com</h1>
         </a>
       </Link>
-      <nav style={{ transform: `translateY(${navOffset}px)` }}>
+      <nav style={{ transform: `translateY(${navOffset}px)`, paddingTop: navPadding, paddingBottom: navPadding }}>
         {headerLinks.map((link, i) =>
           link.name !== "Resources" ? (
             <Link key={i} href={`/${link.url}`}>

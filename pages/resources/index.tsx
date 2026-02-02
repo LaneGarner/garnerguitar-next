@@ -38,14 +38,6 @@ const Resources = (): JSX.Element => {
             </div>
           </a>
         </div>
-
-        <h2>Connect</h2>
-        <ul className="social-links">
-          <li><a href="https://www.youtube.com/c/garnerguitar" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-          <li><a href="https://www.instagram.com/garnerguitar" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="https://www.facebook.com/garnerguitar" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="https://LaneGarner.com" target="_blank" rel="noopener noreferrer">Lane Garner Music</a></li>
-        </ul>
       </ResourcesStyled>
     </Layout>
   );
@@ -103,20 +95,4 @@ const ResourcesStyled = styled.div`
     }
   }
 
-  .social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
-
-    a {
-      color: #0066cc;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 `;

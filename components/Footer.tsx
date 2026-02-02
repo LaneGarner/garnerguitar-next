@@ -12,7 +12,6 @@ const Footer = (): JSX.Element => {
 
   const footerLinks: FooterLinkInterface[] = [
     { name: "Courses", url: "/courses" },
-    { name: "Method Book", url: "/book" },
     { name: "Lessons", url: "/lessons" },
     { name: "Printables", url: "/printables" },
     { name: "Contact", url: "/contact" },

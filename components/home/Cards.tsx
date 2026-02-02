@@ -23,10 +23,10 @@ const Cards = (): JSX.Element => {
       url: "courses",
     },
     {
-      title: "Book",
+      title: "Courses",
       description: "description",
       img: {file: "Garner-Guitar-Book-Cover.jpg", width: 174, height: 225},
-      url: "book",
+      url: "courses",
     },
     {
       title: "Practice App",

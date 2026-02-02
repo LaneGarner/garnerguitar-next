@@ -21,11 +21,14 @@ export interface CourseInterface {
 }
 
 //all courses
-interface CoursesInterface {
+export interface CoursesInterface {
   title: string;
   description: string;
+  tagline: string;
+  highlights: string[];
   img: string;
   shortName: string;
+  isComingSoon?: boolean;
   courses: CourseInterface[];
 }
 
@@ -35,6 +38,8 @@ export const courses: CoursesInterface[] = [
     title: "Beginner to Advanced",
     description:
       "This comprehensive course series takes you from your very first chord to confident, expressive playing. Starting with the fundamentals like proper technique, essential chords, and basic music theory, you'll progress through increasingly challenging material designed to build real musical skills. Each course introduces new concepts while reinforcing what you've learned, giving you the tools to play songs, improvise, and understand the instrument at a deeper level.",
+    tagline: "From first chord to confident playing",
+    highlights: ["Beginner Friendly", "Chords", "Theory", "Reading", "Technique", "Blues", "CAGED", "Scales", "Ear Training", "Fretboard Navigation"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "beginner-to-advanced",
     courses: [
@@ -323,8 +328,11 @@ export const courses: CoursesInterface[] = [
     title: "Jazz",
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+    tagline: "Master jazz harmony and improvisation",
+    highlights: ["Voicings", "Comping", "Improv"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "jazz",
+    isComingSoon: true,
     courses: [
       {
         part: 1,
@@ -391,8 +399,11 @@ export const courses: CoursesInterface[] = [
     title: "Young Beginner",
     description:
       "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
+    tagline: "Guitar lessons for ages 6-12",
+    highlights: ["Fun Songs", "Basics", "Reading"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "young-beginner",
+    isComingSoon: true,
     courses: [
       {
         part: 1,

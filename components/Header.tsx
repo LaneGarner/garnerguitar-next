@@ -138,7 +138,7 @@ const HeaderStyled = styled.header`
       font-weight: bold;
       text-decoration: underline dashed;
       text-decoration-color: ${theme.colors.neutral[2]};
-      text-underline-offset: 4px;
+      text-underline-offset: 8px;
     }
   }
 `;

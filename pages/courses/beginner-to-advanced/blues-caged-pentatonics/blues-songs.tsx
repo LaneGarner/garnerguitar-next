@@ -11,7 +11,7 @@ const BluesSongs = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <BluesSongsStyled>
-        <p>The etudes in this book are a great starting point for your adventure into blues. That said, blues is a huge genre of music and there are so many subtleties involved. Here's a list of some more blues songs you might want to learn. While you dive into the music this list will grow but these are excellent to start with.</p>
+        <p>The etudes in this course are a great starting point for your adventure into blues. That said, blues is a huge genre of music and there are so many subtleties involved. Here's a list of some more blues songs you might want to learn. While you dive into the music this list will grow but these are excellent to start with.</p>
 
         <ul>
           <li>"Boogie Chillun" - John Lee Hooker</li>

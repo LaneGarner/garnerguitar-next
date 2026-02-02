@@ -30,7 +30,7 @@ const Tablature = (): JSX.Element => {
         <Image src={`${course.imgPath}/tab-etude-1.jpg`} width={600} height={77} alt="Tablature etude one" />
 
         <h3>Tablature etude two</h3>
-        <p>The first part of this etude uses all open strings. Pay close attention to skipping your pick over the fifth string and up to the fourth string then back down. The last six notes of this etude come from a scale you will learn later in this book called the E minor pentatonic scale.</p>
+        <p>The first part of this etude uses all open strings. Pay close attention to skipping your pick over the fifth string and up to the fourth string then back down. The last six notes of this etude come from a scale you will learn later in this course called the E minor pentatonic scale.</p>
         <Image src={`${course.imgPath}/tab-etude-2.jpg`} width={600} height={77} alt="Tablature etude two" />
 
         <h3>Tablature etude three</h3>

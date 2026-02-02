@@ -12,7 +12,7 @@ const Intervals = (): JSX.Element => {
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <IntervalsStyled>
-        <p>An interval is the distance between two notes. In this book you will learn perfect, major, and minor intervals up to an octave. Intervals are named by the number of steps between letters in the musical alphabet and qualified by the number of half steps between two notes. You already know two intervals: the half step and the whole step. When counting half steps, do not count the first note.</p>
+        <p>An interval is the distance between two notes. In this course you will learn perfect, major, and minor intervals up to an octave. Intervals are named by the number of steps between letters in the musical alphabet and qualified by the number of half steps between two notes. You already know two intervals: the half step and the whole step. When counting half steps, do not count the first note.</p>
         <Image src={`${course.imgPath}/intervals.jpg`} width={600} height={688} alt="Intervals" />
 
         <p><em>*The tritone is both an augmented fourth and a diminished fifth. In this context, <strong>augmented</strong> means "raised" and <strong>diminished</strong> means "lowered."</em></p>

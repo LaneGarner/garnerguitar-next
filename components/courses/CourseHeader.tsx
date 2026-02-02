@@ -55,9 +55,6 @@ const CourseHeader = (): JSX.Element => {
           <Link href="/courses">
             <a className="nav-link">All Courses</a>
           </Link>
-          <Link href="/">
-            <a className="nav-link">Home</a>
-          </Link>
         </nav>
       </div>
       {courseNav?.course && (
@@ -205,8 +202,8 @@ const HeaderStyled = styled.header`
       content: "";
       position: absolute;
       left: -1.5rem;
-      top: 0.25rem;
-      bottom: 0.25rem;
+      top: 0.5rem;
+      bottom: 0.5rem;
       width: 1px;
       background: ${theme.colors.neutral[12]};
     }

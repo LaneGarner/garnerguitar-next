@@ -22,7 +22,7 @@ const Notation = (): JSX.Element => {
 
         <h2>Standard notation</h2>
         <Image src={`${course.imgPath}/standard-notation-example.jpg`} width={500} height={105} alt="Standard notation example" />
-        <p>Standard notation is the most common way to write music for most instruments. While many guitar players never learn standard notation, it is valuable to learn the basics at the very least. More on standard notation in Part 2 of this book.</p>
+        <p>Standard notation is the most common way to write music for most instruments. While many guitar players never learn standard notation, it is valuable to learn the basics at the very least. More on standard notation in Part 2 of this course.</p>
 
         <h2>Chord diagrams</h2>
         <Image src={`${course.imgPath}/chord-diagram-example-1.jpg`} width={150} height={236} alt="Simple chord diagram example" />

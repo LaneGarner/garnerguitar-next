@@ -75,15 +75,7 @@ const Menu = (): JSX.Element | null => {
     return null;
   }
 
-  const {
-    course,
-    currentPageIndex,
-    totalPages,
-    isFirstPage,
-    isLastPage,
-    prevUrl,
-    nextUrl,
-  } = courseNav;
+  const { course, currentPageIndex, courseIndex } = courseNav;
 
   const getLessonUrl = (page: { title: string }, index: number) => {
     return page.title === "Introduction" || index === 0
@@ -97,33 +89,6 @@ const Menu = (): JSX.Element | null => {
 
   return (
     <MenuStyled className="menu">
-      <header className="menu-header">
-        <h3 className="course-head">{course.title}</h3>
-        <div className="progress-indicator">
-          Lesson {currentPageIndex + 1} of {totalPages}
-        </div>
-        <nav className="page-nav" aria-label="Lesson navigation">
-          {!isFirstPage ? (
-            <Link href={prevUrl}>
-              <a className="page-nav-link">
-                <span aria-hidden="true">&larr;</span> Back
-              </a>
-            </Link>
-          ) : (
-            <span className="page-nav-placeholder" />
-          )}
-          {!isLastPage ? (
-            <Link href={nextUrl}>
-              <a className="page-nav-link">
-                Next <span aria-hidden="true">&rarr;</span>
-              </a>
-            </Link>
-          ) : (
-            <span className="page-nav-placeholder" />
-          )}
-        </nav>
-      </header>
-
       <div className="menu-content" ref={scrollContainerRef}>
         <ul className="nav-list">
           {course.pages.map((page, i) => {
@@ -146,7 +111,7 @@ const Menu = (): JSX.Element | null => {
                     {isCompleted && (
                       <FaCheck className="check-icon" aria-hidden="true" />
                     )}
-                    {page.title}
+                    <span className="nav-link-title">{page.title}</span>
                   </a>
                 </Link>
               </li>
@@ -165,73 +130,6 @@ const MenuStyled = styled.aside`
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  .menu-header {
-    flex-shrink: 0;
-    padding: ${theme.sizes.s};
-    background-color: ${theme.colors.neutral[15]};
-    border-bottom: 1px solid ${theme.colors.neutral[11]};
-  }
-
-  .course-head {
-    font-size: 1.2rem;
-    margin: 0;
-    color: ${theme.colors.neutral[3]};
-    text-align: center;
-  }
-
-  .progress-indicator {
-    text-align: center;
-    font-size: 0.85rem;
-    color: ${theme.colors.neutral[6]};
-    margin: ${theme.sizes.xs} 0;
-  }
-
-  .page-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: ${theme.sizes.xs};
-    margin-top: ${theme.sizes.xs};
-  }
-
-  .page-nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5em 1em;
-    min-width: 44px;
-    min-height: 44px;
-    color: ${theme.colors.neutral[3]};
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 150ms ease, color 150ms ease;
-    font-weight: 500;
-
-    &:hover {
-      background-color: ${theme.colors.green};
-      color: ${theme.colors.neutral[2]};
-    }
-
-    &:focus {
-      outline: 2px solid ${theme.colors.green};
-      outline-offset: 2px;
-    }
-
-    &:focus:not(:focus-visible) {
-      outline: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${theme.colors.green};
-      outline-offset: 2px;
-    }
-  }
-
-  .page-nav-placeholder {
-    min-width: 44px;
-    min-height: 44px;
-  }
 
   .menu-content {
     flex: 1;

@@ -12,7 +12,6 @@ interface Props {
 const CourseTitleCard = (props: Props): JSX.Element => {
   const { title, img, shortName } = props;
 
-  console.log(shortName);
   return (
     <Link href={shortName}>
       <a>

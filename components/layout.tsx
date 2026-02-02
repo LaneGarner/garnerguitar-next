@@ -1,9 +1,9 @@
 import Head from "next/head";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 import { Header, Footer, CourseHeader } from "./";
 import { useCourseNavigation } from "../context";
+import { theme } from "../utils/styles/theme";
 
 export const siteTag = "Garner Guitar - take your playing to the next level";
 
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const Layout = ({ children, home, course }: Props): JSX.Element => {
-  const pathname = useRouter().pathname;
   const courseNav = useCourseNavigation();
 
   // Show menu when we're on a course page and have valid course data
@@ -30,7 +29,7 @@ const Layout = ({ children, home, course }: Props): JSX.Element => {
         <meta name="twitter:card" content="summary_large_image" />
         <title>{siteTag}</title>
       </Head>
-      {!course ? <Header /> : <CourseHeader route={pathname} />}
+      {!course ? <Header /> : <CourseHeader />}
       <LayoutStyled $isCourse={showCourseLayout}>
         {/* Sidebar space - Menu is rendered persistently in _app.tsx */}
         {showCourseLayout && <aside className="course-sidebar" />}
@@ -48,16 +47,16 @@ interface LayoutStyledProps {
 }
 
 const LayoutStyled = styled.div<LayoutStyledProps>`
-  margin-top: 135px;
+  margin-top: ${theme.sizes.header};
   display: grid;
-  min-height: calc(100vh - 135px);
-  grid-template-columns: ${({ $isCourse }) => ($isCourse ? "300px 1fr" : "1fr")};
+  min-height: calc(100vh - ${theme.sizes.header});
+  grid-template-columns: ${({ $isCourse }) => ($isCourse ? `${theme.sizes.sidebarWidth} 1fr` : "1fr")};
   grid-template-rows: 1fr;
 
   .course-sidebar {
     position: sticky;
-    top: 135px;
-    height: calc(100vh - 135px);
+    top: ${theme.sizes.header};
+    height: calc(100vh - ${theme.sizes.header});
     overflow: hidden;
   }
 

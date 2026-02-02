@@ -34,7 +34,6 @@ const CourseContainer = (props: Props): JSX.Element => {
       </Head>
       <CourseContainerStyled>
         <section className="container">
-          <h1>{page.title}</h1>
           {children}
           <LessonCompleteButton
             isComplete={isComplete}
@@ -49,36 +48,6 @@ const CourseContainer = (props: Props): JSX.Element => {
 export default CourseContainer;
 
 const CourseContainerStyled = styled.div`
-  h1 {
-    font-size: 2em;
-    margin-bottom: 0;
-    margin-top: 0;
-    position: sticky;
-    top: 90px;
-    background: white;
-    padding: 0.5em 0 0 0;
-    margin-top: -50px;
-    padding-top: 50px;
-    z-index: 100;
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -8px;
-      height: 8px;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0.75) 25%,
-        rgba(255, 255, 255, 0.4) 50%,
-        rgba(255, 255, 255, 0.15) 75%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      pointer-events: none;
-    }
-  }
   h2 {
     font-size: 1.5em;
     margin-bottom: 0.5em;
@@ -102,5 +71,10 @@ const CourseContainerStyled = styled.div`
     padding: 1em;
     padding-left: 2em;
     max-width: 720px;
+
+    > :first-child > h2:first-child,
+    > :first-child > h3:first-child {
+      margin-top: 0;
+    }
   }
 `;

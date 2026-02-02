@@ -16,8 +16,6 @@ interface Props {
 }
 
 const Card = ({ title, part, courseName, img, description, description2, skills, url }: Props): JSX.Element => {
-  console.log("url", url);
-
   const half: number = Math.ceil(skills.length / 2);
 
   const skills1: string[] = skills.slice(0, half);

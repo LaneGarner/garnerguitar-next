@@ -5,6 +5,7 @@ import styled from "styled-components";
 import "../utils/styles/global.scss";
 import { CourseNavigationProvider, useCourseNavigation } from "../context";
 import Menu from "../components/courses/Menu";
+import { theme } from "../utils/styles/theme";
 
 const PersistentMenu = () => {
   const router = useRouter();
@@ -40,7 +41,7 @@ const PersistentMenuWrapper = styled.div`
   position: fixed;
   top: 135px;
   left: 0;
-  width: 300px;
+  width: ${theme.sizes.sidebarWidth};
   height: calc(100vh - 135px);
   z-index: 100;
 `;

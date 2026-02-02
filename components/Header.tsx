@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-import { FaAngleDown } from "react-icons/fa";
 import { theme } from "../utils";
 
 // Interpolate a value based on scroll position
@@ -43,10 +42,10 @@ const Header = (): JSX.Element => {
   }, []);
 
   // Interpolate values based on scroll position (0 to 200px)
-  const headerHeight = interpolate(scrollY, [0, 200], [140, 90]);
+  const headerHeight = interpolate(scrollY, [0, 200], [140, 105]);
   const logoSize = interpolate(scrollY, [0, 200], [54, 40]);
   const titleSize = interpolate(scrollY, [0, 200], [4, 2.5]);
-  const navOffset = interpolate(scrollY, [0, 200], [0, -12]);
+  const navOffset = interpolate(scrollY, [0, 200], [-14, -20]);
   const navPadding = interpolate(scrollY, [0, 200], [0, 8]);
 
   interface HeaderLinkInterface {
@@ -69,20 +68,11 @@ const Header = (): JSX.Element => {
         </a>
       </Link>
       <nav style={{ transform: `translateY(${navOffset}px)`, paddingTop: navPadding, paddingBottom: navPadding }}>
-        {headerLinks.map((link, i) =>
-          link.name !== "Resources" ? (
-            <Link key={i} href={`/${link.url}`}>
-              <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
-            </Link>
-          ) : (
-            <Link key={i} href={`/${link.url}`}>
-              <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>
-                {link.name}
-                <FaAngleDown />
-              </a>
-            </Link>
-          )
-        )}
+        {headerLinks.map((link, i) => (
+          <Link key={i} href={`/${link.url}`}>
+            <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
+          </Link>
+        ))}
       </nav>
     </HeaderStyled>
   );
@@ -95,8 +85,8 @@ const HeaderStyled = styled.header`
   top: 0;
   width: 100vw;
   z-index: 1000;
-  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
-  background: #eee;
+  border-bottom: 1px solid ${theme.colors.neutral[12]};
+  background: ${theme.colors.neutral[14]};
 
   .heading {
     display: flex;
@@ -106,6 +96,12 @@ const HeaderStyled = styled.header`
     cursor: pointer;
     width: 500px;
     margin: auto;
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.green};
+      outline-offset: 2px;
+    }
   }
 
   .title {
@@ -115,27 +111,34 @@ const HeaderStyled = styled.header`
 
   nav {
     display: flex;
-    gap: 2em;
+    gap: 0.5em;
     justify-content: center;
+    margin-top: 0.25rem;
 
     .header-link {
-      padding: 0 0.1em;
-      margin: 0;
+      padding: 0.5rem 1rem;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
       font-size: 1em;
+      border-radius: 4px;
+      transition: background-color 150ms ease;
 
-      &:last-of-type {
-        display: flex;
-        align-items: center;
+      &:hover {
+        background-color: ${theme.colors.neutral[13]};
       }
-      svg {
-        color: #333;
-        margin-left: 3px;
+
+      &:focus-visible {
+        outline: 2px solid ${theme.colors.green};
+        outline-offset: 2px;
       }
     }
 
     .header-link-active {
       font-weight: bold;
-      border-bottom: 1px ${theme.colors.neutral[2]} dashed;
+      text-decoration: underline dashed;
+      text-decoration-color: ${theme.colors.neutral[2]};
+      text-underline-offset: 4px;
     }
   }
 `;

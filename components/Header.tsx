@@ -1,17 +1,26 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import debounce from "lodash.debounce";
 
 import { FaAngleDown } from "react-icons/fa";
 import { theme } from "../utils";
 
-const ANIMATION_SPEED: string = "150ms";
+// Interpolate a value based on scroll position
+const interpolate = (
+  scrollY: number,
+  inputRange: [number, number],
+  outputRange: [number, number]
+): number => {
+  const [inputMin, inputMax] = inputRange;
+  const [outputMin, outputMax] = outputRange;
+  const progress = Math.min(Math.max((scrollY - inputMin) / (inputMax - inputMin), 0), 1);
+  return outputMin + progress * (outputMax - outputMin);
+};
 
 const Header = (): JSX.Element => {
-  const [small, setSmall] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const [currentRoute, setCurrentRoute] = useState("");
   const router = useRouter();
 
@@ -20,29 +29,24 @@ const Header = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    console.log(currentRoute);
-  }, [currentRoute]); 
-
-  //resize header on scroll
-  const handleScroll = () => {
-    if (window.pageYOffset >= 200) {
-      setSmall(true);
-    } else {
-      setSmall(false);
-    }
-  };
-
-  useEffect(() => {
-    const debounceScroll = debounce(handleScroll, 5);
+    const handleScroll = () => {
+      setScrollY(window.pageYOffset);
+    };
 
     if (typeof window !== "undefined") {
-      window.addEventListener("scroll", debounceScroll);
+      window.addEventListener("scroll", handleScroll, { passive: true });
     }
 
     return () => {
-      window.removeEventListener("scroll", debounceScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Interpolate values based on scroll position (0 to 200px)
+  const headerHeight = interpolate(scrollY, [0, 200], [140, 70]);
+  const logoSize = interpolate(scrollY, [0, 200], [54, 40]);
+  const titleSize = interpolate(scrollY, [0, 200], [4, 2.5]);
+  const navOffset = interpolate(scrollY, [0, 200], [0, -12]);
 
   interface HeaderLinkInterface {
     name: string;
@@ -53,27 +57,26 @@ const Header = (): JSX.Element => {
     { name: "Home", url: "" },
     { name: "Courses", url: "courses" },
     { name: "Method Book", url: "book" },
-    { name: "Lessons", url: "lessons" },
     { name: "Resources", url: "resources" },
   ];
 
   return (
-    <HeaderStyled style={small ? { height: theme.sizes.headerSmall } : { height: theme.sizes.header }}>
+    <HeaderStyled style={{ height: headerHeight }}>
       <Link href="/">
         <a className="heading">
-          <Logo size={!small ? 54 : 45} />
-          <h1 className={`heading-style title ${small && "title-small"}`}>GarnerGuitar.com</h1>
+          <Logo size={logoSize} />
+          <h1 className="heading-style title" style={{ fontSize: `${titleSize}rem` }}>GarnerGuitar.com</h1>
         </a>
       </Link>
-      <nav className={small ? "nav-small" : "nav"}>
+      <nav style={{ transform: `translateY(${navOffset}px)` }}>
         {headerLinks.map((link, i) =>
           link.name !== "Resources" ? (
             <Link key={i} href={`/${link.url}`}>
-              <a className={`header-link ${small && "header-link-small"} ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
+              <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
             </Link>
           ) : (
             <Link key={i} href={`/${link.url}`}>
-              <a className={`header-link ${small && "header-link-small"} ${link.url === currentRoute && "header-link-active"}`}>
+              <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>
                 {link.name}
                 <FaAngleDown />
               </a>
@@ -94,7 +97,6 @@ const HeaderStyled = styled.header`
   z-index: 1000;
   box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
   background: #eee;
-  transition: height 100ms ease;
 
   .heading {
     display: flex;
@@ -106,28 +108,15 @@ const HeaderStyled = styled.header`
     margin: auto;
   }
 
-  .logo {
-    width: 60;
-    height: 60;
-  }
-
   .title {
-    font-size: 4rem;
     margin: 0 0 0 10px;
     transform: translateY(2px);
-    transition: font-size ${ANIMATION_SPEED} ease;
-  }
-
-  .title-small {
-    font-size: 3rem;
   }
 
   nav {
     display: flex;
     gap: 2em;
     justify-content: center;
-    /* padding-bottom: 1em; */
-    transition: all ${ANIMATION_SPEED} linear;
 
     .header-link {
       padding: 0 0.1em;
@@ -141,7 +130,6 @@ const HeaderStyled = styled.header`
       svg {
         color: #333;
         margin-left: 3px;
-        transition: all ${ANIMATION_SPEED} linear;
       }
     }
 
@@ -149,14 +137,5 @@ const HeaderStyled = styled.header`
       font-weight: bold;
       border-bottom: 1px ${theme.colors.neutral[2]} dashed;
     }
-
-    .header-link-small {
-      transform: translateY(-0.7em);
-      padding-top: 0.5em;
-    }
-  }
-
-  .nav-small {
-    /* padding-bottom: 0; */
   }
 `;

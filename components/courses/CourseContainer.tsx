@@ -68,11 +68,15 @@ const CourseContainerStyled = styled.div`
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  h1,
-  h2 {
+  h1 {
     font-size: 2em;
     margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    margin-top: 0;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    margin-top: 1.5em;
   }
   h3 {
     font-size: 1.6em;
@@ -83,7 +87,8 @@ const CourseContainerStyled = styled.div`
     margin-bottom: 1em;
   }
   img {
-    margin: 1em;
+    margin: 0.5em 0;
+    max-width: 100%;
   }
   .container {
     padding: 1em;

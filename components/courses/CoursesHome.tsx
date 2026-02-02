@@ -77,7 +77,7 @@ const CoursesHome = (): JSX.Element => {
                 </span>
                 <div>
                   <strong>Video demonstrations</strong>
-                  <span>See and hear exactly how each technique should sound</span>
+                  <span>See and hear each technique demonstrated correctly</span>
                 </div>
               </li>
               <li>

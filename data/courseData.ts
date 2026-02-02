@@ -94,13 +94,6 @@ export const courses: CoursesInterface[] = [
             images: [" "],
           },
           {
-            title: "Practice log",
-            component: "PracticeLog",
-            headings: [""],
-            text: [" "],
-            images: [" "],
-          },
-          {
             title: "Repertoire",
             component: "Repertoire",
             headings: [""],

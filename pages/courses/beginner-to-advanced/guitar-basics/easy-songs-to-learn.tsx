@@ -6,7 +6,7 @@ const EasySongs = (): JSX.Element => {
   const courseTypeIndex = 0;
   const courseIndex = 0;
   const course = courses[courseTypeIndex].courses[courseIndex];
-  const page = course.pages[16];
+  const page = course.pages[15];
 
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>

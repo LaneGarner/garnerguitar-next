@@ -7,14 +7,14 @@ const Notation = (): JSX.Element => {
   const courseTypeIndex = 0;
   const courseIndex = 0;
   const course = courses[courseTypeIndex].courses[courseIndex];
-  const page = course.pages[11];
+  const page = course.pages[10];
 
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>
       <NotationStyled>
 
         <h2>Types of notation</h2>
-        <p>Guitar music is notated in three ways: Chord Diagrams, Tablature (or TAB), and Standard Notation. Each method of notation is useful on its own and when combined with the other methods.</p>
+        <p>Guitar music is notated in three common ways: Chord Diagrams, Tablature (or TAB), and Standard Notation. Each method of notation is useful on its own and when combined with the other methods.</p>
 
         <h2>Tablature</h2>
         <Image src={`${course.imgPath}/tab-example.jpg`} width={500} height={158} alt="Tablature example" />

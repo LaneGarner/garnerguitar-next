@@ -7,7 +7,7 @@ const PowerChords = (): JSX.Element => {
   const courseTypeIndex = 0;
   const courseIndex = 0;
   const course = courses[courseTypeIndex].courses[courseIndex];
-  const page = course.pages[14];
+  const page = course.pages[13];
 
   return (
     <CourseContainer courseTypeIndex={courseTypeIndex} course={course} courseIndex={courseIndex} page={page}>

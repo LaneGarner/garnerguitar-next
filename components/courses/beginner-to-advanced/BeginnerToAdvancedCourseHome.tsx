@@ -139,6 +139,7 @@ const ContainerStyled = styled.div`
     justify-content: center;
     gap: ${theme.sizes.l};
     margin-bottom: ${theme.sizes.xl};
+    padding: 0 1rem;
 
     > *:nth-child(1),
     > *:nth-child(3) {

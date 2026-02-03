@@ -4,6 +4,11 @@ html {
   font-family: monospace;
   font-size: 15px;
   height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 p {

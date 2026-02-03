@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, ReactNode } from "react";
+import { createContext, useContext, useMemo, useState, ReactNode } from "react";
 import { useRouter } from "next/router";
 import { courses } from "../data";
 import { CourseInterface, PagesInterface } from "../data/courseData";
@@ -15,6 +15,8 @@ interface CourseNavigationContextValue {
   isLastPage: boolean;
   prevUrl: string;
   nextUrl: string;
+  isMobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
 }
 
 const CourseNavigationContext = createContext<CourseNavigationContextValue | null>(null);
@@ -26,8 +28,9 @@ interface CourseNavigationProviderProps {
 export const CourseNavigationProvider = ({ children }: CourseNavigationProviderProps) => {
   const router = useRouter();
   const currentPath = router.asPath;
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const value = useMemo(() => {
+  const navigationData = useMemo(() => {
     // Parse course info from URL path
     // Expected format: /courses/{category}/{course}/{lesson?}
     const pathParts = currentPath.split("/").filter(Boolean);
@@ -99,6 +102,15 @@ export const CourseNavigationProvider = ({ children }: CourseNavigationProviderP
       nextUrl,
     };
   }, [currentPath]);
+
+  const value = useMemo(() => {
+    if (!navigationData) return null;
+    return {
+      ...navigationData,
+      isMobileMenuOpen,
+      setMobileMenuOpen,
+    };
+  }, [navigationData, isMobileMenuOpen]);
 
   return (
     <CourseNavigationContext.Provider value={value}>

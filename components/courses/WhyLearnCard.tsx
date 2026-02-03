@@ -88,7 +88,8 @@ const WhyLearnCardStyled = styled.div`
     }
 
     @media (max-width: ${theme.breakpoints.md}) {
-      display: block;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
   }
@@ -97,20 +98,11 @@ const WhyLearnCardStyled = styled.div`
     color: ${theme.colors.green};
     font-size: 1.25rem;
     line-height: 1.4;
-
-    @media (max-width: ${theme.breakpoints.md}) {
-      display: inline;
-      margin-right: ${theme.sizes.xs};
-    }
   }
 
   strong {
     display: block;
     color: ${theme.colors.neutral[14]};
-
-    @media (max-width: ${theme.breakpoints.md}) {
-      display: inline;
-    }
   }
 
   span {

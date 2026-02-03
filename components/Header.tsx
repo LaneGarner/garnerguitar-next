@@ -200,8 +200,8 @@ const HeaderStyled = styled.header`
     transform: translateY(2px);
     font-size: var(--title-size);
 
-    @media (max-width: 900px) {
-      font-size: clamp(2rem, 16vw - 1.5rem, 4rem);
+    @media (max-width: 800px) {
+      font-size: clamp(2rem, 16vw - 1.5rem, 3rem);
     }
 
     @media (max-width: 350px) {

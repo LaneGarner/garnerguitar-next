@@ -47,11 +47,18 @@ interface SizesInterface {
   sidebarWidth: string;
 }
 
+interface BreakpointsInterface {
+  sm: string;
+  md: string;
+  lg: string;
+}
+
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: ColorsInterface;
     fonts: string[];
     sizes: SizesInterface;
+    breakpoints: BreakpointsInterface;
   }
 }
 
@@ -59,6 +66,7 @@ interface ThemeInterface {
   colors: ColorsInterface;
   fonts: string[];
   sizes: SizesInterface;
+  breakpoints: BreakpointsInterface;
   utils: UtilsInterface;
 }
 
@@ -98,6 +106,11 @@ export const theme: ThemeInterface = {
     header: "150px",
     headerSmall: "100px",
     sidebarWidth: "280px",
+  },
+  breakpoints: {
+    sm: "480px",
+    md: "768px",
+    lg: "900px",
   },
   utils: {
     shadows: {

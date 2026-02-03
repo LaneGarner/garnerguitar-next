@@ -103,7 +103,7 @@ const Header = (): JSX.Element => {
       <div className="header-content">
         <Link href="/" className="heading">
           <Logo size={logoSize} />
-          <h1 className="heading-style title" style={{ fontSize: `${titleSize}rem` }}>GarnerGuitar.com</h1>
+          <h1 className="heading-style title">GarnerGuitar.com</h1>
         </Link>
         <BurgerButton
           ref={buttonRef}
@@ -198,13 +198,10 @@ const HeaderStyled = styled.header`
   .title {
     margin: 0 0 0 10px;
     transform: translateY(2px);
+    font-size: var(--title-size);
 
     @media (max-width: 900px) {
-      font-size: min(var(--title-size), clamp(0.9rem, 4vw, 2rem));
-    }
-
-    @media (max-width: 525px) {
-      font-size: clamp(0.75rem, 12vw - 2.5rem, 1.25rem);
+      font-size: clamp(2rem, 16vw - 1.5rem, 4rem);
     }
 
     @media (max-width: 350px) {

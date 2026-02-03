@@ -10,17 +10,15 @@ interface Props {
 
 const Button = ({ title, link, children }: Props): JSX.Element => {
   return (
-    <Link href={link}>
-      <ButtonStyled>
-        {title && title} {children && children}
-      </ButtonStyled>
-    </Link>
+    <ButtonStyled href={link}>
+      {title && title} {children && children}
+    </ButtonStyled>
   );
 };
 
 export default Button;
 
-const ButtonStyled = styled.a`
+const ButtonStyled = styled(Link)`
   background-color: ${theme.colors.gold};
   width: 300px;
   padding: ${theme.sizes.s};

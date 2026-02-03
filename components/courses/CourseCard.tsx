@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
+import Pill from "../common/Pill";
 
 interface Props {
   title: string;
@@ -46,9 +47,7 @@ const CourseCard = ({
 
       <div className="skills">
         {skills.map((skill) => (
-          <span key={skill} className="skill-tag">
-            {skill}
-          </span>
+          <Pill key={skill}>{skill}</Pill>
         ))}
       </div>
 
@@ -65,8 +64,8 @@ const CourseCard = ({
   }
 
   return (
-    <Link href={url}>
-      <a aria-label={ariaLabel}>{cardContent}</a>
+    <Link href={url} aria-label={ariaLabel}>
+      {cardContent}
     </Link>
   );
 };
@@ -74,17 +73,13 @@ const CourseCard = ({
 export default CourseCard;
 
 const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
+  ${theme.utils.cards.dark}
   position: relative;
   width: 340px;
-  border-radius: ${theme.sizes.s};
-  background-color: ${theme.colors.neutral[3]};
-  color: white;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: ${theme.utils.shadows.primary};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -146,6 +141,7 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     font-size: 0.875rem;
     line-height: 1.6;
     margin: 0;
+    text-align: left;
   }
 
   .skills {
@@ -156,15 +152,6 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     margin-bottom: 1rem;
   }
 
-  .skill-tag {
-    background-color: transparent;
-    color: ${theme.colors.neutral[12]};
-    border: 1px solid ${theme.colors.neutral[6]};
-    padding: 0.3em 0.75em;
-    border-radius: 1em;
-    font-size: 0.7rem;
-  }
-
   .cta {
     color: ${theme.colors.green};
     font-weight: 600;
@@ -172,7 +159,7 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     margin-top: auto;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     width: 100%;
     max-width: 400px;
   }

@@ -1,7 +1,7 @@
 import { Layout } from "../../components";
 import styled from "styled-components";
 import Head from "next/head";
-import { CourseTitleCard } from "../../components/courses";
+import { CourseTitleCard, WhyLearnCard } from "../../components/courses";
 import { theme } from "../../utils/styles/theme";
 
 import { courses, CoursesInterface } from "../../data/courseData";
@@ -24,72 +24,40 @@ const CoursesHome = (): JSX.Element => {
         </Head>
         <CoursesPageStyled>
           <h1 className="heading-style">Guitar Courses</h1>
-          <p className="intro">
-            Structured courses to take you from first chord to confident player. Learn at your own pace with video lessons and guided exercises designed to build real musical skills.
-          </p>
+          <div className="intro-card">
+            <p className="intro">
+              Structured courses to take you from first chord to confident player. Learn at your own pace with video lessons and guided exercises designed to build real musical skills.
+            </p>
+          </div>
 
-          <section className="all-courses">
-            <div className="course-cards-row">
-              {courses.map((category, index) => {
-                const metrics = getMetrics(category);
-                return (
+          <section className="courses-grid">
+            {courses.map((category, index) => {
+              const metrics = getMetrics(category);
+              const gridClass =
+                index === 0 ? "featured-card" : index === 1 ? "jazz-card" : "young-card";
+              return (
+                <div key={category.shortName} className={gridClass}>
                   <CourseTitleCard
-                    key={category.shortName}
                     title={category.title}
                     tagline={category.tagline}
                     img={category.img}
                     shortName={`/courses/${category.shortName}`}
                     courseCount={metrics.courseCount}
                     lessonCount={metrics.lessonCount}
-                    highlights={category.highlights}
+                    highlights={
+                      index === 0
+                        ? category.courses.flatMap((course) => course.skills)
+                        : category.highlights
+                    }
                     isFeatured={index === 0}
                     isComingSoon={category.isComingSoon}
                   />
-                );
-              })}
+                </div>
+              );
+            })}
+            <div className="why-card">
+              <WhyLearnCard />
             </div>
-          </section>
-
-          <section className="value-props">
-            <h2>Why learn with these courses?</h2>
-            <ul>
-              <li>
-                <span className="checkmark" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <strong>Self-paced learning</strong>
-                  <span>Learn on your schedule, revisit lessons anytime</span>
-                </div>
-              </li>
-              <li>
-                <span className="checkmark" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <strong>Free intro course</strong>
-                  <span>Start learning at no cost with the Guitar Basics course</span>
-                </div>
-              </li>
-              <li>
-                <span className="checkmark" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <strong>Video demonstrations</strong>
-                  <span>See and hear each technique demonstrated correctly</span>
-                </div>
-              </li>
-              <li>
-                <span className="checkmark" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <strong>Structured curriculum</strong>
-                  <span>Clear path from fundamentals to advanced concepts</span>
-                </div>
-              </li>
-            </ul>
           </section>
         </CoursesPageStyled>
       </Layout>
@@ -110,91 +78,107 @@ const CoursesPageStyled = styled.div`
     font-size: 2.25rem;
     font-family: monospace;
     margin-bottom: 0.25em;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      font-size: 1.75rem;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 1.5rem;
+    }
   }
 
-  .intro {
-    margin-bottom: ${theme.sizes.m};
+  .intro-card {
+    ${theme.utils.cards.darker}
+    margin-top: 1rem;
+    margin-bottom: 3rem;
     width: 80%;
     max-width: 700px;
     text-align: center;
+    line-height: 1.6;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      width: 90%;
+      padding: 1.25rem 1.5rem;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      width: 95%;
+      padding: 1rem 1.25rem;
+      font-size: 1em;
+    }
   }
 
-  .all-courses {
-    margin-bottom: ${theme.sizes.l};
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  .intro {
+    margin: 0;
   }
 
-  .course-cards-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+  .courses-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto auto auto;
     gap: 1.5rem;
-  }
-
-  .value-props {
-    background-color: ${theme.colors.neutral[2]};
-    border-radius: ${theme.sizes.s};
-    padding: ${theme.sizes.m};
+    max-width: 900px;
     width: 90%;
-    max-width: 600px;
+    align-items: start;
+  }
 
-    h2 {
-      font-size: 1.25rem;
-      margin-bottom: ${theme.sizes.s};
-      text-align: center;
-      color: ${theme.colors.neutral[15]};
+  .featured-card {
+    grid-row: 1 / 3;
+    grid-column: 1;
+  }
+
+  .jazz-card {
+    grid-row: 1;
+    grid-column: 2;
+    margin-top: 1rem;
+  }
+
+  .young-card {
+    grid-row: 2;
+    grid-column: 2;
+  }
+
+  .why-card {
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    text-align: center;
+
+    .courses-grid {
+      grid-template-columns: 1fr;
+      padding: 0 1rem;
+      justify-items: center;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .featured-card {
+      grid-row: auto;
+      grid-column: 1;
     }
 
-    li {
-      display: flex;
-      align-items: flex-start;
-      gap: ${theme.sizes.s};
-      margin-bottom: ${theme.sizes.s};
-
-      &:last-child {
-        margin-bottom: 0;
-      }
+    .jazz-card {
+      grid-row: auto;
+      grid-column: 1;
+      margin-top: 0;
     }
 
-    .checkmark {
-      color: ${theme.colors.green};
-      font-size: 1.25rem;
-      line-height: 1.4;
+    .young-card {
+      grid-row: auto;
+      grid-column: 1;
     }
 
-    strong {
-      display: block;
-      color: ${theme.colors.neutral[14]};
-    }
-
-    span {
-      color: ${theme.colors.neutral[10]};
-      font-size: 0.9rem;
+    .why-card {
+      grid-row: auto;
+      grid-column: 1;
     }
   }
 
-  @media (max-width: 900px) {
-    .intro {
-      width: 90%;
-    }
-
-    .course-cards-row {
-      flex-direction: column;
-      align-items: center;
-      padding: 0 1rem;
-    }
-
-    .value-props {
-      width: 90%;
+  @media (max-width: ${theme.breakpoints.sm}) {
+    .courses-grid {
+      padding: 0 ${theme.sizes.xs};
+      gap: 1rem;
     }
   }
 `;

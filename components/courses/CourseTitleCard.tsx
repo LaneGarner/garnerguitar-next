@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
+import Pill from "../common/Pill";
 
 interface Props {
   title: string;
@@ -31,39 +32,35 @@ const CourseTitleCard = (props: Props): JSX.Element => {
   const ariaLabel = `${title} Guitar Courses${isComingSoon ? " - Coming Soon" : ""}`;
 
   return (
-    <Link href={shortName}>
-      <a aria-label={ariaLabel}>
-        <CourseTitleCardStyled $isFeatured={isFeatured}>
-          {isFeatured && <Badge $type="featured">Start Here</Badge>}
-          {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
+    <Link href={shortName} aria-label={ariaLabel}>
+      <CourseTitleCardStyled $isFeatured={isFeatured}>
+        {isFeatured && <Badge $type="featured">Start Here</Badge>}
+        {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
 
-          <h3>{title}</h3>
-          <p className="tagline">{tagline}</p>
-          <div className="image-container">
-            <Image
-              src={img}
-              width={isFeatured ? 120 : 100}
-              height={isFeatured ? 160 : 133}
-              alt={`${title} course cover`}
-            />
-          </div>
-          {!isComingSoon && (
-            <p className="metrics">
-              {courseCount} {courseCount === 1 ? "Course" : "Courses"} • {lessonCount} Lessons
-            </p>
-          )}
-          <div className="highlights">
-            {highlights.map((highlight) => (
-              <span key={highlight} className="highlight-tag">
-                {highlight}
-              </span>
-            ))}
-          </div>
-          <span className="cta">
-            Explore Courses <span aria-hidden="true">→</span>
-          </span>
-        </CourseTitleCardStyled>
-      </a>
+        <h3>{title}</h3>
+        <p className="tagline">{tagline}</p>
+        <div className="image-container">
+          <Image
+            src={img}
+            width={isFeatured ? 120 : 100}
+            height={isFeatured ? 160 : 133}
+            alt={`${title} course cover`}
+          />
+        </div>
+        {!isComingSoon && (
+          <p className="metrics">
+            {courseCount} {courseCount === 1 ? "Course" : "Courses"} • {lessonCount} Lessons
+          </p>
+        )}
+        <div className="highlights">
+          {highlights.map((highlight) => (
+            <Pill key={highlight}>{highlight}</Pill>
+          ))}
+        </div>
+        <span className="cta">
+          Explore Courses <span aria-hidden="true">→</span>
+        </span>
+      </CourseTitleCardStyled>
     </Link>
   );
 };
@@ -75,18 +72,15 @@ interface StyledProps {
 }
 
 const CourseTitleCardStyled = styled.div<StyledProps>`
+  ${theme.utils.cards.dark}
   position: relative;
-  width: ${({ $isFeatured }) => ($isFeatured ? "420px" : "280px")};
-  margin-top: ${({ $isFeatured }) => ($isFeatured ? "0" : "1rem")};
-  border-radius: ${theme.sizes.s};
-  background-color: ${theme.colors.neutral[3]};
-  color: white;
+  width: 100%;
+  min-height: ${({ $isFeatured }) => ($isFeatured ? "480px" : "auto")};
   padding: ${({ $isFeatured }) => ($isFeatured ? "1.25rem" : "1.5rem 1rem")};
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: ${theme.utils.shadows.primary};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -143,24 +137,15 @@ const CourseTitleCardStyled = styled.div<StyledProps>`
     margin-bottom: 0.75rem;
   }
 
-  .highlight-tag {
-    background-color: ${theme.colors.neutral[5]};
-    color: ${theme.colors.neutral[14]};
-    padding: 0.2em 0.6em;
-    border-radius: 1em;
-    font-size: 0.7rem;
-  }
-
   .cta {
     color: ${theme.colors.green};
     font-weight: 600;
     font-size: 0.9rem;
   }
 
-  @media (max-width: 900px) {
-    width: 100%;
-    max-width: ${({ $isFeatured }) => ($isFeatured ? "420px" : "320px")};
-    margin-top: 0;
+  @media (max-width: ${theme.breakpoints.md}) {
+    max-width: 420px;
+    min-height: auto;
   }
 `;
 

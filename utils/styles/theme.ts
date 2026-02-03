@@ -23,8 +23,14 @@ interface ShadowInterface {
   dark: string;
 }
 
+interface CardInterface {
+  dark: string;
+  darker: string;
+}
+
 interface UtilsInterface {
   shadows: ShadowInterface;
+  cards: CardInterface;
 }
 
 interface ColorsInterface {
@@ -47,11 +53,18 @@ interface SizesInterface {
   sidebarWidth: string;
 }
 
+interface BreakpointsInterface {
+  sm: string;
+  md: string;
+  lg: string;
+}
+
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: ColorsInterface;
     fonts: string[];
     sizes: SizesInterface;
+    breakpoints: BreakpointsInterface;
   }
 }
 
@@ -59,6 +72,7 @@ interface ThemeInterface {
   colors: ColorsInterface;
   fonts: string[];
   sizes: SizesInterface;
+  breakpoints: BreakpointsInterface;
   utils: UtilsInterface;
 }
 
@@ -99,11 +113,32 @@ export const theme: ThemeInterface = {
     headerSmall: "100px",
     sidebarWidth: "280px",
   },
+  breakpoints: {
+    sm: "480px",
+    md: "768px",
+    lg: "900px",
+  },
   utils: {
     shadows: {
       light: "0px 8px 16px 0px rgba(0, 0, 0, 0.05)",
       primary: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
       dark: "0px 8px 16px 0px rgba(0, 0, 0, 0.35)",
+    },
+    cards: {
+      dark: `
+        background-color: #333;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.35);
+        color: #ddd;
+      `,
+      darker: `
+        background-color: #262626;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.35);
+        color: #ddd;
+      `,
     },
   },
 };

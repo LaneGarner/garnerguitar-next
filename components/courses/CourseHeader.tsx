@@ -45,15 +45,13 @@ const CourseHeader = (): JSX.Element => {
   return (
     <HeaderStyled>
       <div className="header-top">
-        <Link href="/">
-          <a className="brand">
-            <Logo size={36} />
-            <span className="site-title heading-style">GarnerGuitar.com</span>
-          </a>
+        <Link href="/" className="brand">
+          <Logo size={36} />
+          <span className="site-title heading-style">GarnerGuitar.com</span>
         </Link>
         <nav className="header-nav" aria-label="Site navigation">
-          <Link href="/courses">
-            <a className="nav-link">All Courses</a>
+          <Link href="/courses" className="nav-link">
+            All Courses
           </Link>
         </nav>
       </div>

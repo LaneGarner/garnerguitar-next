@@ -14,6 +14,7 @@ import CourseHeader from "./courses/CourseHeader";
 import CourseContainer from "./courses/CourseContainer";
 import CoursesHome from "./courses/CoursesHome";
 import BeginnerToAdvancedCourseHome from "./courses/beginner-to-advanced/BeginnerToAdvancedCourseHome";
+import Pill from "./common/Pill";
 
 export {
   About,
@@ -25,6 +26,7 @@ export {
   CoursesHome,
   EmailList,
   Footer,
+  Pill,
   Social,
   VideoLessons,
   Cards,

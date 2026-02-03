@@ -36,19 +36,38 @@ export default Hero;
 const HeroStyled = styled.div`
   background: url(images/online-guitar-lessons.jpg);
   min-height: 500px;
-  background-attachment: fixed;
   background-size: cover;
+  background-position: center;
   margin: 0 2em ${theme.sizes.xl} 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: ${theme.utils.shadows.primary};
   border-radius: 4px;
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    min-height: 350px;
+    margin: 0 ${theme.sizes.s} ${theme.sizes.l} ${theme.sizes.s};
+  }
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    min-height: 280px;
+    margin: 0 ${theme.sizes.xs} ${theme.sizes.m} ${theme.sizes.xs};
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   li {
     background: #111111bb;
     color: white;
-    margin: 2em;
+    margin: 1.5em;
     list-style-type: none;
     padding: 1em;
     font-size: 1.4em;
@@ -58,10 +77,27 @@ const HeroStyled = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      margin: 0.75em 1em;
+      font-size: 1.2em;
+      padding: 0.75em 1em;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      margin: 0.5em;
+      font-size: 1em;
+      padding: 0.75em;
+      width: calc(100% - 1em);
+      max-width: 280px;
+    }
   }
+
   span {
     margin-right: 0.6em;
     transform: translateY(3px);
     font-size: 1.1em;
+    flex-shrink: 0;
   }
 `;

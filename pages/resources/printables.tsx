@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Layout } from "../../components";
 import styled from "styled-components";
+import { theme } from "../../utils/styles/theme";
 
 const Printables = (): JSX.Element => {
   return (
@@ -14,64 +15,50 @@ const Printables = (): JSX.Element => {
 
         <h2>Blank Notation Sheets</h2>
         <div className="printables-grid">
-          <div className="printable-card">
+          <a href="/pdf/staff-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Staff paper PDF">
             <h3>Staff</h3>
-            <Image src="/images/staff-guitar-lessons-austin-texas.png" width={150} height={100} alt="Staff paper" />
-            <a href="/pdf/staff-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/staff-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
 
-          <div className="printable-card">
+          <a href="/pdf/tab-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Tab paper PDF">
             <h3>Tab</h3>
-            <Image src="/images/tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="Tab paper" />
-            <a href="/pdf/tab-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
 
-          <div className="printable-card">
+          <a href="/pdf/staff-and-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Staff and Tab paper PDF">
             <h3>Staff & Tab</h3>
-            <Image src="/images/staff-and-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="Staff and tab paper" />
-            <a href="/pdf/staff-and-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/staff-and-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
 
-          <div className="printable-card">
+          <a href="/pdf/bass-tab-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Bass Tab paper PDF">
             <h3>Bass Tab</h3>
-            <Image src="/images/bass-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="Bass tab paper" />
-            <a href="/pdf/bass-tab-paper-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/bass-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
 
-          <div className="printable-card">
+          <a href="/pdf/staff-and-bass-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Staff and Bass Tab paper PDF">
             <h3>Staff & Bass Tab</h3>
-            <Image src="/images/staff-and-bass-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="Staff and bass tab paper" />
-            <a href="/pdf/staff-and-bass-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/staff-and-bass-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
         </div>
 
         <h2>Neck Diagrams</h2>
         <div className="printables-grid">
-          <div className="printable-card">
+          <a href="/pdf/5-guitar-neck-diagrams-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download 5 Guitar Necks diagram PDF">
             <h3>5 Guitar Necks</h3>
-            <Image src="/images/5-guitar-necks-guitar-lessons-austin-texas.png" width={150} height={100} alt="5 guitar necks" />
-            <a href="/pdf/5-guitar-neck-diagrams-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/5-guitar-necks-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
 
-          <div className="printable-card">
+          <a href="/pdf/9-guitar-neck-diagrams-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download 9 Guitar Necks diagram PDF">
             <h3>9 Guitar Necks</h3>
-            <Image src="/images/9-guitar-necks-guitar-lessons-austin-texas.png" width={150} height={100} alt="9 guitar necks" />
-            <a href="/pdf/9-guitar-neck-diagrams-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="download-btn">
-              Download PDF
-            </a>
-          </div>
+            <Image src="/images/9-guitar-necks-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
+            <span className="download-label">Download PDF</span>
+          </a>
         </div>
 
         <p className="request-note">
@@ -90,13 +77,18 @@ const PrintablesStyled = styled.div`
   padding: 2rem;
 
   > a {
-    color: #0066cc;
+    color: ${theme.colors.navy};
     text-decoration: none;
     display: inline-block;
     margin-bottom: 1rem;
 
     &:hover {
       text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.navy};
+      outline-offset: 2px;
     }
   }
 
@@ -121,10 +113,26 @@ const PrintablesStyled = styled.div`
   }
 
   .printable-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid ${theme.colors.neutral[12]};
+    border-radius: ${theme.sizes.s};
     padding: 1rem;
     text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: ${theme.utils.shadows.primary};
+    }
+
+    &:focus-visible {
+      outline: 3px solid ${theme.colors.green};
+      outline-offset: 2px;
+    }
 
     h3 {
       margin: 0 0 0.75rem 0;
@@ -135,18 +143,13 @@ const PrintablesStyled = styled.div`
       margin-bottom: 0.75rem;
     }
 
-    .download-btn {
+    .download-label {
       display: inline-block;
-      background: #0066cc;
+      background: ${theme.colors.navy};
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 4px;
-      text-decoration: none;
       font-size: 0.9rem;
-
-      &:hover {
-        background: #0055aa;
-      }
     }
   }
 
@@ -155,7 +158,7 @@ const PrintablesStyled = styled.div`
     text-align: center;
 
     a {
-      color: #0066cc;
+      color: ${theme.colors.navy};
     }
   }
 `;

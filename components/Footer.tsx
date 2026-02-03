@@ -1,41 +1,22 @@
-import styled from "styled-components";
 import Link from "next/link";
+import styled from "styled-components";
 import Logo from "./Logo";
 import { Social } from "./";
-import { FaEnvelope } from "react-icons/fa";
+import { theme } from "../utils/styles/theme";
 
 const Footer = (): JSX.Element => {
-  interface FooterLinkInterface {
-    name: string;
-    url: string;
-  }
-
-  const footerLinks: FooterLinkInterface[] = [
-    { name: "Courses", url: "/courses" },
-    { name: "Lessons", url: "/lessons" },
-    { name: "Printables", url: "/printables" },
-    { name: "Contact", url: "/contact" },
-  ];
-
-  const currentYear: number = new Date().getFullYear();
-
   return (
     <>
       <Social />
       <FooterStyled>
-        <section className="footer-links-container">
-          <div className="footer-links">
-            {footerLinks.map((link, i) => (
-              <Link key={i} href={link.url}>
-                <a>{link.name}</a>
-              </Link>
-            ))}
-          </div>
+        <div className="footer-content">
           <Logo size={150} />
-        </section>
-        <a href="https://lanegarner.dev/" target="_blank" className="copyright-text">
-            <em>Copyright &copy; {currentYear} Lane Garner</em>
-        </a>
+          <nav className="footer-nav">
+            <Link href="/courses">Courses</Link>
+            <Link href="/resources">Resources</Link>
+            <Link href="/about">About</Link>
+          </nav>
+        </div>
       </FooterStyled>
     </>
   );
@@ -51,22 +32,62 @@ const FooterStyled = styled.footer`
   background-color: #111;
   color: #fff;
   height: 278.5px;
-  gap: 2em;
+  padding: ${theme.sizes.m};
 
-  .footer-links-container {
-    display: flex;
-    align-items: flex-end;
-    gap: 3.5em;
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: auto;
+    min-height: 200px;
+    padding: ${theme.sizes.l} ${theme.sizes.m};
   }
 
-  .footer-links {
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: ${theme.sizes.m} ${theme.sizes.s};
+  }
+
+  .footer-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    gap: 1rem;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      transform: scale(0.85);
+    }
   }
-  .copyright-text {
-    color: #565b5e;
-    padding: 5px;
+
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      gap: 1rem;
+    }
+
+    a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+
+      @media (max-width: ${theme.breakpoints.sm}) {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        color: #fff;
+      }
+
+      &:focus-visible {
+        outline: 2px solid ${theme.colors.green};
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+    }
   }
 `;

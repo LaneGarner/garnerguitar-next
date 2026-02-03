@@ -229,7 +229,7 @@ const MenuStyled = styled.aside`
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 
     .check-icon {
-      color: ${theme.colors.green};
+      color: #2a8c6c;
       font-size: 0.75em;
       margin-right: 0.5em;
       flex-shrink: 0;

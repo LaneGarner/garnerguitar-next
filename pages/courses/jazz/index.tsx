@@ -21,8 +21,8 @@ const JazzCourseHome = (): JSX.Element => {
           <p>
             Jazz guitar courses are currently in development. Check back soon for lessons on jazz harmony, chord voicings, improvisation, and more.
           </p>
-          <Link href="/courses">
-            <a className="back-link">← Back to all courses</a>
+          <Link href="/courses" className="back-link">
+            ← Back to all courses
           </Link>
         </div>
       </ContainerStyled>

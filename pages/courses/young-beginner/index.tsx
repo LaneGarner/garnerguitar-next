@@ -21,8 +21,8 @@ const YoungBeginnerCourseHome = (): JSX.Element => {
           <p>
             Young beginner guitar courses are currently in development. Check back soon for lessons designed specifically for younger students.
           </p>
-          <Link href="/courses">
-            <a className="back-link">← Back to all courses</a>
+          <Link href="/courses" className="back-link">
+            ← Back to all courses
           </Link>
         </div>
       </ContainerStyled>

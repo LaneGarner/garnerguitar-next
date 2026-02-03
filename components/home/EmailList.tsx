@@ -71,7 +71,6 @@ const EmailListStyled = styled.div`
   }
   img {
     border-radius: 50%;
-    width: 40%;
   }
   button {
     background-color: ${theme.colors.gold};

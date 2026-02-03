@@ -27,7 +27,7 @@ const Footer = (): JSX.Element => {
           <div className="footer-links">
             {footerLinks.map((link, i) => (
               <Link key={i} href={link.url}>
-                <a>{link.name}</a>
+                {link.name}
               </Link>
             ))}
           </div>

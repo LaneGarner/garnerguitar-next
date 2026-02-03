@@ -61,16 +61,14 @@ const Header = (): JSX.Element => {
 
   return (
     <HeaderStyled style={{ height: headerHeight }}>
-      <Link href="/">
-        <a className="heading">
-          <Logo size={logoSize} />
-          <h1 className="heading-style title" style={{ fontSize: `${titleSize}rem` }}>GarnerGuitar.com</h1>
-        </a>
+      <Link href="/" className="heading">
+        <Logo size={logoSize} />
+        <h1 className="heading-style title" style={{ fontSize: `${titleSize}rem` }}>GarnerGuitar.com</h1>
       </Link>
       <nav style={{ transform: `translateY(${navOffset}px)`, paddingTop: navPadding, paddingBottom: navPadding }}>
         {headerLinks.map((link, i) => (
-          <Link key={i} href={`/${link.url}`}>
-            <a className={`header-link ${link.url === currentRoute && "header-link-active"}`}>{link.name}</a>
+          <Link key={i} href={`/${link.url}`} className={`header-link ${link.url === currentRoute && "header-link-active"}`}>
+            {link.name}
           </Link>
         ))}
       </nav>

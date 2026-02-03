@@ -34,9 +34,7 @@ const Card = ({ title, description, img, url }: CardProps): JSX.Element => {
     <>
       {title !== "Practice App" ? (
         <Link href={`/${url}`}>
-          <a>
-            <CardContent title={title} description={description} img={img} />
-          </a>
+          <CardContent title={title} description={description} img={img} />
         </Link>
       ) : (
         <a href={url} target="_blank" rel="noreferrer noopener">

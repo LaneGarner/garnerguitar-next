@@ -50,8 +50,8 @@ const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
           ))}
         </div>
         {isComingSoon && (
-          <Link href="/courses">
-            <a className="back-link">&larr; Back to all courses</a>
+          <Link href="/courses" className="back-link">
+            &larr; Back to all courses
           </Link>
         )}
       </ContainerStyled>

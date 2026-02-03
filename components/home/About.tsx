@@ -7,7 +7,7 @@ const About = (): JSX.Element => {
     <AboutStyled>
       <h2 className="heading-style">About Me</h2>
       <div className="img">
-        <Image src="/images/lane-garner-guitar-lessons-online-austin-texas.jpg" width={400} height={400} />
+        <Image src="/images/lane-garner-guitar-lessons-online-austin-texas.jpg" width={400} height={400} alt="Lane Garner, guitar instructor" />
       </div>
       <div className="text">
         <p>

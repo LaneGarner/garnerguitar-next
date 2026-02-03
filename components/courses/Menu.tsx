@@ -103,16 +103,15 @@ const Menu = (): JSX.Element | null => {
                 className="nav-item"
                 ref={isActive(i) ? activeItemRef : null}
               >
-                <Link href={getLessonUrl(page, i)}>
-                  <a
-                    className={`nav-link ${isActive(i) ? "active" : ""}`}
-                    aria-current={isActive(i) ? "page" : undefined}
-                  >
-                    {isCompleted && (
-                      <FaCheck className="check-icon" aria-hidden="true" />
-                    )}
-                    <span className="nav-link-title">{page.title}</span>
-                  </a>
+                <Link
+                  href={getLessonUrl(page, i)}
+                  className={`nav-link ${isActive(i) ? "active" : ""}`}
+                  aria-current={isActive(i) ? "page" : undefined}
+                >
+                  {isCompleted && (
+                    <FaCheck className="check-icon" aria-hidden="true" />
+                  )}
+                  <span className="nav-link-title">{page.title}</span>
                 </Link>
               </li>
             );

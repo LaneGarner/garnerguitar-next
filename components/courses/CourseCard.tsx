@@ -65,8 +65,8 @@ const CourseCard = ({
   }
 
   return (
-    <Link href={url}>
-      <a aria-label={ariaLabel}>{cardContent}</a>
+    <Link href={url} aria-label={ariaLabel}>
+      {cardContent}
     </Link>
   );
 };

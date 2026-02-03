@@ -31,39 +31,37 @@ const CourseTitleCard = (props: Props): JSX.Element => {
   const ariaLabel = `${title} Guitar Courses${isComingSoon ? " - Coming Soon" : ""}`;
 
   return (
-    <Link href={shortName}>
-      <a aria-label={ariaLabel}>
-        <CourseTitleCardStyled $isFeatured={isFeatured}>
-          {isFeatured && <Badge $type="featured">Start Here</Badge>}
-          {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
+    <Link href={shortName} aria-label={ariaLabel}>
+      <CourseTitleCardStyled $isFeatured={isFeatured}>
+        {isFeatured && <Badge $type="featured">Start Here</Badge>}
+        {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
 
-          <h3>{title}</h3>
-          <p className="tagline">{tagline}</p>
-          <div className="image-container">
-            <Image
-              src={img}
-              width={isFeatured ? 120 : 100}
-              height={isFeatured ? 160 : 133}
-              alt={`${title} course cover`}
-            />
-          </div>
-          {!isComingSoon && (
-            <p className="metrics">
-              {courseCount} {courseCount === 1 ? "Course" : "Courses"} • {lessonCount} Lessons
-            </p>
-          )}
-          <div className="highlights">
-            {highlights.map((highlight) => (
-              <span key={highlight} className="highlight-tag">
-                {highlight}
-              </span>
-            ))}
-          </div>
-          <span className="cta">
-            Explore Courses <span aria-hidden="true">→</span>
-          </span>
-        </CourseTitleCardStyled>
-      </a>
+        <h3>{title}</h3>
+        <p className="tagline">{tagline}</p>
+        <div className="image-container">
+          <Image
+            src={img}
+            width={isFeatured ? 120 : 100}
+            height={isFeatured ? 160 : 133}
+            alt={`${title} course cover`}
+          />
+        </div>
+        {!isComingSoon && (
+          <p className="metrics">
+            {courseCount} {courseCount === 1 ? "Course" : "Courses"} • {lessonCount} Lessons
+          </p>
+        )}
+        <div className="highlights">
+          {highlights.map((highlight) => (
+            <span key={highlight} className="highlight-tag">
+              {highlight}
+            </span>
+          ))}
+        </div>
+        <span className="cta">
+          Explore Courses <span aria-hidden="true">→</span>
+        </span>
+      </CourseTitleCardStyled>
     </Link>
   );
 };

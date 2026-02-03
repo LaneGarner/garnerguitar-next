@@ -13,7 +13,7 @@ const FirstPost = (): JSX.Element => {
       <h1>First Post</h1>
       <h2>
         <Link href="/">
-          <a>Back to home</a>
+          Back to home
         </Link>
       </h2>
       <Image src="/images/profile.jpg" height={imageSize} width={imageSize} alt="Your Name" />

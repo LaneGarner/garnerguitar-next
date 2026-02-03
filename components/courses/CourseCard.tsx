@@ -163,7 +163,7 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     margin-top: auto;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     width: 100%;
     max-width: 400px;
   }

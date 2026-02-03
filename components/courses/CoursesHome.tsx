@@ -133,7 +133,7 @@ const CoursesPageStyled = styled.div`
     grid-column: 1 / -1;
   }
 
-  @media (max-width: ${theme.breakpoints.lg}) {
+  @media (max-width: ${theme.breakpoints.md}) {
     text-align: center;
 
     .intro {

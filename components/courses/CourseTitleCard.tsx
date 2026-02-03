@@ -146,7 +146,7 @@ const CourseTitleCardStyled = styled.div<StyledProps>`
     font-size: 0.9rem;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     max-width: 420px;
     min-height: auto;
   }

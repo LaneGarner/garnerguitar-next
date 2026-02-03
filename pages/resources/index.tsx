@@ -8,7 +8,7 @@ const Resources = (): JSX.Element => {
     <Layout>
       <ResourcesStyled>
         <h1>Resources</h1>
-        <p>Helpful tools and downloads for guitarists and guitar teachers.</p>
+        <p>Helpful tools and downloadables for guitarists and guitar teachers.</p>
 
         <div className="resources-grid">
           <a
@@ -20,7 +20,7 @@ const Resources = (): JSX.Element => {
             <h2>Shedr</h2>
             <p>
               Musicians&apos; practice toolkit with metronome, tuner, and
-              practice tools
+              practice tools.
             </p>
             <div className="shedr-image">
               <Image
@@ -34,7 +34,7 @@ const Resources = (): JSX.Element => {
 
           <Link href="/resources/printables" className="resource-card">
             <h2>Printables</h2>
-            <p>Blank staff paper, tab paper, and neck diagrams</p>
+            <p>Blank staff paper, tab paper, and neck diagrams. Useful for teaching guitar lessons or just working something out to practice.</p>
           </Link>
         </div>
       </ResourcesStyled>

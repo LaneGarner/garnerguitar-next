@@ -17,7 +17,7 @@ const About = (): JSX.Element => {
         <p>
           My primary goal as a teacher is to focus intently on specific aspects of each student's musicianship-technique, harmonic concepts, ear-training, theory, etc while making
           each lesson fun for the student. It is my goal to improve the student’s playing by the end of each and every lesson. I find it important to teach fundamentals of music as
-          well as any additional material the student is interested in learning. In my 10+ years of teaching guitar I’ve worked with students of all levels and ages 5 to 65. I’ve
+          well as any additional material the student is interested in learning. In my decade plus of teaching guitar I’ve worked with students of all levels and ages 5 to 65. I’ve
           taught total beginners, intermediate players, college music majors, and even working professional musicians.
         </p>
         <p>
@@ -58,5 +58,8 @@ const AboutStyled = styled.div`
   }
   p {
     margin-bottom: ${theme.sizes.m};
+  }
+  strong {
+    font-family: monospace;
   }
 `;

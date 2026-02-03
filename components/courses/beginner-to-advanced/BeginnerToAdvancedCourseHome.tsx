@@ -78,6 +78,7 @@ const ContainerStyled = styled.div`
     font-family: monospace;
     text-align: center;
     margin-bottom: 1em;
+    padding: 0 1rem;
   }
 
   .coming-soon-banner {

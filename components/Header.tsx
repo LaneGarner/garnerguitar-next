@@ -153,7 +153,7 @@ const HeaderStyled = styled.header`
   border-bottom: 1px solid ${theme.colors.neutral[12]};
   background: ${theme.colors.neutral[14]};
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     height: auto !important;
   }
 
@@ -163,7 +163,7 @@ const HeaderStyled = styled.header`
     align-items: center;
     justify-content: center;
 
-    @media (max-width: 900px) {
+    @media (max-width: ${theme.breakpoints.md}) {
       justify-content: space-between;
       padding: 0.75rem 1rem;
     }
@@ -178,7 +178,7 @@ const HeaderStyled = styled.header`
     width: 500px;
     border-radius: 4px;
 
-    @media (max-width: 900px) {
+    @media (max-width: ${theme.breakpoints.md}) {
       width: auto;
       justify-content: flex-start;
       min-width: 0;
@@ -215,7 +215,7 @@ const HeaderStyled = styled.header`
     justify-content: center;
     margin-top: 0.25rem;
 
-    @media (max-width: 900px) {
+    @media (max-width: ${theme.breakpoints.md}) {
       display: none;
     }
 
@@ -261,7 +261,7 @@ const BurgerButton = styled.button<{ $isOpen: boolean }>`
   z-index: 1001;
   border-radius: 4px;
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
   }
 
@@ -298,7 +298,7 @@ const BurgerButton = styled.button<{ $isOpen: boolean }>`
 const MobileNav = styled.nav<{ $isOpen: boolean }>`
   display: none;
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.md}) {
     display: flex;
     flex-direction: column;
     width: 100%;

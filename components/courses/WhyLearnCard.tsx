@@ -86,17 +86,31 @@ const WhyLearnCardStyled = styled.div`
     &:last-child {
       margin-bottom: 0;
     }
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: block;
+      text-align: center;
+    }
   }
 
   .checkmark {
     color: ${theme.colors.green};
     font-size: 1.25rem;
     line-height: 1.4;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: inline;
+      margin-right: ${theme.sizes.xs};
+    }
   }
 
   strong {
     display: block;
     color: ${theme.colors.neutral[14]};
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: inline;
+    }
   }
 
   span {

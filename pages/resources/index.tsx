@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Layout } from "../../components";
 import styled from "styled-components";
+import { theme } from "../../utils/styles/theme";
 
 const Resources = (): JSX.Element => {
   return (
@@ -49,15 +50,32 @@ const ResourcesStyled = styled.div`
   margin: 0 auto;
   padding: 2rem;
 
+  @media (max-width: ${theme.breakpoints.md}) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    padding: 1rem;
+  }
+
   h1 {
     margin-bottom: 0.5rem;
     text-align: center;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 1.5rem;
+    }
   }
 
   > p {
     margin-bottom: 2rem;
     color: #666;
     text-align: center;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      margin-bottom: 1.5rem;
+      font-size: 1em;
+    }
   }
 
   h2 {
@@ -71,7 +89,7 @@ const ResourcesStyled = styled.div`
     gap: 1.5rem;
     margin-bottom: 2rem;
 
-    @media (max-width: 600px) {
+    @media (max-width: ${theme.breakpoints.md}) {
       grid-template-columns: 1fr;
     }
   }

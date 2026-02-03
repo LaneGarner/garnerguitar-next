@@ -76,6 +76,14 @@ const CoursesPageStyled = styled.div`
     font-size: 2.25rem;
     font-family: monospace;
     margin-bottom: 0.25em;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      font-size: 1.75rem;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 1.5rem;
+    }
   }
 
   .intro {
@@ -83,6 +91,15 @@ const CoursesPageStyled = styled.div`
     width: 80%;
     max-width: 700px;
     text-align: center;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      width: 90%;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      width: 95%;
+      font-size: 1em;
+    }
   }
 
   .courses-grid {
@@ -116,14 +133,17 @@ const CoursesPageStyled = styled.div`
     grid-column: 1 / -1;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: ${theme.breakpoints.lg}) {
+    text-align: center;
+
     .intro {
-      width: 90%;
+      text-align: left;
     }
 
     .courses-grid {
       grid-template-columns: 1fr;
       padding: 0 1rem;
+      justify-items: center;
     }
 
     .featured-card {
@@ -145,6 +165,13 @@ const CoursesPageStyled = styled.div`
     .why-card {
       grid-row: auto;
       grid-column: 1;
+    }
+  }
+
+  @media (max-width: ${theme.breakpoints.sm}) {
+    .courses-grid {
+      padding: 0 ${theme.sizes.xs};
+      gap: 1rem;
     }
   }
 `;

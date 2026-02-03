@@ -73,8 +73,8 @@ interface StyledProps {
 
 const CourseTitleCardStyled = styled.div<StyledProps>`
   position: relative;
-  width: ${({ $isFeatured }) => ($isFeatured ? "420px" : "280px")};
-  margin-top: ${({ $isFeatured }) => ($isFeatured ? "0" : "1rem")};
+  width: 100%;
+  min-height: ${({ $isFeatured }) => ($isFeatured ? "480px" : "auto")};
   border-radius: ${theme.sizes.s};
   background-color: ${theme.colors.neutral[3]};
   color: white;
@@ -147,9 +147,8 @@ const CourseTitleCardStyled = styled.div<StyledProps>`
   }
 
   @media (max-width: 900px) {
-    width: 100%;
-    max-width: ${({ $isFeatured }) => ($isFeatured ? "420px" : "320px")};
-    margin-top: 0;
+    max-width: 420px;
+    min-height: auto;
   }
 `;
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
+import Pill from "../common/Pill";
 
 interface Props {
   title: string;
@@ -46,9 +47,7 @@ const CourseCard = ({
 
       <div className="skills">
         {skills.map((skill) => (
-          <span key={skill} className="skill-tag">
-            {skill}
-          </span>
+          <Pill key={skill}>{skill}</Pill>
         ))}
       </div>
 
@@ -154,15 +153,6 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     justify-content: center;
     gap: 0.4rem;
     margin-bottom: 1rem;
-  }
-
-  .skill-tag {
-    background-color: transparent;
-    color: ${theme.colors.neutral[12]};
-    border: 1px solid ${theme.colors.neutral[6]};
-    padding: 0.3em 0.75em;
-    border-radius: 1em;
-    font-size: 0.7rem;
   }
 
   .cta {

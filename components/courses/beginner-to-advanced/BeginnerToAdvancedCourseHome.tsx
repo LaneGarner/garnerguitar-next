@@ -49,11 +49,9 @@ const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
             />
           ))}
         </div>
-        {isComingSoon && (
-          <Link href="/courses" className="back-link">
-            &larr; Back to all courses
-          </Link>
-        )}
+        <Link href="/courses" className="back-link">
+          &larr; Back to all courses
+        </Link>
       </ContainerStyled>
     </Layout>
   );

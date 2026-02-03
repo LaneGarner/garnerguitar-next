@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { theme } from "../../utils/styles/theme";
+import Pill from "../common/Pill";
 
 interface Props {
   title: string;
@@ -53,9 +54,7 @@ const CourseTitleCard = (props: Props): JSX.Element => {
         )}
         <div className="highlights">
           {highlights.map((highlight) => (
-            <span key={highlight} className="highlight-tag">
-              {highlight}
-            </span>
+            <Pill key={highlight}>{highlight}</Pill>
           ))}
         </div>
         <span className="cta">
@@ -139,14 +138,6 @@ const CourseTitleCardStyled = styled.div<StyledProps>`
     justify-content: center;
     gap: 0.35rem;
     margin-bottom: 0.75rem;
-  }
-
-  .highlight-tag {
-    background-color: ${theme.colors.neutral[5]};
-    color: ${theme.colors.neutral[14]};
-    padding: 0.2em 0.6em;
-    border-radius: 1em;
-    font-size: 0.7rem;
   }
 
   .cta {

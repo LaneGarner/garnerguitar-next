@@ -23,8 +23,14 @@ interface ShadowInterface {
   dark: string;
 }
 
+interface CardInterface {
+  dark: string;
+  darker: string;
+}
+
 interface UtilsInterface {
   shadows: ShadowInterface;
+  cards: CardInterface;
 }
 
 interface ColorsInterface {
@@ -117,6 +123,22 @@ export const theme: ThemeInterface = {
       light: "0px 8px 16px 0px rgba(0, 0, 0, 0.05)",
       primary: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
       dark: "0px 8px 16px 0px rgba(0, 0, 0, 0.35)",
+    },
+    cards: {
+      dark: `
+        background-color: #333;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.35);
+        color: #ddd;
+      `,
+      darker: `
+        background-color: #262626;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.35);
+        color: #ddd;
+      `,
     },
   },
 };

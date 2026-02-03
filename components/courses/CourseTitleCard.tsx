@@ -72,18 +72,15 @@ interface StyledProps {
 }
 
 const CourseTitleCardStyled = styled.div<StyledProps>`
+  ${theme.utils.cards.dark}
   position: relative;
   width: 100%;
   min-height: ${({ $isFeatured }) => ($isFeatured ? "480px" : "auto")};
-  border-radius: ${theme.sizes.s};
-  background-color: ${theme.colors.neutral[3]};
-  color: white;
   padding: ${({ $isFeatured }) => ($isFeatured ? "1.25rem" : "1.5rem 1rem")};
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: ${theme.utils.shadows.primary};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {

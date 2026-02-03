@@ -73,17 +73,13 @@ const CourseCard = ({
 export default CourseCard;
 
 const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
+  ${theme.utils.cards.dark}
   position: relative;
   width: 340px;
-  border-radius: ${theme.sizes.s};
-  background-color: ${theme.colors.neutral[3]};
-  color: white;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: ${theme.utils.shadows.primary};
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {

@@ -89,10 +89,7 @@ const ContainerStyled = styled.div`
   }
 
   .description-card {
-    background-color: ${theme.colors.neutral[3]};
-    border-radius: ${theme.sizes.s};
-    padding: 1.5rem 2rem;
-    box-shadow: ${theme.utils.shadows.primary};
+    ${theme.utils.cards.darker}
     margin-bottom: ${theme.sizes.l};
     max-width: 900px;
     width: 90%;

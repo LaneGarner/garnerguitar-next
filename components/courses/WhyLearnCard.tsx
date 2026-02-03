@@ -50,10 +50,7 @@ const WhyLearnCard = (): JSX.Element => {
 export default WhyLearnCard;
 
 const WhyLearnCardStyled = styled.div`
-  background-color: ${theme.colors.neutral[3]};
-  border-radius: ${theme.sizes.s};
-  padding: ${theme.sizes.m};
-  box-shadow: ${theme.utils.shadows.primary};
+  ${theme.utils.cards.darker}
 
   h2 {
     font-size: 1.25rem;

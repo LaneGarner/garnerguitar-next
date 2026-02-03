@@ -48,21 +48,19 @@ const Card = ({ title, description, img, url }: CardProps): JSX.Element => {
 export default Card;
 
 const CardStyled = styled.article`
+  ${theme.utils.cards.darker}
   width: 17em;
   height: 25em;
-  box-shadow: ${theme.utils.shadows.primary};
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: space-between; */
-  /* padding-bottom: ${theme.sizes.xl}; */
-  border-radius: ${theme.sizes.s};
   cursor: pointer;
+
   &:hover {
-    transform: translateX(5px);
     transform: translateY(-5px);
     box-shadow: ${theme.utils.shadows.dark};
   }
+
   h2 {
     font-size: ${theme.sizes.l};
     margin: 0 auto 0px;

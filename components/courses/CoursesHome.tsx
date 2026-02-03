@@ -24,9 +24,11 @@ const CoursesHome = (): JSX.Element => {
         </Head>
         <CoursesPageStyled>
           <h1 className="heading-style">Guitar Courses</h1>
-          <p className="intro">
-            Structured courses to take you from first chord to confident player. Learn at your own pace with video lessons and guided exercises designed to build real musical skills.
-          </p>
+          <div className="intro-card">
+            <p className="intro">
+              Structured courses to take you from first chord to confident player. Learn at your own pace with video lessons and guided exercises designed to build real musical skills.
+            </p>
+          </div>
 
           <section className="courses-grid">
             {courses.map((category, index) => {
@@ -86,20 +88,28 @@ const CoursesPageStyled = styled.div`
     }
   }
 
-  .intro {
+  .intro-card {
+    ${theme.utils.cards.darker}
     margin-bottom: ${theme.sizes.m};
     width: 80%;
     max-width: 700px;
     text-align: center;
+    line-height: 1.6;
 
     @media (max-width: ${theme.breakpoints.md}) {
       width: 90%;
+      padding: 1.25rem 1.5rem;
     }
 
     @media (max-width: ${theme.breakpoints.sm}) {
       width: 95%;
+      padding: 1rem 1.25rem;
       font-size: 1em;
     }
+  }
+
+  .intro {
+    margin: 0;
   }
 
   .courses-grid {
@@ -135,10 +145,6 @@ const CoursesPageStyled = styled.div`
 
   @media (max-width: ${theme.breakpoints.md}) {
     text-align: center;
-
-    .intro {
-      text-align: left;
-    }
 
     .courses-grid {
       grid-template-columns: 1fr;

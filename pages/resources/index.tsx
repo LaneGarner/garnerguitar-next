@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Layout } from "../../components";
 import styled from "styled-components";
@@ -7,36 +8,34 @@ const Resources = (): JSX.Element => {
     <Layout>
       <ResourcesStyled>
         <h1>Resources</h1>
-        <p>Helpful tools and downloads for guitarists.</p>
+        <p>Helpful tools and downloads for guitarists and guitar teachers.</p>
 
         <div className="resources-grid">
-          <Link href="/resources/tuner">
-            <div className="resource-card">
-              <h2>Tuner</h2>
-              <p>Tuner app recommendations for beginners and advanced players</p>
-            </div>
-          </Link>
-
-          <Link href="/resources/apps-for-musicians">
-            <div className="resource-card">
-              <h2>Apps for Musicians</h2>
-              <p>Recommended apps for tuning, practice, and reading music</p>
-            </div>
-          </Link>
-
-          <Link href="/resources/printables">
-            <div className="resource-card">
-              <h2>Printables</h2>
-              <p>Blank staff paper, tab paper, and neck diagrams</p>
-            </div>
-          </Link>
-
-          <a href="https://www.google.com/search?q=metronome" target="_blank" rel="noopener noreferrer">
-            <div className="resource-card">
-              <h2>Metronome</h2>
-              <p>Google's built-in metronome tool</p>
+          <a
+            href="https://shedr.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resource-card shedr-card"
+          >
+            <h2>Shedr</h2>
+            <p>
+              Musicians&apos; practice toolkit with metronome, tuner, and
+              practice tools
+            </p>
+            <div className="shedr-image">
+              <Image
+                src="/images/shedr-screenshot.webp"
+                alt="Shedr app screenshot"
+                width={280}
+                height={175}
+              />
             </div>
           </a>
+
+          <Link href="/resources/printables" className="resource-card">
+            <h2>Printables</h2>
+            <p>Blank staff paper, tab paper, and neck diagrams</p>
+          </Link>
         </div>
       </ResourcesStyled>
     </Layout>
@@ -52,11 +51,13 @@ const ResourcesStyled = styled.div`
 
   h1 {
     margin-bottom: 0.5rem;
+    text-align: center;
   }
 
   > p {
     margin-bottom: 2rem;
     color: #666;
+    text-align: center;
   }
 
   h2 {
@@ -66,9 +67,13 @@ const ResourcesStyled = styled.div`
 
   .resources-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .resource-card {
@@ -77,6 +82,9 @@ const ResourcesStyled = styled.div`
     padding: 1.5rem;
     cursor: pointer;
     transition: box-shadow 0.2s, transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -95,4 +103,22 @@ const ResourcesStyled = styled.div`
     }
   }
 
+  .shedr-card {
+    display: flex;
+    flex-direction: column;
+
+    .shedr-image {
+      margin-top: 1rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 280px;
+      }
+    }
+  }
 `;

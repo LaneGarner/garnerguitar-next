@@ -50,6 +50,7 @@ interface SizesInterface {
   xxl: string;
   header: string;
   headerSmall: string;
+  headerMobile: string;
   sidebarWidth: string;
 }
 
@@ -111,6 +112,7 @@ export const theme: ThemeInterface = {
     xxl: "5em",
     header: "150px",
     headerSmall: "100px",
+    headerMobile: "135px",
     sidebarWidth: "280px",
   },
   breakpoints: {

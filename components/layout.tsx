@@ -53,11 +53,21 @@ const LayoutStyled = styled.div<LayoutStyledProps>`
   grid-template-columns: ${({ $isCourse }) => ($isCourse ? `${theme.sizes.sidebarWidth} 1fr` : "1fr")};
   grid-template-rows: 1fr;
 
+  @media (max-width: ${theme.breakpoints.md}) {
+    margin-top: ${({ $isCourse }) => ($isCourse ? theme.sizes.headerMobile : theme.sizes.header)};
+    min-height: ${({ $isCourse }) => ($isCourse ? `calc(100vh - ${theme.sizes.headerMobile})` : `calc(100vh - ${theme.sizes.header})`)};
+    grid-template-columns: 1fr;
+  }
+
   .course-sidebar {
     position: sticky;
     top: ${theme.sizes.header};
     height: calc(100vh - ${theme.sizes.header});
     overflow: hidden;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: none;
+    }
   }
 
   main {

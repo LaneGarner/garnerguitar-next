@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import Logo from "../Logo";
@@ -11,6 +11,24 @@ import { isLessonComplete, PROGRESS_CHANGE_EVENT } from "../../hooks";
 const CourseHeader = (): JSX.Element => {
   const courseNav = useCourseNavigation();
   const [completedCount, setCompletedCount] = useState(0);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  const isMobileMenuOpen = courseNav?.isMobileMenuOpen ?? false;
+
+  const handleMenuToggle = () => {
+    courseNav?.setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Return focus to menu button when menu closes
+  useEffect(() => {
+    if (!isMobileMenuOpen && menuButtonRef.current) {
+      // Small delay to ensure the menu animation completes
+      const timeout = setTimeout(() => {
+        menuButtonRef.current?.focus();
+      }, 50);
+      return () => clearTimeout(timeout);
+    }
+  }, [isMobileMenuOpen]);
 
   const calculateCompleted = useCallback(() => {
     if (!courseNav?.course) return;
@@ -57,6 +75,18 @@ const CourseHeader = (): JSX.Element => {
       </div>
       {courseNav?.course && (
         <div className="header-bottom">
+          <MenuToggleButton
+            ref={menuButtonRef}
+            onClick={handleMenuToggle}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="course-mobile-menu"
+            aria-label={isMobileMenuOpen ? "Close lesson menu" : "Open lesson menu"}
+            $isOpen={isMobileMenuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </MenuToggleButton>
           <h2 className="course-title">{courseNav.course.title}</h2>
           <div className="lesson-section">
             <nav className="lesson-nav-row" aria-label="Lesson navigation">
@@ -117,12 +147,20 @@ const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
 
+  @media (max-width: ${theme.breakpoints.md}) {
+    height: ${theme.sizes.headerMobile};
+  }
+
   .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 1.5rem;
     border-bottom: 1px solid ${theme.colors.neutral[13]};
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      padding: 0.5rem 1rem;
+    }
   }
 
   .brand {
@@ -141,6 +179,10 @@ const HeaderStyled = styled.header`
   .site-title {
     font-size: 1.5rem;
     margin: 0;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 1.25rem;
+    }
   }
 
   .header-nav {
@@ -175,6 +217,13 @@ const HeaderStyled = styled.header`
     padding: 0.75rem 1.5rem;
     flex: 1;
     gap: 1.5rem;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      gap: 0.75rem;
+    }
   }
 
   .course-title {
@@ -187,6 +236,10 @@ const HeaderStyled = styled.header`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: none;
+    }
   }
 
   .lesson-section {
@@ -204,6 +257,15 @@ const HeaderStyled = styled.header`
       bottom: 0.5rem;
       width: 1px;
       background: ${theme.colors.neutral[12]};
+
+      @media (max-width: ${theme.breakpoints.md}) {
+        display: none;
+      }
+    }
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      flex: 1;
+      align-items: center;
     }
   }
 
@@ -228,6 +290,15 @@ const HeaderStyled = styled.header`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      font-size: 1.125rem;
+      text-align: center;
+    }
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      font-size: 1rem;
+    }
   }
 
   .nav-btn {
@@ -250,11 +321,21 @@ const HeaderStyled = styled.header`
       outline: 2px solid ${theme.colors.green};
       outline-offset: 2px;
     }
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .nav-btn-placeholder {
     width: 28px;
     height: 28px;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .progress-section {
@@ -263,11 +344,19 @@ const HeaderStyled = styled.header`
     align-items: flex-end;
     gap: 0.25rem;
     flex-shrink: 0;
+
+    @media (max-width: ${theme.breakpoints.sm}) {
+      display: none;
+    }
   }
 
   .progress-text {
     font-size: 0.875rem;
     color: ${theme.colors.neutral[5]};
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      font-size: 0.75rem;
+    }
   }
 
   .progress-bar {
@@ -276,6 +365,11 @@ const HeaderStyled = styled.header`
     background: ${theme.colors.neutral[12]};
     border-radius: 4px;
     overflow: hidden;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      width: 120px;
+      height: 6px;
+    }
   }
 
   .progress-fill {
@@ -283,5 +377,57 @@ const HeaderStyled = styled.header`
     background: ${theme.colors.green};
     border-radius: 4px;
     transition: width 300ms ease;
+  }
+`;
+
+const MenuToggleButton = styled.button<{ $isOpen: boolean }>`
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 4px;
+  flex-shrink: 0;
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    display: flex;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${theme.colors.green};
+    outline-offset: 2px;
+  }
+
+  span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: ${theme.colors.neutral[2]};
+    border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+
+    &:nth-child(1) {
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(8px) rotate(45deg)" : "translateY(0) rotate(0)"};
+    }
+
+    &:nth-child(2) {
+      margin: 6px 0;
+      opacity: ${({ $isOpen }) => ($isOpen ? 0 : 1)};
+    }
+
+    &:nth-child(3) {
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(-8px) rotate(-45deg)" : "translateY(0) rotate(0)"};
+    }
   }
 `;

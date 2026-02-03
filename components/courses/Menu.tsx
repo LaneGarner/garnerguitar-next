@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { theme } from "../../utils/styles/theme";
 import { toKebabCase } from "../../utils";
 import { useCourseNavigation } from "../../context";
@@ -87,8 +87,26 @@ const Menu = (): JSX.Element | null => {
     return index === currentPageIndex;
   };
 
+  const handleLinkClick = () => {
+    courseNav.setMobileMenuOpen(false);
+  };
+
+  const handleCloseMenu = () => {
+    courseNav.setMobileMenuOpen(false);
+  };
+
   return (
     <MenuStyled className="menu">
+      <div className="menu-header">
+        <h2 className="menu-course-title">{course.title}</h2>
+        <button
+          className="menu-close-btn"
+          onClick={handleCloseMenu}
+          aria-label="Close menu"
+        >
+          <FaTimes aria-hidden="true" />
+        </button>
+      </div>
       <div className="menu-content" ref={scrollContainerRef}>
         <ul className="nav-list">
           {course.pages.map((page, i) => {
@@ -107,6 +125,7 @@ const Menu = (): JSX.Element | null => {
                   href={getLessonUrl(page, i)}
                   className={`nav-link ${isActive(i) ? "active" : ""}`}
                   aria-current={isActive(i) ? "page" : undefined}
+                  onClick={handleLinkClick}
                 >
                   {isCompleted && (
                     <FaCheck className="check-icon" aria-hidden="true" />
@@ -129,6 +148,58 @@ const MenuStyled = styled.aside`
   height: 100%;
   display: flex;
   flex-direction: column;
+
+  .menu-header {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid ${theme.colors.neutral[12]};
+    flex-shrink: 0;
+
+    @media (max-width: ${theme.breakpoints.md}) {
+      display: flex;
+    }
+  }
+
+  .menu-course-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+    color: ${theme.colors.neutral[2]};
+    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .menu-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: ${theme.colors.neutral[5]};
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &:hover {
+      background-color: ${theme.colors.neutral[13]};
+      color: ${theme.colors.neutral[2]};
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.green};
+      outline-offset: 2px;
+    }
+  }
 
   .menu-content {
     flex: 1;

@@ -90,7 +90,8 @@ const CoursesPageStyled = styled.div`
 
   .intro-card {
     ${theme.utils.cards.darker}
-    margin-bottom: ${theme.sizes.m};
+    margin-top: 1rem;
+    margin-bottom: 3rem;
     width: 80%;
     max-width: 700px;
     text-align: center;

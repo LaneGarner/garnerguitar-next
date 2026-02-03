@@ -37,7 +37,7 @@ export const courses: CoursesInterface[] = [
   {
     title: "Beginner to Advanced",
     description:
-      "This is the complete curriculum I teach my private students—everything from picking up the guitar for the first time to playing at an advanced level. These lessons cover the core skills, theory, and techniques that make up the vast majority of what any serious guitarist needs to know. Proper technique, music theory, reading notation, the CAGED system, pentatonics, blues, ear training, fretboard mastery—it's all here. If you work through this material, you'll have the foundation to play virtually any style and hold your own with professional musicians.",
+      "This is the complete curriculum I teach my private students, everything from picking up the guitar for the first time to playing at an advanced level. These lessons cover the core skills, theory, and techniques that make up the vast majority of what any serious guitarist needs to know. Proper technique, music theory, reading notation, the CAGED system, pentatonics, blues, ear training, fretboard mastery, it's all here. If you work through this material, you'll have the foundation to play almost any style and hold your own with professional musicians.",
     tagline: "From first chord to confident playing",
     highlights: ["Beginner Friendly", "Chords", "Theory", "Reading", "Technique", "Blues", "CAGED", "Scales", "Ear Training", "Fretboard Navigation"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",

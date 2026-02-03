@@ -11,11 +11,7 @@ const YoungBeginnerCourseHome = (): JSX.Element => {
         <title>Young Beginner Guitar Courses - Garner Guitar</title>
       </Head>
       <ContainerStyled>
-        <h2 className="heading-style">
-          Young Beginner
-          <br />
-          Guitar Courses
-        </h2>
+        <h2 className="heading-style">Young Beginner Guitar Courses</h2>
         <div className="coming-soon">
           <p className="coming-soon-text">Coming Soon</p>
           <p>
@@ -41,10 +37,10 @@ const ContainerStyled = styled.div`
   min-height: 50vh;
 
   .heading-style {
-    font-size: ${theme.sizes.xl};
+    font-size: 2.25rem;
     font-family: monospace;
     text-align: center;
-    margin-bottom: 0.25em;
+    margin-bottom: 1em;
   }
 
   .coming-soon {
@@ -67,12 +63,17 @@ const ContainerStyled = styled.div`
   }
 
   .back-link {
-    color: ${theme.colors.green};
+    color: ${theme.colors.navy};
     text-decoration: none;
     margin-top: ${theme.sizes.m};
 
     &:hover {
       text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.navy};
+      outline-offset: 2px;
     }
   }
 `;

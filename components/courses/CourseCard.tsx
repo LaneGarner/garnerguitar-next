@@ -145,6 +145,7 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     font-size: 0.875rem;
     line-height: 1.6;
     margin: 0;
+    text-align: left;
   }
 
   .skills {

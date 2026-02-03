@@ -50,16 +50,25 @@ const WhyLearnCard = (): JSX.Element => {
 export default WhyLearnCard;
 
 const WhyLearnCardStyled = styled.div`
-  background-color: ${theme.colors.neutral[2]};
+  background-color: ${theme.colors.neutral[3]};
   border-radius: ${theme.sizes.s};
   padding: ${theme.sizes.m};
-  box-shadow: ${theme.utils.shadows.light};
+  box-shadow: ${theme.utils.shadows.primary};
 
   h2 {
     font-size: 1.25rem;
     margin-bottom: ${theme.sizes.s};
     text-align: center;
     color: ${theme.colors.neutral[15]};
+
+    &::after {
+      content: "";
+      display: block;
+      width: 40%;
+      height: 2px;
+      background-color: ${theme.colors.gold};
+      margin: 0.5rem auto 0;
+    }
   }
 
   ul {

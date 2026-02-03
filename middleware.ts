@@ -1,25 +1,17 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { updateSession } from "./lib/supabase/middleware";
 
-export function middleware(request: NextRequest) {
-  const isProduction = process.env.NODE_ENV === "production";
-  const path = request.nextUrl.pathname;
+export async function middleware(request: NextRequest) {
+  // Update the Supabase session (refreshes tokens if needed)
+  const response = await updateSession(request);
 
-  // In production, redirect all beginner-to-advanced subpaths to the category page
-  // This prevents direct access to lesson content
-  if (
-    isProduction &&
-    path.startsWith("/courses/beginner-to-advanced/") &&
-    path !== "/courses/beginner-to-advanced"
-  ) {
-    return NextResponse.redirect(
-      new URL("/courses/beginner-to-advanced", request.url)
-    );
-  }
-
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
-  matcher: "/courses/beginner-to-advanced/:path*",
+  matcher: [
+    // Match all paths except static files and api routes that don't need auth
+    "/((?!_next/static|_next/image|favicon.ico|images|api/webhooks).*)",
+  ],
 };

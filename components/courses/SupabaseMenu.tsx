@@ -3,69 +3,39 @@ import Link from "next/link";
 import styled from "styled-components";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { theme } from "../../utils/styles/theme";
-import { toKebabCase } from "../../utils";
-import { useCourseNavigation, useSupabaseCourse } from "../../context";
-import { courses } from "../../data";
+import { useSupabaseCourse } from "../../context";
 import { isLessonComplete, PROGRESS_CHANGE_EVENT } from "../../hooks";
 
-const Menu = (): JSX.Element | null => {
-  const courseNav = useCourseNavigation();
-  const supabaseCourse = useSupabaseCourse();
+const SupabaseMenu = (): JSX.Element | null => {
+  const courseContext = useSupabaseCourse();
   const activeItemRef = useRef<HTMLLIElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [completedLessons, setCompletedLessons] = useState<Set<string>>(
-    new Set()
-  );
+  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
 
-  // Determine which context to use
-  const isSupabaseCourse = supabaseCourse?.course && supabaseCourse.lessons.length > 0;
-  const isStaticCourse = courseNav?.course;
-
-  // Function to check completion status for all lessons
   const refreshCompletedLessons = () => {
-    if (isSupabaseCourse && supabaseCourse) {
-      const { course, lessons, categorySlug } = supabaseCourse;
-      if (!course) return;
-      const completed = new Set<string>();
-      lessons.forEach((lesson) => {
-        const key = `${categorySlug}:${course.slug}:${lesson.slug}`;
-        if (isLessonComplete(key)) {
-          completed.add(key);
-        }
-      });
-      setCompletedLessons(completed);
-    } else if (isStaticCourse && courseNav) {
-      const { course, courseIndex } = courseNav;
-      if (!course) return;
-      const categoryShortName = courses[courseIndex].shortName;
-      const courseSlug = toKebabCase(course.title);
+    if (!courseContext?.course || !courseContext.lessons.length) return;
+    const { course, categorySlug, lessons } = courseContext;
 
-      const completed = new Set<string>();
-      course.pages.forEach((page) => {
-        const key = `${categoryShortName}:${courseSlug}:${toKebabCase(page.title)}`;
-        if (isLessonComplete(key)) {
-          completed.add(key);
-        }
-      });
-      setCompletedLessons(completed);
-    }
+    const completed = new Set<string>();
+    lessons.forEach((lesson) => {
+      const key = `${categorySlug}:${course.slug}:${lesson.slug}`;
+      if (isLessonComplete(key)) {
+        completed.add(key);
+      }
+    });
+    setCompletedLessons(completed);
   };
 
-  // Check completion status on mount and when page changes
   useEffect(() => {
     refreshCompletedLessons();
-  }, [courseNav?.currentPageIndex, courseNav?.course, supabaseCourse?.currentLessonIndex, supabaseCourse?.course]);
+  }, [courseContext?.currentLessonIndex, courseContext?.course, courseContext?.lessons]);
 
-  // Listen for completion changes from the button
   useEffect(() => {
     const handleProgressChange = () => refreshCompletedLessons();
     window.addEventListener(PROGRESS_CHANGE_EVENT, handleProgressChange);
-    return () =>
-      window.removeEventListener(PROGRESS_CHANGE_EVENT, handleProgressChange);
-  }, [courseNav?.course, supabaseCourse?.course]);
+    return () => window.removeEventListener(PROGRESS_CHANGE_EVENT, handleProgressChange);
+  }, [courseContext?.course, courseContext?.lessons]);
 
-  // Scroll active item into view when it changes
-  const currentIndex = isSupabaseCourse ? supabaseCourse?.currentLessonIndex : courseNav?.currentPageIndex;
   useEffect(() => {
     const container = scrollContainerRef.current;
     const item = activeItemRef.current;
@@ -73,7 +43,6 @@ const Menu = (): JSX.Element | null => {
 
     const containerRect = container.getBoundingClientRect();
     const itemRect = item.getBoundingClientRect();
-
     const padding = 40;
 
     const isAboveView = itemRect.top < containerRect.top;
@@ -86,83 +55,30 @@ const Menu = (): JSX.Element | null => {
         behavior: "smooth",
       });
     }
-  }, [currentIndex]);
+  }, [courseContext?.currentLessonIndex]);
 
-  // Render Supabase course menu
-  if (isSupabaseCourse && supabaseCourse?.course) {
-    const { course, lessons, categorySlug, currentLessonIndex } = supabaseCourse;
-    const baseUrl = `/courses/${categorySlug}/${course.slug}`;
-
-    const getLessonUrl = (lesson: { slug: string }, index: number) => {
-      return index === 0 ? baseUrl : `${baseUrl}/${lesson.slug}`;
-    };
-
-    const handleLinkClick = () => {
-      supabaseCourse.setMobileMenuOpen(false);
-    };
-
-    const handleCloseMenu = () => {
-      supabaseCourse.setMobileMenuOpen(false);
-    };
-
-    return (
-      <MenuStyled className="menu">
-        <div className="menu-header">
-          <h2 className="menu-course-title">{course.title}</h2>
-          <button className="menu-close-btn" onClick={handleCloseMenu} aria-label="Close menu">
-            <FaTimes aria-hidden="true" />
-          </button>
-        </div>
-        <div className="menu-content" ref={scrollContainerRef}>
-          <ul className="nav-list">
-            {lessons.map((lesson, i) => {
-              const lessonKey = `${categorySlug}:${course.slug}:${lesson.slug}`;
-              const isCompleted = completedLessons.has(lessonKey);
-              const isActive = i === currentLessonIndex;
-
-              return (
-                <li key={lesson.id} className="nav-item" ref={isActive ? activeItemRef : null}>
-                  <Link
-                    href={getLessonUrl(lesson, i)}
-                    className={`nav-link ${isActive ? "active" : ""}`}
-                    aria-current={isActive ? "page" : undefined}
-                    onClick={handleLinkClick}
-                  >
-                    {isCompleted && <FaCheck className="check-icon" aria-hidden="true" />}
-                    <span className="nav-link-title">{lesson.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </MenuStyled>
-    );
-  }
-
-  // Render static course menu
-  if (!courseNav?.course) {
+  if (!courseContext?.course || !courseContext.lessons.length) {
     return null;
   }
 
-  const { course, currentPageIndex } = courseNav;
+  const { course, lessons, currentLessonIndex, categorySlug, setMobileMenuOpen } = courseContext;
+  const baseUrl = `/courses/${categorySlug}/${course.slug}`;
 
-  const getLessonUrl = (page: { title: string }, index: number) => {
-    return page.title === "Introduction" || index === 0
-      ? course.url
-      : `${course.url}/${toKebabCase(page.title)}`;
+  const getLessonUrl = (lesson: { slug: string }, index: number) => {
+    // First lesson goes to course index (no slug in URL)
+    return index === 0 ? baseUrl : `${baseUrl}/${lesson.slug}`;
   };
 
   const isActive = (index: number) => {
-    return index === currentPageIndex;
+    return index === currentLessonIndex;
   };
 
   const handleLinkClick = () => {
-    courseNav.setMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   const handleCloseMenu = () => {
-    courseNav.setMobileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -179,20 +95,18 @@ const Menu = (): JSX.Element | null => {
       </div>
       <div className="menu-content" ref={scrollContainerRef}>
         <ul className="nav-list">
-          {course.pages.map((page, i) => {
-            const categoryShortName = courses[courseNav.courseIndex].shortName;
-            const courseSlug = toKebabCase(course.title);
-            const lessonKey = `${categoryShortName}:${courseSlug}:${toKebabCase(page.title)}`;
+          {lessons.map((lesson, i) => {
+            const lessonKey = `${categorySlug}:${course.slug}:${lesson.slug}`;
             const isCompleted = completedLessons.has(lessonKey);
 
             return (
               <li
-                key={i}
+                key={lesson.id}
                 className="nav-item"
                 ref={isActive(i) ? activeItemRef : null}
               >
                 <Link
-                  href={getLessonUrl(page, i)}
+                  href={getLessonUrl(lesson, i)}
                   className={`nav-link ${isActive(i) ? "active" : ""}`}
                   aria-current={isActive(i) ? "page" : undefined}
                   onClick={handleLinkClick}
@@ -200,7 +114,7 @@ const Menu = (): JSX.Element | null => {
                   {isCompleted && (
                     <FaCheck className="check-icon" aria-hidden="true" />
                   )}
-                  <span className="nav-link-title">{page.title}</span>
+                  <span className="nav-link-title">{lesson.title}</span>
                 </Link>
               </li>
             );
@@ -211,7 +125,7 @@ const Menu = (): JSX.Element | null => {
   );
 };
 
-export default Menu;
+export default SupabaseMenu;
 
 const MenuStyled = styled.aside`
   background-color: ${theme.colors.neutral[14]};

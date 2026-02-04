@@ -32,3 +32,6 @@ yarn-error.log*
 # Claude
 .claude/
 CLAUDE.md
+
+# SQL migrations (contain sensitive schema details)
+*.sql

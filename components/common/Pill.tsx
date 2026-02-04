@@ -18,7 +18,7 @@ const PillStyled = styled.span`
   background-color: transparent;
   color: ${theme.colors.neutral[12]};
   border: 1px solid ${theme.colors.neutral[6]};
-  padding: 0.3em 0.75em;
+  padding: 0.35em 0.75em 0.25em;
   border-radius: 1em;
   font-size: 0.7rem;
   line-height: 1;

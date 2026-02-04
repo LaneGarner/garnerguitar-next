@@ -31,13 +31,15 @@ const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
         </title>
       </Head>
       <ContainerStyled>
-        <h2 className="heading-style">Beginner to Advanced Guitar Courses</h2>
+        <h2 className="heading-style">Beginner to Advanced Guitar&nbsp;Courses</h2>
         {isComingSoon && <div className="coming-soon-banner">Coming Soon</div>}
         <div className="description-card">
           <FaGuitar className="card-icon" aria-hidden="true" />
           <h3 className="card-title">About This Series</h3>
           <div className="description-box">
-            <p>{courseData.description}</p>
+            {courseData.description.split("\n\n").map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
           </div>
         </div>
         <div className="course-cards">
@@ -124,11 +126,15 @@ const ContainerStyled = styled.div`
       margin-top: 1rem;
 
       p {
-        margin: 0;
+        margin: 0 0 1em 0;
         line-height: 1.6;
         color: ${theme.colors.neutral[13]};
-        font-size: 0.95rem;
+        font-size: 1.1rem;
         text-align: left;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }

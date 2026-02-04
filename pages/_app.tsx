@@ -4,35 +4,38 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import "../utils/styles/global.scss";
-import { CourseNavigationProvider, useCourseNavigation } from "../context";
+import { CourseNavigationProvider, useCourseNavigation, SupabaseCourseProvider, useSupabaseCourse } from "../context";
 import Menu from "../components/courses/Menu";
 import { theme } from "../utils/styles/theme";
 
 const PersistentMenu = () => {
   const router = useRouter();
   const courseNav = useCourseNavigation();
+  const supabaseCourse = useSupabaseCourse();
 
-  // Show menu on course lesson pages (not the /courses index)
-  const isCourseRoute =
-    router.pathname.startsWith("/courses/") &&
-    router.pathname.split("/").length > 2;
-  const showMenu = isCourseRoute && courseNav?.course;
+  // Show menu on course lesson pages (not the /courses index or category landing pages)
+  // /courses = index, /courses/[category] = landing, /courses/[category]/[course] = course page
+  const pathParts = router.pathname.split("/").filter(Boolean);
+  const isCourseRoute = pathParts[0] === "courses" && pathParts.length >= 3;
+  // Check both static and Supabase course contexts
+  const showMenu = isCourseRoute && (courseNav?.course || supabaseCourse?.course);
 
-  const isOpen = courseNav?.isMobileMenuOpen ?? false;
+  const isOpen = courseNav?.isMobileMenuOpen || supabaseCourse?.isMobileMenuOpen || false;
+  const setMenuOpen = courseNav?.setMobileMenuOpen || supabaseCourse?.setMobileMenuOpen;
 
   // Close menu on route change
   useEffect(() => {
-    if (courseNav?.setMobileMenuOpen) {
-      courseNav.setMobileMenuOpen(false);
+    if (setMenuOpen) {
+      setMenuOpen(false);
     }
   }, [router.asPath]);
 
   // Handle Escape key to close menu
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Escape" && isOpen && courseNav?.setMobileMenuOpen) {
-      courseNav.setMobileMenuOpen(false);
+    if (e.key === "Escape" && isOpen && setMenuOpen) {
+      setMenuOpen(false);
     }
-  }, [isOpen, courseNav]);
+  }, [isOpen, setMenuOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -56,7 +59,7 @@ const PersistentMenu = () => {
   }, [isOpen]);
 
   const handleOverlayClick = () => {
-    courseNav?.setMobileMenuOpen(false);
+    setMenuOpen?.(false);
   };
 
   if (!showMenu) return null;
@@ -74,8 +77,10 @@ const PersistentMenu = () => {
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <CourseNavigationProvider>
-      <PersistentMenu />
-      <Component {...pageProps} />
+      <SupabaseCourseProvider>
+        <PersistentMenu />
+        <Component {...pageProps} />
+      </SupabaseCourseProvider>
     </CourseNavigationProvider>
   );
 };

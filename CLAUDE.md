@@ -16,18 +16,49 @@ npm run start    # Start production server
 
 ## Architecture
 
-### Data-Driven Content
+### NEW: Supabase-Powered Content System
 
-All course content is defined in `data/courseData.ts`:
+The codebase is transitioning to a Supabase-backed architecture for content:
+
+**Database tables:**
+- `courses` - Course metadata (slug, title, description, price, etc.)
+- `lessons` - Lesson content in Markdown format
+- `user_purchases` - Tracks which users have purchased which courses
+
+**Content access rules:**
+- Course 1 (Guitar Basics) - FREE, no auth required
+- Course 2 & 3 - PAID, requires auth + purchase
+
+**Key files:**
+- `lib/supabase/` - Supabase client utilities and types
+- `lib/stripe/` - Stripe client for payments
+- `lib/cloudflare/` - Cloudflare Stream for video hosting
+- `pages/courses/[category]/[course]/[lesson].tsx` - Dynamic lesson route
+- `pages/api/webhooks/stripe.ts` - Handles Stripe purchase webhooks
+- `supabase/migrations/` - Database schema and RLS policies
+
+**Environment variables:**
+- See `.env.example` for all required variables
+- `PREVIEW_MODE=true` bypasses RLS to see unpublished content
+
+### Legacy: Static Content System (data/courseData.ts)
+
+> Note: This is being phased out in favor of Supabase.
+
+All course content was defined in `data/courseData.ts`:
 - `CoursesInterface[]` → Course categories (e.g., "Beginner to Advanced", "Jazz")
 - Each category contains `CourseInterface[]` → Individual courses
 - Each course contains `PagesInterface[]` → Lesson pages with title, headings, text, images
 
-Adding new lessons: Update the `pages` array in the relevant course within `courseData.ts`. The page title is converted to a URL slug via `toKebabCase()` (e.g., "Intro to barre chords" → `intro-to-barre-chords`).
-
 ### Routing
 
-Next.js filesystem routing mirrors course structure:
+**New dynamic routes:**
+```
+/courses/[category]/[course]/[lesson]  → Dynamic route fetching from Supabase
+/courses/[category]/[course]/purchase  → Purchase page for paid courses
+```
+
+**Legacy static routes:**
 ```
 /courses/beginner-to-advanced/guitar-basics/[lesson-slug]
 ```
@@ -63,3 +94,17 @@ The prop naming is counterintuitive:
 - **Menu**: Sidebar showing all lessons in current course with active state
 - **Header**: Uses `lodash.debounce` for scroll listener, shrinks after 200px scroll
 - Images stored in `/public/images/[course-path]/` matching `imgPath` in courseData
+
+### Content Migration
+
+Scripts in `scripts/` help migrate content from TSX files to Supabase:
+- `migrate-content.ts` - Extract lesson content and convert to Markdown
+- `upload-images.ts` - Upload paid course images to Supabase Storage
+
+### Auth Flow
+
+1. User signs up/logs in via `/login` or `/signup`
+2. Paid course access checked in `getServerSideProps`
+3. If no purchase, redirect to `/courses/[category]/[course]/purchase`
+4. Stripe Checkout → Webhook updates `user_purchases`
+5. User gains access to course content

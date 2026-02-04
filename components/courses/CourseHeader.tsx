@@ -3,26 +3,35 @@ import Link from "next/link";
 import styled from "styled-components";
 import Logo from "../Logo";
 import { theme } from "../../utils/styles/theme";
-import { useCourseNavigation } from "../../context";
+import { useCourseNavigation, useSupabaseCourse } from "../../context";
 import { courses } from "../../data";
 import { toKebabCase } from "../../utils";
 import { isLessonComplete, PROGRESS_CHANGE_EVENT } from "../../hooks";
 
 const CourseHeader = (): JSX.Element => {
   const courseNav = useCourseNavigation();
+  const supabaseCourse = useSupabaseCourse();
   const [completedCount, setCompletedCount] = useState(0);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const isMobileMenuOpen = courseNav?.isMobileMenuOpen ?? false;
+  // Determine which context to use
+  const isSupabaseCourse = supabaseCourse?.course && supabaseCourse.lessons.length > 0;
+
+  const isMobileMenuOpen = isSupabaseCourse
+    ? (supabaseCourse?.isMobileMenuOpen ?? false)
+    : (courseNav?.isMobileMenuOpen ?? false);
 
   const handleMenuToggle = () => {
-    courseNav?.setMobileMenuOpen(!isMobileMenuOpen);
+    if (isSupabaseCourse) {
+      supabaseCourse?.setMobileMenuOpen(!isMobileMenuOpen);
+    } else {
+      courseNav?.setMobileMenuOpen(!isMobileMenuOpen);
+    }
   };
 
   // Return focus to menu button when menu closes
   useEffect(() => {
     if (!isMobileMenuOpen && menuButtonRef.current) {
-      // Small delay to ensure the menu animation completes
       const timeout = setTimeout(() => {
         menuButtonRef.current?.focus();
       }, 50);
@@ -31,32 +40,48 @@ const CourseHeader = (): JSX.Element => {
   }, [isMobileMenuOpen]);
 
   const calculateCompleted = useCallback(() => {
-    if (!courseNav?.course) return;
-    const { course, courseIndex } = courseNav;
-    const categoryShortName = courses[courseIndex].shortName;
-    const courseSlug = toKebabCase(course.title);
+    if (isSupabaseCourse && supabaseCourse?.course) {
+      const { course, lessons, categorySlug } = supabaseCourse;
+      let count = 0;
+      lessons.forEach((lesson) => {
+        const key = `${categorySlug}:${course.slug}:${lesson.slug}`;
+        if (isLessonComplete(key)) count++;
+      });
+      setCompletedCount(count);
+    } else if (courseNav?.course) {
+      const { course, courseIndex } = courseNav;
+      const categoryShortName = courses[courseIndex].shortName;
+      const courseSlug = toKebabCase(course.title);
 
-    let count = 0;
-    course.pages.forEach((page) => {
-      const key = `${categoryShortName}:${courseSlug}:${toKebabCase(page.title)}`;
-      if (isLessonComplete(key)) count++;
-    });
-    setCompletedCount(count);
-  }, [courseNav?.course, courseNav?.courseIndex]);
+      let count = 0;
+      course.pages.forEach((page) => {
+        const key = `${categoryShortName}:${courseSlug}:${toKebabCase(page.title)}`;
+        if (isLessonComplete(key)) count++;
+      });
+      setCompletedCount(count);
+    }
+  }, [courseNav?.course, courseNav?.courseIndex, supabaseCourse?.course, supabaseCourse?.lessons, isSupabaseCourse]);
 
-  // Calculate on mount and when course changes
   useEffect(() => {
     calculateCompleted();
   }, [calculateCompleted]);
 
-  // Listen for progress changes from lesson complete button
   useEffect(() => {
     window.addEventListener(PROGRESS_CHANGE_EVENT, calculateCompleted);
     return () =>
       window.removeEventListener(PROGRESS_CHANGE_EVENT, calculateCompleted);
   }, [calculateCompleted]);
 
-  const totalLessons = courseNav?.totalPages || 0;
+  // Get values based on which context is active
+  const course = isSupabaseCourse ? supabaseCourse?.course : courseNav?.course;
+  const totalLessons = isSupabaseCourse ? (supabaseCourse?.totalLessons || 0) : (courseNav?.totalPages || 0);
+  const currentIndex = isSupabaseCourse ? (supabaseCourse?.currentLessonIndex ?? 0) : (courseNav?.currentPageIndex ?? 0);
+  const currentTitle = isSupabaseCourse ? supabaseCourse?.currentLesson?.title : courseNav?.currentPage?.title;
+  const isFirstPage = isSupabaseCourse ? supabaseCourse?.isFirstLesson : courseNav?.isFirstPage;
+  const isLastPage = isSupabaseCourse ? supabaseCourse?.isLastLesson : courseNav?.isLastPage;
+  const prevUrl = isSupabaseCourse ? (supabaseCourse?.prevUrl || "") : (courseNav?.prevUrl || "");
+  const nextUrl = isSupabaseCourse ? (supabaseCourse?.nextUrl || "") : (courseNav?.nextUrl || "");
+
   const progressPercent =
     totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
@@ -73,7 +98,7 @@ const CourseHeader = (): JSX.Element => {
           </Link>
         </nav>
       </div>
-      {courseNav?.course && (
+      {course && (
         <div className="header-bottom">
           <MenuToggleButton
             ref={menuButtonRef}
@@ -87,28 +112,28 @@ const CourseHeader = (): JSX.Element => {
             <span />
             <span />
           </MenuToggleButton>
-          <h2 className="course-title">{courseNav.course.title}</h2>
+          <h2 className="course-title">{course.title}</h2>
           <div className="lesson-section">
             <nav className="lesson-nav-row" aria-label="Lesson navigation">
-              {!courseNav.isFirstPage ? (
-                <a href={courseNav.prevUrl} className="nav-btn">
+              {!isFirstPage ? (
+                <a href={prevUrl} className="nav-btn">
                   <span aria-hidden="true">&larr;</span>
                 </a>
               ) : (
                 <span className="nav-btn-placeholder" />
               )}
               <span className="lesson-indicator">
-                Lesson {(courseNav.currentPageIndex ?? 0) + 1} of {courseNav.totalPages ?? 0}
+                Lesson {currentIndex + 1} of {totalLessons}
               </span>
-              {!courseNav.isLastPage ? (
-                <a href={courseNav.nextUrl} className="nav-btn">
+              {!isLastPage ? (
+                <a href={nextUrl} className="nav-btn">
                   <span aria-hidden="true">&rarr;</span>
                 </a>
               ) : (
                 <span className="nav-btn-placeholder" />
               )}
             </nav>
-            <h1 className="lesson-title">{courseNav.currentPage?.title}</h1>
+            <h1 className="lesson-title">{currentTitle}</h1>
           </div>
           <div className="progress-section">
             <span className="progress-text">

@@ -111,6 +111,8 @@ const CoursesPageStyled = styled.div`
 
   .intro {
     margin: 0;
+    font-family: monospace;
+    font-size: 1.15rem;
   }
 
   .courses-grid {

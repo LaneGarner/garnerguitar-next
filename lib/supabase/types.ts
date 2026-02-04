@@ -83,22 +83,25 @@ export interface Database {
       user_purchases: {
         Row: {
           id: string;
-          user_id: string;
+          user_id: string | null;
           course_id: string;
+          email: string | null;
           stripe_payment_id: string | null;
           purchased_at: string;
         };
         Insert: {
           id?: string;
-          user_id: string;
+          user_id?: string | null;
           course_id: string;
+          email?: string | null;
           stripe_payment_id?: string | null;
           purchased_at?: string;
         };
         Update: {
           id?: string;
-          user_id?: string;
+          user_id?: string | null;
           course_id?: string;
+          email?: string | null;
           stripe_payment_id?: string | null;
           purchased_at?: string;
         };

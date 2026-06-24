@@ -14,7 +14,7 @@ import {
   VideoPlayer,
   YouTubeEmbed,
 } from "../../../../components/lessons";
-import { createServerSideClient } from "../../../../lib/supabase/server";
+import { createServerSideClient, isPreviewMode } from "../../../../lib/supabase/server";
 import type { LessonWithCourse, Course, Lesson } from "../../../../lib/supabase/types";
 import { theme } from "../../../../utils/styles/theme";
 import { useLessonProgress } from "../../../../hooks";
@@ -161,9 +161,10 @@ export const getServerSideProps: GetServerSideProps<CourseIndexPageProps> = asyn
     } = await supabase.auth.getUser();
 
     if (!user) {
+      // Redirect to purchase page (guests can buy without logging in first)
       return {
         redirect: {
-          destination: `/login?redirect=/courses/${category}/${courseSlug}`,
+          destination: `/courses/${category}/${courseSlug}/purchase`,
           permanent: false,
         },
       };
@@ -187,11 +188,17 @@ export const getServerSideProps: GetServerSideProps<CourseIndexPageProps> = asyn
   }
 
   // Get the first lesson (Introduction) - now safe to fetch after auth check
-  const { data: lessonData, error: lessonError } = await supabase
+  let lessonQuery = supabase
     .from("lessons")
     .select("*")
-    .eq("course_id", course.id)
-    .eq("published", true)
+    .eq("course_id", course.id);
+
+  // Only filter by published in production
+  if (!isPreviewMode) {
+    lessonQuery = lessonQuery.eq("published", true);
+  }
+
+  const { data: lessonData, error: lessonError } = await lessonQuery
     .order("sort_order", { ascending: true })
     .limit(1)
     .single();
@@ -203,11 +210,16 @@ export const getServerSideProps: GetServerSideProps<CourseIndexPageProps> = asyn
   const lesson = lessonData as Lesson;
 
   // Get all lessons for navigation
-  const { data: allLessonsData } = await supabase
+  let allLessonsQuery = supabase
     .from("lessons")
     .select("*")
-    .eq("course_id", course.id)
-    .eq("published", true)
+    .eq("course_id", course.id);
+
+  if (!isPreviewMode) {
+    allLessonsQuery = allLessonsQuery.eq("published", true);
+  }
+
+  const { data: allLessonsData } = await allLessonsQuery
     .order("sort_order", { ascending: true });
 
   const allLessons = (allLessonsData || []) as Lesson[];

@@ -13,7 +13,7 @@ import { theme } from "../../../../utils/styles/theme";
 interface PurchasePageProps {
   course: Course;
   categorySlug: string;
-  userEmail: string;
+  userEmail: string | null;
   alreadyPurchased: boolean;
 }
 
@@ -130,9 +130,11 @@ export default function PurchasePage({
             {loading ? "Processing..." : `Purchase for ${priceDisplay}`}
           </button>
 
-          <p className="logged-in-as">
-            Logged in as <strong>{userEmail}</strong>
-          </p>
+          {userEmail && (
+            <p className="logged-in-as">
+              Logged in as <strong>{userEmail}</strong>
+            </p>
+          )}
 
           <Link
             href={`/courses/${categorySlug}`}
@@ -156,20 +158,10 @@ export const getServerSideProps: GetServerSideProps<PurchasePageProps> = async (
 
   const supabase = createServerSideClient(context);
 
-  // Get current user
+  // Get current user (optional for guest checkout)
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  // Require authentication
-  if (!user) {
-    return {
-      redirect: {
-        destination: `/login?redirect=/courses/${category}/${courseSlug}/purchase`,
-        permanent: false,
-      },
-    };
-  }
 
   // Get the course
   const { data: courseData, error: courseError } = await supabase
@@ -195,20 +187,24 @@ export const getServerSideProps: GetServerSideProps<PurchasePageProps> = async (
     };
   }
 
-  // Check if already purchased
-  const { data: purchase } = await supabase
-    .from("user_purchases")
-    .select("*")
-    .eq("user_id", user.id)
-    .eq("course_id", course.id)
-    .single();
+  // Check if already purchased (only if user is logged in)
+  let alreadyPurchased = false;
+  if (user) {
+    const { data: purchase } = await supabase
+      .from("user_purchases")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("course_id", course.id)
+      .single();
+    alreadyPurchased = !!purchase;
+  }
 
   return {
     props: {
       course,
       categorySlug: category,
-      userEmail: user.email || "",
-      alreadyPurchased: !!purchase,
+      userEmail: user?.email || null,
+      alreadyPurchased,
     },
   };
 };

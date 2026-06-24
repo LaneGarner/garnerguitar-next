@@ -4,24 +4,21 @@ import type { Database } from "./types";
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { GetServerSidePropsContext } from "next";
 
-const isPreviewMode = process.env.PREVIEW_MODE === "true";
+export const isPreviewMode = process.env.PREVIEW_MODE === "true";
 
 // For use in API routes
 export function createApiRouteClient(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // In preview mode, use service role to bypass RLS
-  if (isPreviewMode && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    return createSupabaseClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
-  }
+  // In preview mode, use service role to bypass RLS but keep cookie handling for auth
+  const supabaseKey = isPreviewMode && process.env.SUPABASE_SERVICE_ROLE_KEY
+    ? process.env.SUPABASE_SERVICE_ROLE_KEY
+    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseKey,
     {
       cookies: {
         get(name: string) {
@@ -42,17 +39,14 @@ export function createApiRouteClient(
 export function createServerSideClient(context: GetServerSidePropsContext) {
   const { req, res } = context;
 
-  // In preview mode, use service role to bypass RLS
-  if (isPreviewMode && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-    return createSupabaseClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
-    );
-  }
+  // In preview mode, use service role to bypass RLS but keep cookie handling for auth
+  const supabaseKey = isPreviewMode && process.env.SUPABASE_SERVICE_ROLE_KEY
+    ? process.env.SUPABASE_SERVICE_ROLE_KEY
+    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseKey,
     {
       cookies: {
         get(name: string) {

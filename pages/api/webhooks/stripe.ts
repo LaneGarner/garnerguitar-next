@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { buffer } from "micro";
 import Stripe from "stripe";
+import { createClient } from "@supabase/supabase-js";
 import { stripe } from "../../../lib/stripe/server";
-import { createServiceClient } from "../../../lib/supabase/server";
 
 // Disable body parsing - Stripe needs raw body for signature verification
 export const config = {
@@ -73,45 +73,132 @@ export default async function handler(
 
 async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
   const { userId, courseId } = session.metadata || {};
+  const customerEmail = session.customer_email || session.customer_details?.email;
 
-  if (!userId || !courseId) {
-    console.error("Missing metadata in checkout session:", session.id);
-    throw new Error("Missing userId or courseId in session metadata");
+  if (!courseId) {
+    console.error("Missing courseId in checkout session:", session.id);
+    throw new Error("Missing courseId in session metadata");
   }
 
-  console.log(`Processing purchase: user=${userId}, course=${courseId}`);
+  // Use untyped service client to bypass RLS and type constraints
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
-  // Use service client to bypass RLS for inserting purchase
-  const supabase = createServiceClient();
+  // For logged-in users (userId present), check if purchase already exists
+  if (userId) {
+    const { data: existingPurchase } = await supabase
+      .from("user_purchases")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("course_id", courseId)
+      .single();
 
-  // Check if purchase already exists (idempotency)
-  const { data: existingPurchase } = await supabase
-    .from("user_purchases")
-    .select("*")
-    .eq("user_id", userId)
-    .eq("course_id", courseId)
-    .single();
+    if (existingPurchase) {
+      console.log(`Purchase already exists for user=${userId}, course=${courseId}`);
+      return;
+    }
 
-  if (existingPurchase) {
-    console.log(`Purchase already exists for user=${userId}, course=${courseId}`);
+    console.log(`Processing purchase: user=${userId}, course=${courseId}`);
+
+    // Create purchase with user_id
+    const purchaseData = {
+      user_id: userId,
+      course_id: courseId,
+      email: customerEmail || null,
+      stripe_payment_id: session.payment_intent as string,
+      purchased_at: new Date().toISOString(),
+    };
+
+    const { error } = await supabase.from("user_purchases").insert(purchaseData);
+
+    if (error) {
+      console.error("Failed to create purchase record:", error);
+      throw new Error(`Failed to create purchase: ${error.message}`);
+    }
+
+    console.log(`Purchase created successfully: user=${userId}, course=${courseId}`);
     return;
   }
 
-  // Create the purchase record
-  const purchaseData = {
-    user_id: userId,
+  // Guest purchase flow - no userId, but we have email from Stripe
+  if (!customerEmail) {
+    console.error("No email found for guest checkout:", session.id);
+    throw new Error("No email found for guest checkout");
+  }
+
+  console.log(`Processing guest purchase: email=${customerEmail}, course=${courseId}`);
+
+  // Check if a user with this email already exists - if so, link immediately
+  const { data: usersData } = await supabase.auth.admin.listUsers();
+  const existingUser = usersData?.users?.find(
+    (u) => u.email?.toLowerCase() === customerEmail.toLowerCase()
+  );
+
+  // Check for existing purchase by email (guest) or user_id (if user exists)
+  if (existingUser) {
+    const { data: existingPurchase } = await supabase
+      .from("user_purchases")
+      .select("*")
+      .eq("user_id", existingUser.id)
+      .eq("course_id", courseId)
+      .single();
+
+    if (existingPurchase) {
+      console.log(`Purchase already exists for user=${existingUser.id}, course=${courseId}`);
+      return;
+    }
+
+    // User exists, create purchase linked to their account
+    const existingUserPurchaseData = {
+      user_id: existingUser.id,
+      course_id: courseId,
+      email: customerEmail,
+      stripe_payment_id: session.payment_intent as string,
+      purchased_at: new Date().toISOString(),
+    };
+
+    const { error } = await supabase.from("user_purchases").insert(existingUserPurchaseData);
+
+    if (error) {
+      console.error("Failed to create purchase record:", error);
+      throw new Error(`Failed to create purchase: ${error.message}`);
+    }
+
+    console.log(`Purchase created and linked to existing user: user=${existingUser.id}, course=${courseId}`);
+    return;
+  }
+
+  // No existing user - check for existing guest purchase with same email
+  const { data: existingGuestPurchase } = await supabase
+    .from("user_purchases")
+    .select("*")
+    .eq("email", customerEmail)
+    .eq("course_id", courseId)
+    .is("user_id", null)
+    .single();
+
+  if (existingGuestPurchase) {
+    console.log(`Guest purchase already exists for email=${customerEmail}, course=${courseId}`);
+    return;
+  }
+
+  // Create guest purchase with email only (no user_id)
+  const guestPurchaseData = {
+    user_id: null,
     course_id: courseId,
+    email: customerEmail,
     stripe_payment_id: session.payment_intent as string,
     purchased_at: new Date().toISOString(),
   };
 
-  // Using 'as any' because the Database types may not be generated from actual schema
-  const { error } = await supabase.from("user_purchases").insert(purchaseData as any);
+  const { error } = await supabase.from("user_purchases").insert(guestPurchaseData);
 
   if (error) {
-    console.error("Failed to create purchase record:", error);
-    throw new Error(`Failed to create purchase: ${error.message}`);
+    console.error("Failed to create guest purchase record:", error);
+    throw new Error(`Failed to create guest purchase: ${error.message}`);
   }
 
-  console.log(`Purchase created successfully: user=${userId}, course=${courseId}`);
+  console.log(`Guest purchase created: email=${customerEmail}, course=${courseId}`);
 }

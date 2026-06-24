@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -7,6 +7,7 @@ import "../utils/styles/global.scss";
 import { CourseNavigationProvider, useCourseNavigation, SupabaseCourseProvider, useSupabaseCourse } from "../context";
 import Menu from "../components/courses/Menu";
 import { theme } from "../utils/styles/theme";
+import { createClient } from "../lib/supabase/client";
 
 const PersistentMenu = () => {
   const router = useRouter();
@@ -75,6 +76,36 @@ const PersistentMenu = () => {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const hasLinkedPurchases = useRef(false);
+
+  // Link guest purchases when user signs in
+  useEffect(() => {
+    const supabase = createClient();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event) => {
+        // Link purchases on sign in or initial session (email confirmation redirect)
+        if ((event === "SIGNED_IN" || event === "INITIAL_SESSION") && !hasLinkedPurchases.current) {
+          hasLinkedPurchases.current = true;
+          try {
+            await fetch("/api/link-purchases", { method: "POST" });
+          } catch {
+            // Non-critical - silently ignore failures
+          }
+        }
+
+        // Reset flag on sign out so we can link again on next sign in
+        if (event === "SIGNED_OUT") {
+          hasLinkedPurchases.current = false;
+        }
+      }
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   return (
     <CourseNavigationProvider>
       <SupabaseCourseProvider>

@@ -7,3 +7,11 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Branch deploys (non-main branches) show all courses including "Coming Soon"
+[context.branch-deploy.environment]
+  NEXT_PUBLIC_SHOW_ALL_COURSES = "true"
+
+# Deploy previews (PRs) also show all courses
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_SHOW_ALL_COURSES = "true"

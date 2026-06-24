@@ -24,28 +24,35 @@ export default async function handler(
   try {
     const supabase = createApiRouteClient(req, res);
 
-    // Get the current user
+    // Get the current user (optional for guest checkout)
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
-      return res.status(401).json({ error: "Authentication required" });
+    // If user is logged in, check for existing purchase
+    if (user) {
+      const { data: existingPurchase } = await supabase
+        .from("user_purchases")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("course_id", courseId)
+        .single();
+
+      if (existingPurchase) {
+        return res.status(400).json({ error: "You already own this course" });
+      }
     }
 
-    // Check if user already purchased this course
-    const { data: existingPurchase } = await supabase
-      .from("user_purchases")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("course_id", courseId)
-      .single();
-
-    if (existingPurchase) {
-      return res.status(400).json({ error: "You already own this course" });
+    // Build metadata - include userId only if authenticated
+    const metadata: Record<string, string> = {
+      courseId: courseId,
+    };
+    if (user) {
+      metadata.userId = user.id;
     }
 
     // Create Stripe checkout session
+    // For guests, Stripe will collect email at checkout
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
@@ -57,11 +64,9 @@ export default async function handler(
       ],
       success_url: successUrl,
       cancel_url: cancelUrl,
-      customer_email: user.email ?? undefined,
-      metadata: {
-        userId: user.id,
-        courseId: courseId,
-      },
+      // Pre-fill email for logged-in users, let Stripe collect for guests
+      customer_email: user?.email ?? undefined,
+      metadata,
     });
 
     // Return the checkout URL for client-side redirect

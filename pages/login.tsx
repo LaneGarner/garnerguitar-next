@@ -34,6 +34,7 @@ export default function LoginPage() {
       }
 
       // Redirect after successful login
+      // Guest purchases are linked automatically via auth state listener in _app.tsx
       router.push(redirect);
     } catch (err) {
       setError("An unexpected error occurred. Please try again.");

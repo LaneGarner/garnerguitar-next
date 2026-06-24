@@ -73,7 +73,9 @@ export default async function handler(
 
 async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
   const { userId, courseId } = session.metadata || {};
-  const customerEmail = session.customer_email || session.customer_details?.email;
+  const rawEmail = session.customer_email || session.customer_details?.email;
+  // Store and compare emails lowercased so guest purchases link reliably later.
+  const customerEmail = rawEmail ? rawEmail.toLowerCase() : rawEmail;
 
   if (!courseId) {
     console.error("Missing courseId in checkout session:", session.id);

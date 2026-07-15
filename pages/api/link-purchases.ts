@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { createApiRouteClient } from "../../lib/supabase/server";
+import { linkGuestPurchases } from "../../lib/purchases/linkGuestPurchases";
 
 type ResponseData = {
   linked?: number;
@@ -32,36 +33,13 @@ export default async function handler(
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Find guest purchases with matching email that haven't been linked
-    const { data: guestPurchases, error: fetchError } = await serviceClient
-      .from("user_purchases")
-      .select("id")
-      .eq("email", user.email)
-      .is("user_id", null);
+    // Link any guest purchases for this email to the now-authenticated user.
+    // Backstop for the normal returning-customer login flow; the post-purchase
+    // endpoint is the authoritative linker for the guest-checkout flow.
+    const linked = await linkGuestPurchases(serviceClient, user.id, user.email);
 
-    if (fetchError) {
-      console.error("Error fetching guest purchases:", fetchError);
-      return res.status(500).json({ error: "Failed to fetch purchases" });
-    }
-
-    if (!guestPurchases || guestPurchases.length === 0) {
-      return res.status(200).json({ linked: 0 });
-    }
-
-    // Link the purchases to the user
-    const purchaseIds = guestPurchases.map((p: { id: string }) => p.id);
-    const { error: updateError } = await serviceClient
-      .from("user_purchases")
-      .update({ user_id: user.id })
-      .in("id", purchaseIds);
-
-    if (updateError) {
-      console.error("Error linking purchases:", updateError);
-      return res.status(500).json({ error: "Failed to link purchases" });
-    }
-
-    console.log(`Linked ${purchaseIds.length} guest purchases to user ${user.id}`);
-    return res.status(200).json({ linked: purchaseIds.length });
+    console.log(`Linked ${linked} guest purchases to user ${user.id}`);
+    return res.status(200).json({ linked });
   } catch (error) {
     console.error("Link purchases error:", error);
     return res.status(500).json({ error: "Failed to link purchases" });

@@ -96,12 +96,16 @@ export default function LoginPage() {
 
           <div className="links">
             <Link href="/forgot-password">Forgot your password?</Link>
-            <p>
-              Don&apos;t have an account?{" "}
-              <Link href={`/signup${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}>
-                Sign up
-              </Link>
-            </p>
+          </div>
+
+          <div className="signup-section">
+            <p className="signup-prompt">Don&apos;t have an account?</p>
+            <Link
+              href={`/signup${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
+              className="signup-btn"
+            >
+              Sign up
+            </Link>
           </div>
         </div>
       </LoginPageStyled>
@@ -217,10 +221,43 @@ const LoginPageStyled = styled.div`
         text-decoration: underline;
       }
     }
+  }
 
-    p {
-      margin-top: 1rem;
+  .signup-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid ${theme.colors.neutral[5]};
+    text-align: center;
+
+    .signup-prompt {
       color: ${theme.colors.neutral[10]};
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .signup-btn {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background-color: transparent;
+    color: ${theme.colors.green};
+    border: 1px solid ${theme.colors.green};
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background-color: rgba(131, 231, 203, 0.1);
+      text-decoration: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.green};
+      outline-offset: 2px;
     }
   }
 `;

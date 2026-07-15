@@ -47,7 +47,7 @@ export default function PurchasePage({
         body: JSON.stringify({
           priceId: course.stripe_price_id,
           courseId: course.id,
-          successUrl: `${window.location.origin}/courses/${categorySlug}/${course.slug}?success=true`,
+          successUrl: `${window.location.origin}/courses/${categorySlug}/${course.slug}/success?session_id={CHECKOUT_SESSION_ID}`,
           cancelUrl: `${window.location.origin}/courses/${categorySlug}/${course.slug}/purchase?canceled=true`,
         }),
       });

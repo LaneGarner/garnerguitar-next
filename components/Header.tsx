@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 
 import { theme } from "../utils";
+import { createClient } from "../lib/supabase/client";
+
+type AuthState = "loading" | "authenticated" | "unauthenticated";
 
 // Interpolate a value based on scroll position
 const interpolate = (
@@ -22,9 +25,37 @@ const Header = (): JSX.Element => {
   const [scrollY, setScrollY] = useState(0);
   const [currentRoute, setCurrentRoute] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [authState, setAuthState] = useState<AuthState>("loading");
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setAuthState(user ? "authenticated" : "unauthenticated");
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") setAuthState("authenticated");
+      if (event === "SIGNED_OUT") setAuthState("unauthenticated");
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setIsSigningOut(false);
+    setIsMenuOpen(false);
+    router.push("/");
+  };
+
+  const loginHref = `/login?redirect=${encodeURIComponent(router.asPath)}`;
 
   useEffect(() => {
     setCurrentRoute(router.route.slice(1));
@@ -124,6 +155,24 @@ const Header = (): JSX.Element => {
             {link.name}
           </Link>
         ))}
+        {authState === "loading" && <span className="auth-placeholder" aria-hidden="true" />}
+        {authState === "unauthenticated" && (
+          <Link href={loginHref} className="header-link">
+            Log in
+          </Link>
+        )}
+        {authState === "authenticated" && (
+          <button
+            type="button"
+            className="header-link signout-btn"
+            onClick={handleSignOut}
+            disabled={isSigningOut}
+            aria-busy={isSigningOut}
+            aria-label="Sign out of your account"
+          >
+            {isSigningOut ? "Signing out…" : "Sign out"}
+          </button>
+        )}
       </nav>
       <MobileNav ref={menuRef} id="mobile-nav" $isOpen={isMenuOpen}>
         {headerLinks.map((link, i) => (
@@ -137,6 +186,33 @@ const Header = (): JSX.Element => {
             {link.name}
           </Link>
         ))}
+        {authState !== "loading" && (
+          <div className="mobile-auth-section">
+            {authState === "unauthenticated" && (
+              <Link
+                href={loginHref}
+                className="mobile-link"
+                tabIndex={isMenuOpen ? 0 : -1}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Log in
+              </Link>
+            )}
+            {authState === "authenticated" && (
+              <button
+                type="button"
+                className="mobile-link mobile-signout-btn"
+                tabIndex={isMenuOpen ? 0 : -1}
+                onClick={handleSignOut}
+                disabled={isSigningOut}
+                aria-busy={isSigningOut}
+                aria-label="Sign out of your account"
+              >
+                {isSigningOut ? "Signing out…" : "Sign out"}
+              </button>
+            )}
+          </div>
+        )}
       </MobileNav>
     </HeaderStyled>
   );
@@ -244,6 +320,25 @@ const HeaderStyled = styled.header`
       text-decoration-color: ${theme.colors.neutral[2]};
       text-underline-offset: 8px;
     }
+
+    .auth-placeholder {
+      width: 72px;
+      visibility: hidden;
+    }
+
+    .signout-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1em;
+      color: inherit;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
   }
 `;
 
@@ -304,7 +399,7 @@ const MobileNav = styled.nav<{ $isOpen: boolean }>`
     width: 100%;
     background: ${theme.colors.neutral[14]};
     overflow: hidden;
-    max-height: ${({ $isOpen }) => ($isOpen ? "300px" : "0")};
+    max-height: ${({ $isOpen }) => ($isOpen ? "360px" : "0")};
     opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
     transition: max-height 200ms ease, opacity 200ms ease;
     border-top: ${({ $isOpen }) => ($isOpen ? `1px solid ${theme.colors.neutral[12]}` : "none")};
@@ -333,5 +428,27 @@ const MobileNav = styled.nav<{ $isOpen: boolean }>`
     font-weight: bold;
     border-left-color: ${theme.colors.green};
     background-color: ${theme.colors.neutral[13]};
+  }
+
+  .mobile-auth-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-signout-btn {
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1.1em;
+    color: inherit;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   }
 `;

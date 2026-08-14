@@ -29,8 +29,8 @@ const WhyLearnCard = (): JSX.Element => {
             ✓
           </span>
           <div>
-            <strong>Video demonstrations</strong>
-            <span>See and hear each technique demonstrated correctly</span>
+            <strong>Detailed instruction</strong>
+            <span>Build each skill with clear explanations, diagrams, and exercises</span>
           </div>
         </li>
         <li>

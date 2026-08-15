@@ -177,14 +177,13 @@ export const getServerSideProps: GetServerSideProps<LessonPageProps> = async (
     }
 
     // Check if user purchased this course
-    const { data: purchase } = await supabase
-      .from("user_purchases")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("course_id", course.id)
-      .single();
+    const isAdmin = user.app_metadata?.role === "admin";
+    const [{ data: purchase }, { data: grant }] = await Promise.all([
+      supabase.from("user_purchases").select("id").eq("user_id", user.id).eq("course_id", course.id).maybeSingle(),
+      supabase.from("course_access_grants").select("id").eq("user_id", user.id).eq("course_id", course.id).is("revoked_at", null).maybeSingle(),
+    ]);
 
-    if (!purchase) {
+    if (!isAdmin && !purchase && !grant) {
       return {
         redirect: {
           destination: `/courses/${category}/${courseSlug}/purchase`,

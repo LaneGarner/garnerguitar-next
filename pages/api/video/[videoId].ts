@@ -63,14 +63,12 @@ export default async function handler(
       }
 
       // Check if user purchased this course
-      const { data: purchase } = await supabase
-        .from("user_purchases")
-        .select("*")
-        .eq("user_id", user.id)
-        .eq("course_id", course.id)
-        .single();
+      const [{ data: purchase }, { data: grant }] = await Promise.all([
+        supabase.from("user_purchases").select("id").eq("user_id", user.id).eq("course_id", course.id).maybeSingle(),
+        supabase.from("course_access_grants").select("id").eq("user_id", user.id).eq("course_id", course.id).is("revoked_at", null).maybeSingle(),
+      ]);
 
-      if (!purchase) {
+      if (user.app_metadata?.role !== "admin" && !purchase && !grant) {
         return res.status(403).json({ error: "Course purchase required" });
       }
     }

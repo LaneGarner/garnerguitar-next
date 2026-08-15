@@ -187,13 +187,11 @@ export const getServerSideProps: GetServerSideProps<PurchasePageProps> = async (
   // Check if already purchased (only if user is logged in)
   let alreadyPurchased = false;
   if (user) {
-    const { data: purchase } = await supabase
-      .from("user_purchases")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("course_id", course.id)
-      .single();
-    alreadyPurchased = !!purchase;
+    const [{ data: purchase }, { data: grant }] = await Promise.all([
+      supabase.from("user_purchases").select("id").eq("user_id", user.id).eq("course_id", course.id).maybeSingle(),
+      supabase.from("course_access_grants").select("id").eq("user_id", user.id).eq("course_id", course.id).is("revoked_at", null).maybeSingle(),
+    ]);
+    alreadyPurchased = user.app_metadata?.role === "admin" || !!purchase || !!grant;
   }
 
   return {

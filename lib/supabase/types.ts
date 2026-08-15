@@ -106,6 +106,38 @@ export interface Database {
           purchased_at?: string;
         };
       };
+      course_access_grants: {
+        Row: {
+          id: string;
+          user_id: string;
+          course_id: string;
+          granted_by: string | null;
+          reason: string | null;
+          granted_at: string;
+          revoked_at: string | null;
+          revoked_by: string | null;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          course_id: string;
+          granted_by?: string | null;
+          reason?: string | null;
+          granted_at?: string;
+          revoked_at?: string | null;
+          revoked_by?: string | null;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          course_id?: string;
+          granted_by?: string | null;
+          reason?: string | null;
+          granted_at?: string;
+          revoked_at?: string | null;
+          revoked_by?: string | null;
+        };
+      };
     };
     Views: {};
     Functions: {};

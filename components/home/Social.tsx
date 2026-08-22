@@ -10,7 +10,7 @@ const Social = (): JSX.Element => {
 
   return (
     <SocialStyled>
-      <h2>Social</h2>
+      <h2>More from Lane</h2>
       <a href="https://www.youtube.com/c/garnerguitar" target="_blank" rel="noopener noreferrer">
         <FaYoutube color={ICON_COLOR} size={SIZE - 4} />
       </a>

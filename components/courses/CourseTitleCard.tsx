@@ -34,8 +34,8 @@ const CourseTitleCard = (props: Props): JSX.Element => {
   return (
     <Link href={shortName} aria-label={ariaLabel}>
       <CourseTitleCardStyled $isFeatured={isFeatured}>
-        {isFeatured && <Badge $type="featured">Start Here</Badge>}
-        {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
+        {isFeatured && <Badge $type="featured">Start here</Badge>}
+        {isComingSoon && <Badge $type="comingSoon">Coming soon</Badge>}
 
         <h3>{title}</h3>
         <p className="tagline">{tagline}</p>
@@ -58,7 +58,8 @@ const CourseTitleCard = (props: Props): JSX.Element => {
           ))}
         </div>
         <span className="cta">
-          Explore Courses <span aria-hidden="true">→</span>
+          {isComingSoon ? "Course in development" : "View courses"}{" "}
+          {!isComingSoon && <span aria-hidden="true">→</span>}
         </span>
       </CourseTitleCardStyled>
     </Link>

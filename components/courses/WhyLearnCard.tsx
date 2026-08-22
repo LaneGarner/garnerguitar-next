@@ -4,15 +4,15 @@ import { theme } from "../../utils/styles/theme";
 const WhyLearnCard = (): JSX.Element => {
   return (
     <WhyLearnCardStyled>
-      <h2>Why learn guitar with these courses?</h2>
+      <h2>How the courses work</h2>
       <ul>
         <li>
           <span className="checkmark" aria-hidden="true">
             ✓
           </span>
           <div>
-            <strong>Self-paced learning</strong>
-            <span>Learn on your schedule, revisit lessons anytime</span>
+            <strong>Study at your own pace</strong>
+            <span>Work through lessons when you have time and revisit them whenever you need to.</span>
           </div>
         </li>
         <li>
@@ -20,8 +20,8 @@ const WhyLearnCard = (): JSX.Element => {
             ✓
           </span>
           <div>
-            <strong>Free intro course</strong>
-            <span>Start learning at no cost with the Guitar Basics course</span>
+            <strong>Start for free</strong>
+            <span>The 21-lesson Guitar Basics course is free and does not assume previous experience.</span>
           </div>
         </li>
         <li>
@@ -29,8 +29,8 @@ const WhyLearnCard = (): JSX.Element => {
             ✓
           </span>
           <div>
-            <strong>Detailed instruction</strong>
-            <span>Build each skill with clear explanations, diagrams, and exercises</span>
+            <strong>Learn with clear examples</strong>
+            <span>Written explanations, diagrams, exercises, and musical examples help you put each idea into practice.</span>
           </div>
         </li>
         <li>
@@ -38,8 +38,8 @@ const WhyLearnCard = (): JSX.Element => {
             ✓
           </span>
           <div>
-            <strong>Structured curriculum</strong>
-            <span>Clear path from fundamentals to advanced concepts</span>
+            <strong>Follow a structured curriculum</strong>
+            <span>Each course builds on earlier material while remaining useful as a reference.</span>
           </div>
         </li>
       </ul>

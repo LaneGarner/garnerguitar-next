@@ -68,14 +68,12 @@ export default function SignupPage() {
         </Head>
         <SignupPageStyled>
           <div className="form-container">
-            <h1>Check Your Email</h1>
+            <h1>Check your email</h1>
             <p className="success-message">
-              We&apos;ve sent a confirmation link to <strong>{email}</strong>.
-              Please check your inbox and click the link to activate your
-              account.
+              We sent a confirmation link to <strong>{email}</strong>. Open the link to finish creating your account.
             </p>
             <p className="note">
-              If you don&apos;t see the email, check your spam folder.
+              If it does not arrive within a few minutes, check your spam folder.
             </p>
             <Link href="/login" className="back-link">
               Return to login
@@ -93,9 +91,9 @@ export default function SignupPage() {
       </Head>
       <SignupPageStyled>
         <div className="form-container">
-          <h1>Create Account</h1>
+          <h1>Create an account</h1>
           <p className="subtitle">
-            Sign up to start learning guitar today.
+            Create an account to access courses and keep track of your progress.
           </p>
 
           {error && (
@@ -148,7 +146,7 @@ export default function SignupPage() {
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
+              {loading ? "Creating account..." : "Create account"}
             </button>
           </form>
 

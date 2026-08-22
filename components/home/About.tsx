@@ -17,18 +17,19 @@ const About = (): JSX.Element => {
       </div>
       <div className="text">
         <p>
-          <strong>Hi, I'm Lane Garner.</strong> I’ve been teaching guitar lessons for over ten years and have experience with students of all ages and experience levels. Whether
-          you just started playing guitar or you’ve played for years there is always something new to learn about music.
+          <strong>Hi, I&apos;m Lane Garner.</strong> I&apos;ve taught guitar for more than a decade, working with complete beginners, college music majors, professional musicians, and students ranging in age from five to 65.
         </p>
         <p>
-          My primary goal as a teacher is to focus intently on specific aspects of each student's musicianship-technique, harmonic concepts, ear-training, theory, etc while making
-          each lesson fun for the student. It is my goal to improve the student’s playing by the end of each and every lesson. I find it important to teach fundamentals of music as
-          well as any additional material the student is interested in learning. In my decade plus of teaching guitar I’ve worked with students of all levels and ages 5 to 65. I’ve
-          taught total beginners, intermediate players, college music majors, and even working professional musicians.
+          I teach the fundamentals because they make everything else easier. Good technique helps playing feel more natural. Rhythm, ear training, theory, and fretboard knowledge help you understand what you are playing and learn new music more confidently. Experience with different styles and instruments gives you more ways to hear and approach an idea.
         </p>
         <p>
-          I have Masters and Bachelors degrees in Jazz Studies from the University of North Texas and as a performer I have traveled all over the country/world playing various
-          styles ranging from jazz, rock, and pop to classical, country, worship music, and more. I am not currently taking students.
+          My approach is simple: practice carefully, repeat the material, give it time, and keep chipping away. If another musician can play something, you can learn it too. Progress takes patience, but music does not need to feel overly serious.
+        </p>
+        <p>
+          I hold bachelor&apos;s and master&apos;s degrees in Jazz Studies from the University of North Texas. As a performer, I&apos;ve traveled throughout the United States and abroad, playing jazz, rock, pop, classical, country, worship music, and more. That range of experience shapes my courses. They focus on strong fundamentals while leaving room for different styles, goals, and ways of understanding music.
+        </p>
+        <p>
+          I&apos;m not currently accepting private students. My online courses are based on the curriculum I&apos;ve developed through years of teaching. You can work at your own pace, revisit lessons whenever you need to, and <a href="/courses/beginner-to-advanced/guitar-basics">start with the free Guitar Basics course</a>.
         </p>
       </div>
     </AboutStyled>
@@ -122,5 +123,9 @@ const AboutStyled = styled.div`
 
   strong {
     font-family: monospace;
+  }
+
+  a {
+    color: ${theme.colors.navy};
   }
 `;

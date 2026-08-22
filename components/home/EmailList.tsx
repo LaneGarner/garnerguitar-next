@@ -15,13 +15,13 @@ const EmailList = (): JSX.Element => {
         />
       </div>
       <div>
-        <h2>Email List</h2>
-        <p>Sign up to receive occasional notifications about new content, updates to online courses, free lessons, and more!</p>
-        <label htmlFor="name">Name:</label>
+        <h2>New lessons and course updates</h2>
+        <p>Get occasional emails about new courses, free lessons, practice resources, and additions to the site.</p>
+        <label htmlFor="name">Name</label>
         <input type="text" id="name" />
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email</label>
         <input type="email" id="email" />
-        <button>Sign up</button>
+        <button>Join the list</button>
       </div>
     </EmailListStyled>
   );
@@ -112,7 +112,10 @@ const EmailListStyled = styled.div`
   }
 
   h2 {
-    font-size: 6em;
+    max-width: 600px;
+    font-size: 3.5em;
+    line-height: 1.05;
+    text-align: center;
     color: white;
 
     @media (max-width: ${theme.breakpoints.md}) {

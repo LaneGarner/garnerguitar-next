@@ -109,8 +109,7 @@ export default function SuccessPage({
           {state === "loggedInAlready" && (
             <>
               <p className="subtitle">
-                You now have access to <strong>{courseTitle}</strong>. Enjoy the
-                course!
+                You now have access to <strong>{courseTitle}</strong>.
               </p>
               <Link href={courseHref} className="primary-btn">
                 Start the course
@@ -121,12 +120,10 @@ export default function SuccessPage({
           {state === "accountExists" && (
             <>
               <p className="subtitle">
-                Thanks for your purchase of <strong>{courseTitle}</strong>. You
-                already have an account for <strong>{email}</strong> — log in to
-                access your course.
+                Your purchase of <strong>{courseTitle}</strong> is connected to <strong>{email}</strong>. Log in to begin the course.
               </p>
               <Link href={loginHref} className="primary-btn">
-                Log in to access
+                Log in
               </Link>
             </>
           )}
@@ -134,8 +131,7 @@ export default function SuccessPage({
           {state === "needsAccount" && (
             <>
               <p className="subtitle">
-                You&apos;re in! Set a password for <strong>{email}</strong> to
-                create your account and unlock <strong>{courseTitle}</strong>.
+                Create a password for <strong>{email}</strong> to access <strong>{courseTitle}</strong> and keep track of your progress.
               </p>
 
               {error && (
@@ -175,7 +171,7 @@ export default function SuccessPage({
                 </div>
 
                 <button type="submit" className="primary-btn" disabled={loading}>
-                  {loading ? "Creating your account..." : "Create account & start learning"}
+                  {loading ? "Creating your account..." : "Create account and start course"}
                 </button>
               </form>
             </>

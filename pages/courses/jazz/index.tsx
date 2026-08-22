@@ -13,10 +13,13 @@ const JazzCourseHome = (): JSX.Element => {
       <ContainerStyled>
         <h2 className="heading-style">Jazz Guitar Courses</h2>
         <div className="coming-soon">
-          <p className="coming-soon-text">Coming Soon</p>
+          <p className="coming-soon-text">Courses in development</p>
           <p>
-            Jazz guitar courses are currently in development. Check back soon for lessons on jazz harmony, chord voicings, improvisation, and more.
+            Planned topics include chord voicings, comping, harmony, repertoire, fretboard knowledge, ear training, and improvisation.
           </p>
+          <Link href="/courses/beginner-to-advanced/guitar-basics" className="course-link">
+            Start with the free Guitar Basics course
+          </Link>
           <Link href="/courses" className="back-link">
             ← Back to all courses
           </Link>
@@ -76,5 +79,9 @@ const ContainerStyled = styled.div`
       outline: 2px solid ${theme.colors.navy};
       outline-offset: 2px;
     }
+  }
+
+  .course-link {
+    color: ${theme.colors.green};
   }
 `;

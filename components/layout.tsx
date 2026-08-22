@@ -5,7 +5,7 @@ import { Header, Footer, CourseHeader } from "./";
 import { useCourseNavigation } from "../context";
 import { theme } from "../utils/styles/theme";
 
-export const siteTag = "Garner Guitar - take your playing to the next level";
+export const siteTag = "Online Guitar Courses | Garner Guitar";
 
 interface Props {
   children?: React.ReactNode;
@@ -29,9 +29,9 @@ const Layout = ({ children, home, course }: Props): JSX.Element => {
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="theme-color" content="#ffffff" />
-        <meta name="description" content="Take your playing to the next level with guitar courses for beginner to advanced, jazz, and lessons for young beginners." />
+        <meta name="description" content="Self-paced guitar courses by Lane Garner covering technique, rhythm, theory, ear training, reading, blues, and fretboard knowledge. Start with the free Guitar Basics course." />
         <meta property="og:title" content="Garner Guitar" />
-        <meta property="og:description" content="Take Your Playing to the Next Level" />
+        <meta property="og:description" content="Structured, self-paced guitar courses built on strong fundamentals and practical musicianship." />
         <meta property="og:image" content="https://www.garnerguitar.com/images/guitar-lessons-austin-tx.jpg" />
         <meta property="og:url" content="https://www.garnerguitar.com" />
         <meta name="twitter:card" content="summary_large_image" />

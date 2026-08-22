@@ -50,9 +50,9 @@ export default function LoginPage() {
       </Head>
       <LoginPageStyled>
         <div className="form-container">
-          <h1>Log In</h1>
+          <h1>Log in</h1>
           <p className="subtitle">
-            Welcome back! Log in to access your courses.
+            Log in to access your courses and saved progress.
           </p>
 
           {error && (
@@ -90,7 +90,7 @@ export default function LoginPage() {
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? "Logging in..." : "Log In"}
+              {loading ? "Logging in..." : "Log in"}
             </button>
           </form>
 
@@ -104,7 +104,7 @@ export default function LoginPage() {
               href={`/signup${redirect !== "/" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
               className="signup-btn"
             >
-              Sign up
+              Create an account
             </Link>
           </div>
         </div>

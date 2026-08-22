@@ -14,8 +14,8 @@ const Footer = (): JSX.Element => {
           <nav className="footer-nav">
             <Link href="/courses">Courses</Link>
             <Link href="/resources">Resources</Link>
-            <Link href="/about">About</Link>
           </nav>
+          <p className="copyright">© Garner Guitar. Courses and resources by Lane Garner.</p>
         </div>
       </FooterStyled>
     </>
@@ -89,5 +89,11 @@ const FooterStyled = styled.footer`
         border-radius: 4px;
       }
     }
+  }
+
+  .copyright {
+    color: #999;
+    font-size: 0.8rem;
+    text-align: center;
   }
 `;

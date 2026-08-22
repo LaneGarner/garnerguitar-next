@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
         </Head>
         <ForgotPasswordPageStyled>
           <div className="form-container">
-            <h1>Check Your Email</h1>
+            <h1>Check your email</h1>
             <p className="success-message">
               If an account exists for <strong>{email}</strong>, we&apos;ve sent
               a password reset link. Please check your inbox.
@@ -71,7 +71,7 @@ export default function ForgotPasswordPage() {
       </Head>
       <ForgotPasswordPageStyled>
         <div className="form-container">
-          <h1>Reset Password</h1>
+          <h1>Reset password</h1>
           <p className="subtitle">
             Enter your email and we&apos;ll send you a link to reset your
             password.
@@ -98,7 +98,7 @@ export default function ForgotPasswordPage() {
             </div>
 
             <button type="submit" className="submit-btn" disabled={loading}>
-              {loading ? "Sending..." : "Send Reset Link"}
+              {loading ? "Sending..." : "Send reset link"}
             </button>
           </form>
 

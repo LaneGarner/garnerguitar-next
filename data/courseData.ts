@@ -37,19 +37,19 @@ export const courses: CoursesInterface[] = [
   {
     title: "Beginner to Advanced",
     description:
-      "This is the complete curriculum I teach my private students, everything from picking up the guitar for the first time to playing at an advanced level.\n\nThese lessons cover the core skills, theory, and techniques that make up the vast majority of what any serious guitarist needs to know. Proper technique, music theory, reading notation, the CAGED system, pentatonics, blues, ear training, fretboard mastery, it's all here.\n\nIf you work through this material, you'll have the foundation to play almost any style and hold your own with professional musicians.",
-    tagline: "From first chord to confident playing",
+      "This series is based on the curriculum I use with private students. It begins with the practical basics of playing guitar, then develops technique, reading, music theory, ear training, fretboard knowledge, blues, the CAGED system, and pentatonic scales.\n\nThe courses are designed to be studied in order, but each lesson can also be used on its own. If a topic is new, take your time with it. If you already have some experience, use the series to find gaps in your understanding and strengthen the fundamentals behind your playing.\n\nThese skills apply across many styles of music. The goal is to help you understand the instrument, hear music more clearly, and approach new material with a reliable process.",
+    tagline: "Build your playing from the fundamentals up",
     highlights: ["Beginner Friendly", "Chords", "Theory", "Reading", "Technique", "Blues", "CAGED", "Scales", "Ear Training", "Fretboard Navigation"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "beginner-to-advanced",
     courses: [
       {
         part: 1,
-        title: "Free Guitar Basics Course",
+        title: "Guitar Basics",
         img: "/images/Garner-Guitar-Book-Cover.jpg",
         imgPath: "/images/beg-to-adv/course-1",
-        description: "This intro course is designed to teach the basics of guitar if you've never taken a lesson or even played before.",
-        description2: "You will learn foundational concepts with enough content to sustain long term growth as a player.",
+        description: "Start here if you are new to guitar or want to review the fundamentals. Learn how the instrument works, how to practice, how to read common forms of notation, and how to play chords, rhythms, power chords, a blues shuffle, and your first pentatonic scale.",
+        description2: "Free access to all 21 lessons. No previous experience required.",
         skills: [
           "Guitar anatomy",
           "Guitar accessories",
@@ -226,7 +226,8 @@ export const courses: CoursesInterface[] = [
         img: "../../public/images/logo.jpg",
         imgPath: "/images/beg-to-adv/course-2",
         description:
-          "Building upon the foundational concepts taught in the guitar basics course, you will learn three advancing concepts. This course will improve beginner guitar skills with technical exercises. Learn the basics of reading standard notation on guitar and better understanding the fretboard. and describe the basic building blocks of music to begin to understand music theory.",
+          "Develop cleaner technique while learning how music is organized on the page, on the fretboard, and by ear. The course covers technical exercises, standard notation, scales, intervals, triads, key signatures, common progressions, and introductory ear training.",
+        description2: "These skills help you learn music more efficiently and understand the ideas behind what you play.",
         skills: [
           "Technique exercises & warm-ups",
           "Scales",
@@ -284,7 +285,8 @@ export const courses: CoursesInterface[] = [
         img: "../../public/images/logo.jpg",
         imgPath: "/images/beg-to-adv/course-3",
         description:
-          "This course introduces the blues, one of the most influential styles in American music. You will learn the CAGED system for navigating the fretboard and dive deep into pentatonic and blues scales.",
+          "Learn the structure and sound of the blues, then use the CAGED system to connect chords, chord tones, and pentatonic scales across the fretboard. The course includes shuffle patterns, dominant seventh chords, scale positions, licks, and short studies.",
+        description2: "Build a practical fretboard vocabulary that applies to blues, rock, country, jazz, and other styles.",
         skills: [
           "12 bar blues form",
           "Blues shuffle patterns",
@@ -327,8 +329,8 @@ export const courses: CoursesInterface[] = [
   {
     title: "Jazz",
     description:
-      "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
-    tagline: "Master jazz harmony and improvisation",
+      "Jazz guitar courses are in development. Planned topics include chord voicings, comping, harmony, repertoire, fretboard knowledge, ear training, and improvisation.",
+    tagline: "Develop your harmony, comping, and improvisation",
     highlights: ["Voicings", "Comping", "Improv"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "jazz",
@@ -398,8 +400,8 @@ export const courses: CoursesInterface[] = [
   {
     title: "Young Beginner",
     description:
-      "Inventore quo veritatis quasi, neque eum quia voluptas modi velit minus magni quis doloribus aspernatur incidunt! Ratione officia necessitatibus dolores vero possimus iste et nulla dicta fuid molestias debitis totam odit, ab cupiditate, nulla distinctio sapiente provident temporibus facere dolorem tenetur et sunt doloribus eum ipsum nemo consequuntur. Similique laboriosam mollitia exercitationem rem expedita, maiores, accusamus rerum esse omnis eum qui nisi sint modi! Harum maxime distinctio provident repellendus!",
-    tagline: "Guitar lessons for ages 6-12",
+      "Courses for young beginners are in development. These lessons will introduce students ages 6 to 12 to basic technique, rhythm, notation, chords, and familiar songs through short, manageable exercises.",
+    tagline: "A clear introduction to guitar for ages 6 to 12",
     highlights: ["Fun Songs", "Basics", "Reading"],
     img: "/images/Garner-Guitar-Book-Cover.jpg",
     shortName: "young-beginner",

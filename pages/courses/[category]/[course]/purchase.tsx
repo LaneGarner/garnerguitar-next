@@ -78,13 +78,13 @@ export default function PurchasePage({
             <div className="success-badge">
               <FaCheck />
             </div>
-            <h1>You already own this course!</h1>
-            <p>You have full access to {course.title}.</p>
+            <h1>You already have access to this course.</h1>
+            <p>Continue learning with {course.title}.</p>
             <Link
               href={`/courses/${categorySlug}/${course.slug}`}
               className="primary-btn"
             >
-              Go to Course
+              Continue to the course
             </Link>
           </div>
         </PurchasePageStyled>
@@ -104,12 +104,12 @@ export default function PurchasePage({
 
           <div className="price-card">
             <div className="price">{priceDisplay}</div>
-            <p className="price-note">One-time purchase. Lifetime access.</p>
+            <p className="price-note">One-time purchase. Return to the lessons whenever you like.</p>
           </div>
 
           {router.query.canceled && (
             <div className="info-message">
-              Checkout was canceled. You can try again when you&apos;re ready.
+              Checkout was canceled. You have not been charged.
             </div>
           )}
 
@@ -124,7 +124,7 @@ export default function PurchasePage({
             className="purchase-btn"
             disabled={loading || !course.stripe_price_id}
           >
-            {loading ? "Processing..." : `Purchase for ${priceDisplay}`}
+            {loading ? "Opening checkout..." : "Get lifetime access"}
           </button>
 
           {userEmail && (

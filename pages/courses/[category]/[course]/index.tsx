@@ -108,7 +108,7 @@ export default function CourseIndexPage({
     <Layout course>
       <Head>
         <title>{lesson.title} | {course.title} | Garner Guitar</title>
-        <meta name="description" content={course.description || `Learn guitar with the ${course.title} course.`} />
+        <meta name="description" content={course.description || `View the lessons, topics, and access details for ${course.title} from Garner Guitar.`} />
       </Head>
       <LessonContainerStyled>
         <section className="container">

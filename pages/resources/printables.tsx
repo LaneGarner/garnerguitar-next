@@ -11,7 +11,7 @@ const Printables = (): JSX.Element => {
         <Link href="/resources">&larr; Back to Resources</Link>
 
         <h1>Printables</h1>
-        <p>Downloadable PDFs for practice and study.</p>
+        <p>Download free PDF templates for notation, tablature, fretboard study, teaching, and practice.</p>
 
         <h2>Blank Notation Sheets</h2>
         <div className="printables-grid">
@@ -28,7 +28,7 @@ const Printables = (): JSX.Element => {
           </a>
 
           <a href="/pdf/staff-and-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Staff and Tab paper PDF">
-            <h3>Staff & Tab</h3>
+            <h3>Staff and Tab</h3>
             <Image src="/images/staff-and-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
             <span className="download-label">Download PDF</span>
           </a>
@@ -40,7 +40,7 @@ const Printables = (): JSX.Element => {
           </a>
 
           <a href="/pdf/staff-and-bass-tab-guitar-lessons-austin-texas.pdf" target="_blank" rel="noopener noreferrer" className="printable-card" aria-label="Download Staff and Bass Tab paper PDF">
-            <h3>Staff & Bass Tab</h3>
+            <h3>Staff and Bass Tab</h3>
             <Image src="/images/staff-and-bass-tab-guitar-lessons-austin-texas.png" width={150} height={100} alt="" />
             <span className="download-label">Download PDF</span>
           </a>
@@ -62,7 +62,7 @@ const Printables = (): JSX.Element => {
         </div>
 
         <p className="request-note">
-          <em>Is there something missing here that you would find useful? <a href="mailto:lane@garnerguitar.com">Let me know!</a></em>
+          Looking for a different printable? <a href="mailto:lane@garnerguitar.com">Send me a suggestion.</a>
         </p>
       </PrintablesStyled>
     </Layout>

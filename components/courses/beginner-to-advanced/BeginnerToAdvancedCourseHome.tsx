@@ -32,10 +32,11 @@ const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
       </Head>
       <ContainerStyled>
         <h2 className="heading-style">Beginner to Advanced Guitar&nbsp;Courses</h2>
+        <p className="series-subtitle">A growing guitar curriculum from the fundamentals through advanced study.</p>
         {isComingSoon && <div className="coming-soon-banner">Coming Soon</div>}
         <div className="description-card">
           <FaGuitar className="card-icon" aria-hidden="true" />
-          <h3 className="card-title">About This Series</h3>
+          <h3 className="card-title">About this series</h3>
           <div className="description-box">
             {courseData.description.split("\n\n").map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
@@ -49,6 +50,7 @@ const BeginnerToAdvancedCoursesHome = (): JSX.Element => {
               title={course.title}
               part={course.part}
               description={course.description}
+              description2={course.description2}
               skills={course.skills}
               url={course.url}
               lessonCount={course.pages.filter((p) => p.title.trim()).length}
@@ -79,8 +81,15 @@ const ContainerStyled = styled.div`
     font-size: 2.25rem;
     font-family: monospace;
     text-align: center;
-    margin-bottom: 1em;
+    margin-bottom: 0.35em;
     padding: 0 1rem;
+  }
+
+  .series-subtitle {
+    max-width: 620px;
+    margin: 0 1rem 1.5rem;
+    color: ${theme.colors.neutral[9]};
+    text-align: center;
   }
 
   .coming-soon-banner {

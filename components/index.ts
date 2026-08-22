@@ -8,6 +8,7 @@ import Social from "./home/Social";
 import VideoLessons from "./home/VideoLessons";
 import Cards from "./home/Cards";
 import Hero from "./home/Hero";
+import CourseIntro from "./home/CourseIntro";
 import CourseCard from "./courses/CourseCard";
 import Button from "./Button";
 import CourseHeader from "./courses/CourseHeader";
@@ -21,6 +22,7 @@ export {
   Button,
   BeginnerToAdvancedCourseHome,
   CourseContainer,
+  CourseIntro,
   CourseCard,
   CourseHeader,
   CoursesHome,

@@ -1,11 +1,12 @@
-import { About, EmailList, Hero, Layout } from "../components";
+import { About, CourseIntro, EmailList, Hero, Layout } from "../components";
 
 const Home = (): JSX.Element => {
   return (
     <Layout home>
       <Hero />
-      <EmailList />
+      <CourseIntro />
       <About />
+      <EmailList />
     </Layout>
   );
 };

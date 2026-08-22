@@ -8,6 +8,7 @@ interface Props {
   title: string;
   part?: number;
   description: string;
+  description2?: string;
   skills: string[];
   url: string;
   lessonCount: number;
@@ -20,6 +21,7 @@ const CourseCard = ({
   title,
   part,
   description,
+  description2,
   skills,
   url,
   lessonCount,
@@ -31,7 +33,7 @@ const CourseCard = ({
 
   const cardContent = (
     <CardStyled $isComingSoon={isComingSoon}>
-      {isComingSoon && <Badge $type="comingSoon">Coming Soon</Badge>}
+      {isComingSoon && <Badge $type="comingSoon">Coming soon</Badge>}
       {isFree && !isComingSoon && <Badge $type="free">Free</Badge>}
 
       {icon && <div className="icon">{icon}</div>}
@@ -43,6 +45,7 @@ const CourseCard = ({
 
       <div className="description-container">
         <p className="description">{description}</p>
+        {description2 && <p className="description secondary-description">{description2}</p>}
       </div>
 
       <div className="skills">
@@ -53,7 +56,7 @@ const CourseCard = ({
 
       {!isComingSoon && (
         <span className="cta">
-          Start Learning <span aria-hidden="true">→</span>
+          {isFree ? "Start the free course" : "View course"} <span aria-hidden="true">→</span>
         </span>
       )}
     </CardStyled>
@@ -142,6 +145,10 @@ const CardStyled = styled.div<{ $isComingSoon?: boolean }>`
     line-height: 1.6;
     margin: 0;
     text-align: left;
+  }
+
+  .secondary-description {
+    margin-top: 0.75rem;
   }
 
   .skills {

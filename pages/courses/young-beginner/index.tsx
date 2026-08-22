@@ -13,10 +13,13 @@ const YoungBeginnerCourseHome = (): JSX.Element => {
       <ContainerStyled>
         <h2 className="heading-style">Young Beginner Guitar Courses</h2>
         <div className="coming-soon">
-          <p className="coming-soon-text">Coming Soon</p>
+          <p className="coming-soon-text">Courses in development</p>
           <p>
-            Young beginner guitar courses are currently in development. Check back soon for lessons designed specifically for younger students.
+            These lessons will introduce students ages 6 to 12 to basic technique, rhythm, notation, chords, and familiar songs through short, manageable exercises.
           </p>
+          <Link href="/courses/beginner-to-advanced/guitar-basics" className="course-link">
+            Start with the free Guitar Basics course
+          </Link>
           <Link href="/courses" className="back-link">
             ← Back to all courses
           </Link>
@@ -76,5 +79,9 @@ const ContainerStyled = styled.div`
       outline: 2px solid ${theme.colors.navy};
       outline-offset: 2px;
     }
+  }
+
+  .course-link {
+    color: ${theme.colors.green};
   }
 `;

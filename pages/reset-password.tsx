@@ -21,7 +21,7 @@ export default function ResetPasswordPage() {
     const { error } = await createClient().auth.updateUser({ password });
     setBusy(false);
     if (error) return setMessage(error.message);
-    setMessage("Password updated. Redirecting to your courses…");
+    setMessage("Your password has been updated. Taking you to the course catalog…");
     setTimeout(() => router.push("/courses"), 1000);
   };
 

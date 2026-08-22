@@ -26,7 +26,7 @@ const CoursesHome = (): JSX.Element => {
           <h1 className="heading-style">Guitar Courses</h1>
           <div className="intro-card">
             <p className="intro">
-              Structured courses to take you from first chord to confident player. Learn at your own pace with written lessons, diagrams, and guided exercises designed to build real musical skills.
+              Self-paced guitar courses with written lessons, diagrams, exercises, and a clear order of study. Start with the fundamentals, then build your technique, musical understanding, and knowledge of the fretboard.
             </p>
           </div>
 

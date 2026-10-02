@@ -75,22 +75,35 @@
   :global(.access-course) div span { color: #c7c7c7; }
   :global(.status-badge) { display: inline-flex; width: max-content; max-width: 100%; padding: .25rem .55rem; border: 1px solid #9ff3dc; border-radius: 999px; background: #305f52; color: #fff; font-size: .8rem; font-weight: 800; }
 
-  :global(.course) { min-width: 0; padding: 1.4rem 0; border-top: 1px solid #666; }
-  :global(.course):first-of-type { border-top: 0; }
+  :global(.course) { min-width: 0; margin-top: 1rem; padding: 1.4rem; border: 1px solid #5f5f5f; border-radius: 12px; background: #1a1a1a; box-shadow: 0 4px 12px rgba(0, 0, 0, .28); }
   :global(.course-title) { display: flex; min-width: 0; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-  :global(.title-line) { display: flex; min-width: 0; align-items: center; gap: .6rem; }
-  :global(.course-title) h3 { margin: 0; overflow-wrap: anywhere; }
-  :global(.course-title) p { margin: .4rem 0 0; color: #c7c7c7; }
-  :global(.course-title) a { color: #9ff3dc; font-weight: 800; }
-  :global(.price-row) { display: grid; grid-template-columns: auto 130px auto; align-items: center; justify-content: start; gap: .75rem; margin: 1.2rem 0; }
-  :global(.price-row) label { font-weight: 700; }
-  :global(.price-row) input { text-align: center; }
-  :global(.publish-row) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1rem 0; padding: .8rem; border: 1px solid #555; border-radius: 8px; background: #1b1b1b; }
-  :global(.publish-status) { color: #e5cf7c; font-weight: 700; }
-  :global(.publish-status.complete) { color: #9ff3dc; }
+  :global(.title-line) { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: .55rem; }
+  :global(.course-title) h3 { margin: 0; font-size: 1.35rem; overflow-wrap: anywhere; }
+  :global(.course-title) p { margin: .45rem 0 0; color: #c7c7c7; }
+  :global(.preview-link) { display: inline-flex; min-height: 44px; flex: 0 0 auto; align-items: center; padding: .6rem .8rem; border: 1px solid #777; border-radius: 6px; color: #9ff3dc; font-weight: 800; text-decoration: none; }
+  :global(.preview-link):hover { background: #303030; }
+  :global(.course-state) { display: inline-flex; padding: .25rem .55rem; border: 1px solid #d3b958; border-radius: 999px; background: #4a401d; color: #fff1af; font-size: .8rem; font-weight: 800; }
+  :global(.course-state.live) { border-color: #6fd2b7; background: #204a3f; color: #c9ffef; }
+  :global(.course-stats) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin: 1.25rem 0; }
+  :global(.course-stats) div { padding: .9rem 1rem; border: 1px solid #505050; border-radius: 8px; background: #242424; }
+  :global(.course-stats) dt { color: #c7c7c7; font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  :global(.course-stats) dd { margin: .25rem 0 0; color: #fff; font-size: 1.2rem; font-weight: 800; }
+  :global(.course-stats) :global(.needs-attention) { border-color: #b4903a; background: #392f18; }
+  :global(.course-settings) { border: 1px solid #505050; border-radius: 10px; overflow: hidden; }
+  :global(.setting-row) { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1rem; background: #222; }
+  :global(.setting-row) + :global(.setting-row) { border-top: 1px solid #505050; }
+  :global(.setting-copy) { display: flex; min-width: 220px; flex-direction: column; gap: .25rem; }
+  :global(.setting-copy) span { color: #c7c7c7; font-size: .9rem; }
+  :global(.price-controls) { display: grid; grid-template-columns: auto 110px auto; align-items: center; }
+  :global(.currency) { display: grid; height: 44px; padding: 0 .7rem; border: 1px solid #858585; border-right: 0; border-radius: 6px 0 0 6px; background: #303030; color: #fff; font-weight: 800; place-items: center; }
+  :global(.price-controls) input { width: 110px; border-radius: 0; text-align: right; }
+  :global(.price-controls) button { border-radius: 0 6px 6px 0; }
   :global(.publish-actions) { display: flex; gap: .6rem; }
-  :global(.lessons) > summary { display: flex; min-height: 44px; align-items: center; padding: .7rem 0; color: #9ff3dc; font-weight: 800; cursor: pointer; }
+  :global(.lessons) { margin-top: 1rem; border: 1px solid #505050; border-radius: 8px; background: #202020; }
+  :global(.lessons) > summary { display: flex; min-height: 44px; align-items: center; gap: 1rem; padding: .85rem 1rem; color: #9ff3dc; font-weight: 800; cursor: pointer; }
+  :global(.lesson-summary) { color: #c7c7c7; font-size: .9rem; font-weight: 400; }
   :global(.lesson) { display: grid; grid-template-columns: 1fr 180px auto; align-items: center; gap: 1rem; padding: .7rem; border-top: 1px solid #4d4d4d; }
+  :global(.sr-only) { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 }
 
 @media (max-width: 768px) {
@@ -98,15 +111,16 @@
     width: min(calc(100% - 1rem), 1180px);
     padding: 2rem 0 4rem;
 
-    :global(.section-heading), :global(.course-title), :global(.publish-row) { align-items: stretch; flex-direction: column; }
+    :global(.section-heading), :global(.course-title), :global(.setting-row) { align-items: stretch; flex-direction: column; }
     :global(.search) { width: 100%; }
     :global(.user-head) { display: none; }
     :global(.user-row) { grid-template-columns: minmax(0, 1fr) auto; }
     :global(.access-summary), :global(.user-row) > span:nth-child(3) { grid-column: 1 / -1; }
     :global(.action-menu) { grid-row: 1; grid-column: 2; }
     :global(.access-course) { align-items: stretch; flex-direction: column; }
-    :global(.price-row) { grid-template-columns: minmax(0, 1fr); }
-    :global(.price-row) input { width: 100%; text-align: left; }
+    :global(.course-stats) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    :global(.price-controls) { grid-template-columns: auto minmax(0, 1fr) auto; }
+    :global(.price-controls) input { width: 100%; }
     :global(.publish-actions) { display: grid; grid-template-columns: 1fr; }
     :global(.lesson) { grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
     :global(.lesson) span { overflow-wrap: anywhere; }
@@ -119,7 +133,13 @@
   .admin {
     h1 { font-size: 2.25rem; }
     section { padding: 1rem; }
+    :global(.course) { padding: 1rem; }
     :global(.title-line) { align-items: flex-start; flex-direction: column; }
-    :global(.course-title) a, :global(.price-row) button, :global(.access-course) button { width: 100%; text-align: center; }
+    :global(.course-title) a, :global(.access-course) button { width: 100%; justify-content: center; text-align: center; }
+    :global(.course-stats) { grid-template-columns: 1fr; }
+    :global(.price-controls) { grid-template-columns: auto minmax(0, 1fr); }
+    :global(.price-controls) button { grid-column: 1 / -1; margin-top: .5rem; border-radius: 6px; }
+    :global(.publish-actions) { width: 100%; }
+    :global(.lessons) > summary { align-items: flex-start; flex-direction: column; gap: .2rem; }
   }
 }

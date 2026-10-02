@@ -38,6 +38,12 @@ export default function AdminPage() {
 
   useEffect(() => { void load(); }, [load]);
 
+  useEffect(() => {
+    if (!notice) return;
+    const timeout = window.setTimeout(() => setNotice(null), notice.kind === "error" ? 10000 : 6000);
+    return () => window.clearTimeout(timeout);
+  }, [notice]);
+
   const act = async (payload: Record<string, unknown>, success: string) => {
     setBusy(true);
     setNotice(null);
@@ -63,7 +69,7 @@ export default function AdminPage() {
 
   return <Layout><Head><title>Course Administration | Garner Guitar</title></Head><div className={styles.admin} aria-busy={busy}>
     <header><p className="eyebrow">Private administration</p><h1>Course operations</h1><p>Manage users, course access, publishing, videos, and live Stripe pricing.</p></header>
-    {notice && <div className={`notice ${notice.kind}`} role={notice.kind === "error" ? "alert" : "status"}>{notice.text}</div>}
+    {notice && <div className={`notice ${notice.kind}`} role={notice.kind === "error" ? "alert" : "status"}><span>{notice.text}</span><button className="notice-dismiss" type="button" aria-label="Dismiss notification" onClick={() => setNotice(null)}><span aria-hidden="true">×</span></button></div>}
     {!data ? <div className="loading" role="status">Loading dashboard…</div> : <>
       <nav aria-label="Admin sections"><a href="#users">Users</a><a href="#courses">Courses</a></nav>
       <section id="users" aria-labelledby="users-title">

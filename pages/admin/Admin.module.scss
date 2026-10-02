@@ -1,8 +1,22 @@
 .admin {
+  position: relative;
+  isolation: isolate;
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 3rem 0 6rem;
+  background: #111;
   color: #f1f1f1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    z-index: -1;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: #111;
+  }
 
   header { max-width: 760px; margin-bottom: 2rem; }
   h1 { margin: .2rem 0; font-size: clamp(2rem, 5vw, 4rem); }

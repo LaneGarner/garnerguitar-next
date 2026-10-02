@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -8,80 +8,119 @@ import { isAdminUser } from "../../lib/admin";
 import { createServerSideClient } from "../../lib/supabase/server";
 import { theme } from "../../utils/styles/theme";
 
-type DashboardData = { users: any[]; courses: any[]; lessons: any[]; purchases: any[]; grants: any[] };
+type AdminUser = { id: string; email: string; created_at: string; last_sign_in_at: string | null };
+type Course = { id: string; title: string; slug: string; category_slug: string; is_free: boolean; price_cents: number | null; stripe_price_id: string | null };
+type Lesson = { id: string; course_id: string; title: string; sort_order: number; published: boolean; video_id: string | null; content: string };
+type Purchase = { id: string; user_id: string | null; course_id: string };
+type Grant = { id: string; user_id: string; course_id: string; reason: string | null; revoked_at: string | null };
+type DashboardData = { currentUserId: string; users: AdminUser[]; courses: Course[]; lessons: Lesson[]; purchases: Purchase[]; grants: Grant[] };
+type Notice = { kind: "success" | "error"; text: string } | null;
 
 export default function AdminPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [search, setSearch] = useState("");
-  const [email, setEmail] = useState("");
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
-  const [reason, setReason] = useState("Complimentary access");
-  const [message, setMessage] = useState("");
+  const [managedUserId, setManagedUserId] = useState<string | null>(null);
+  const [notice, setNotice] = useState<Notice>(null);
   const [busy, setBusy] = useState(false);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setBusy(true);
-    const response = await fetch("/api/admin/dashboard");
-    const body = await response.json();
-    setBusy(false);
-    if (!response.ok) return setMessage(body.error || "Could not load dashboard");
-    setData(body);
-  };
+    try {
+      const response = await fetch("/api/admin/dashboard");
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || "Could not load dashboard");
+      setData(body);
+    } catch (error) {
+      setNotice({ kind: "error", text: error instanceof Error ? error.message : "Could not load dashboard" });
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  useEffect(() => { void load(); }, [load]);
 
   const act = async (payload: Record<string, unknown>, success: string) => {
-    setBusy(true); setMessage("");
-    const response = await fetch("/api/admin/dashboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    const body = await response.json();
-    setBusy(false);
-    if (!response.ok) return setMessage(body.error || "Operation failed");
-    setMessage(success);
-    await load();
+    setBusy(true);
+    setNotice(null);
+    try {
+      const response = await fetch("/api/admin/dashboard", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error || "Operation failed");
+      setNotice({ kind: "success", text: success });
+      await load();
+    } catch (error) {
+      setNotice({ kind: "error", text: error instanceof Error ? error.message : "Operation failed" });
+      setBusy(false);
+    }
   };
 
-  const filteredUsers = useMemo(() => (data?.users || []).filter((user) => user.email?.toLowerCase().includes(search.toLowerCase())), [data, search]);
+  const filteredUsers = useMemo(() => (data?.users || []).filter((user) => user.email?.toLowerCase().includes(search.trim().toLowerCase())), [data, search]);
   const courseName = (id: string) => data?.courses.find((course) => course.id === id)?.title || "Unknown course";
+  const copy = async (value: string, label: string) => { await navigator.clipboard.writeText(value); setNotice({ kind: "success", text: `${label} copied` }); };
+  const deleteUser = (user: AdminUser, accessCount: number) => {
+    const consequence = accessCount ? ` This will also remove ${accessCount} access record${accessCount === 1 ? "" : "s"}.` : "";
+    if (confirm(`Permanently delete ${user.email}?${consequence} This cannot be undone.`)) void act({ action: "delete-user", userId: user.id }, `${user.email} was deleted`);
+  };
 
-  return <Layout>
-    <Head><title>Course Administration | Garner Guitar</title></Head>
-    <AdminStyled>
-      <header><div><p className="eyebrow">Private administration</p><h1>Course operations</h1><p>Manage customers, complimentary access, publishing, videos, and live Stripe pricing.</p></div><button onClick={load} disabled={busy}>{data ? "Refresh" : "Load dashboard"}</button></header>
-      {message && <div className="message" role="status">{message}</div>}
-      {!data ? <section className="empty"><h2>Ready when you are</h2><p>Load current data securely from the server.</p></section> : <>
-        <nav><a href="#customers">Customers</a><a href="#grants">Access grants</a><a href="#courses">Courses</a></nav>
-
-        <section id="customers"><h2>Customers</h2><input aria-label="Search users" placeholder="Search by email" value={search} onChange={(e) => setSearch(e.target.value)} />
-          <div className="table"><div className="tr head"><span>Email</span><span>Access</span><span>Account</span></div>{filteredUsers.map((user) => {
-            const paid = data.purchases.filter((p) => p.user_id === user.id);
-            const grants = data.grants.filter((g) => g.user_id === user.id && !g.revoked_at);
-            return <div className="tr" key={user.id}><span>{user.email}</span><span>{paid.map((p) => <em key={p.id}>Paid: {courseName(p.course_id)}</em>)}{grants.map((g) => <em key={g.id}>Free: {courseName(g.course_id)}</em>)}{!paid.length && !grants.length && "None"}</span><span><button className="small" onClick={() => act({ action: "reset-password", email: user.email }, `Password reset sent to ${user.email}`)}>Send password reset</button></span></div>;
-          })}</div>
-        </section>
-
-        <section id="grants"><h2>Grant complimentary access</h2><div className="form-grid"><label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="student@example.com" /></label><label>Reason<input value={reason} onChange={(e) => setReason(e.target.value)} /></label></div>
-          <div className="checks">{data.courses.filter((c) => !c.is_free).map((course) => <label key={course.id}><input type="checkbox" checked={selectedCourses.includes(course.id)} onChange={(e) => setSelectedCourses(e.target.checked ? [...selectedCourses, course.id] : selectedCourses.filter((id) => id !== course.id))} />{course.title}</label>)}</div>
-          <button disabled={busy || !email || !selectedCourses.length} onClick={() => act({ action: "grant", email, courseIds: selectedCourses, reason }, `Access granted to ${email}`)}>Grant selected courses</button>
-          <h3>Grant history</h3><div className="table"><div className="tr head"><span>User</span><span>Course / reason</span><span>Status</span></div>{data.grants.map((grant) => { const user = data.users.find((u) => u.id === grant.user_id); return <div className="tr" key={grant.id}><span>{user?.email || grant.user_id}</span><span>{courseName(grant.course_id)}<em>{grant.reason}</em></span><span>{grant.revoked_at ? `Revoked ${new Date(grant.revoked_at).toLocaleDateString()}` : <button className="danger small" onClick={() => act({ action: "revoke", grantId: grant.id }, "Access revoked")}>Revoke</button>}</span></div>; })}</div>
-        </section>
-
-        <section id="courses"><h2>Courses</h2>{data.courses.map((course) => { const lessons = data.lessons.filter((lesson) => lesson.course_id === course.id); const published = lessons.filter((lesson) => lesson.published).length; return <article className="course" key={course.id}><div className="course-title"><div><h3>{course.title}</h3><p>{published}/{lessons.length} published · {lessons.filter((l) => l.video_id).length} with video · {lessons.filter((l) => !l.content?.trim()).length} empty</p></div><Link href={`/courses/${course.category_slug}/${course.slug}`} target="_blank">Preview ↗</Link></div>
-            {!course.is_free && <div className="price"><label>Price in dollars<input id={`price-${course.id}`} type="number" min="0.5" step="0.01" defaultValue={(course.price_cents / 100).toFixed(2)} /></label><button className="small" onClick={() => { const input = document.getElementById(`price-${course.id}`) as HTMLInputElement; act({ action: "set-price", courseId: course.id, priceCents: Math.round(Number(input.value) * 100) }, "Stripe price and course price updated"); }}>Update live price</button></div>}
-            <div className="actions"><button className="small" onClick={() => act({ action: "set-course-published", courseId: course.id, published: true }, "Course published")}>Publish all</button><button className="small danger" onClick={() => confirm(`Unpublish every lesson in ${course.title}?`) && act({ action: "set-course-published", courseId: course.id, published: false }, "Course unpublished")}>Unpublish all</button></div>
-            <details><summary>Manage {lessons.length} lessons</summary>{lessons.map((lesson) => <div className="lesson" key={lesson.id}><span>{lesson.sort_order}. {lesson.title}</span><span>{lesson.video_id ? "Video" : "No video"}{!lesson.content?.trim() ? " · Empty" : ""}</span><button className={`small ${lesson.published ? "danger" : ""}`} onClick={() => act({ action: "set-lesson-published", lessonId: lesson.id, published: !lesson.published }, lesson.published ? "Lesson unpublished" : "Lesson published")}>{lesson.published ? "Unpublish" : "Publish"}</button></div>)}</details>
-          </article>; })}</section>
-      </>}
-    </AdminStyled>
-  </Layout>;
+  return <Layout><Head><title>Course Administration | Garner Guitar</title></Head><AdminStyled aria-busy={busy}>
+    <header><p className="eyebrow">Private administration</p><h1>Course operations</h1><p>Manage users, course access, publishing, videos, and live Stripe pricing.</p></header>
+    {notice && <div className={`notice ${notice.kind}`} role={notice.kind === "error" ? "alert" : "status"}>{notice.text}</div>}
+    {!data ? <div className="loading" role="status">Loading dashboard…</div> : <>
+      <nav aria-label="Admin sections"><a href="#users">Users</a><a href="#courses">Courses</a></nav>
+      <section id="users" aria-labelledby="users-title">
+        <div className="section-heading"><div><h2 id="users-title">Users</h2><p>{data.users.length} total users</p></div><label className="search">Search users<input type="search" placeholder="Search by email" value={search} onChange={(event) => setSearch(event.target.value)} /></label></div>
+        <div className="user-list"><div className="user-row user-head" aria-hidden="true"><span>User</span><span>Course access</span><span>Last sign-in</span><span>Actions</span></div>
+          {filteredUsers.map((user) => {
+            const purchases = data.purchases.filter((purchase) => purchase.user_id === user.id);
+            const grants = data.grants.filter((grant) => grant.user_id === user.id && !grant.revoked_at);
+            const isManaged = managedUserId === user.id;
+            return <div className="user-record" key={user.id}><div className="user-row">
+              <span className="identity"><strong>{user.email}</strong><small>Joined {new Date(user.created_at).toLocaleDateString()}</small></span>
+              <span className="access-summary">{purchases.map((purchase) => <em key={purchase.id}>Purchased · {courseName(purchase.course_id)}</em>)}{grants.map((grant) => <em key={grant.id}>Granted · {courseName(grant.course_id)}</em>)}{!purchases.length && !grants.length && <span className="muted">No paid-course access</span>}</span>
+              <span>{user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleDateString() : <span className="muted">Never</span>}</span>
+              <details className="action-menu"><summary aria-label={`Actions for ${user.email}`}>•••</summary><div className="menu-items">
+                <button onClick={() => setManagedUserId(isManaged ? null : user.id)}>{isManaged ? "Close access manager" : "Manage course access"}</button>
+                <button onClick={() => void act({ action: "reset-password", email: user.email }, `Password reset sent to ${user.email}`)}>Send password reset</button>
+                <button onClick={() => void copy(user.email, "Email")}>Copy email</button><button onClick={() => void copy(user.id, "User ID")}>Copy user ID</button>
+                <button className="menu-danger" disabled={user.id === data.currentUserId} onClick={() => deleteUser(user, purchases.length + grants.length)}>Delete user</button>
+              </div></details>
+            </div>{isManaged && <div className="access-manager"><div><h3>Course access for {user.email}</h3><p>Purchases are permanent records. Complimentary grants can be added or revoked here.</p></div><div className="access-courses">
+              {data.courses.filter((course) => !course.is_free).map((course) => {
+                const purchase = purchases.find((item) => item.course_id === course.id); const grant = grants.find((item) => item.course_id === course.id);
+                return <div className="access-course" key={course.id}><div><strong>{course.title}</strong><span>{purchase ? "Purchased" : grant ? "Complimentary access" : "No access"}</span></div>{purchase ? <span className="status-badge">Purchased</span> : grant ? <button className="secondary danger" disabled={busy} onClick={() => void act({ action: "revoke", grantId: grant.id }, `Access to ${course.title} revoked`)}>Revoke access</button> : <button className="secondary" disabled={busy} onClick={() => void act({ action: "grant", userId: user.id, courseIds: [course.id], reason: "Complimentary access" }, `Access to ${course.title} granted`)}>Grant access</button>}</div>;
+              })}
+            </div></div>}</div>;
+          })}{!filteredUsers.length && <p className="no-results">No users match “{search}”.</p>}
+        </div>
+      </section>
+      <section id="courses" aria-labelledby="courses-title"><div className="section-heading"><div><h2 id="courses-title">Courses</h2><p>Publishing, content health, previews, and pricing</p></div></div>
+        {data.courses.map((course) => {
+          const lessons = data.lessons.filter((lesson) => lesson.course_id === course.id); const published = lessons.filter((lesson) => lesson.published).length; const unpublished = lessons.length - published; const isFullyPublished = lessons.length > 0 && unpublished === 0; const isFullyUnpublished = published === 0;
+          return <article className="course" key={course.id}><div className="course-title"><div><div className="title-line"><h3>{course.title}</h3>{course.is_free && <span className="status-badge">Free</span>}</div><p>{published}/{lessons.length} published · {lessons.filter((lesson) => lesson.video_id).length} with video · {lessons.filter((lesson) => !lesson.content?.trim()).length} empty</p></div><Link href={`/courses/${course.category_slug}/${course.slug}`} target="_blank">Preview course <span aria-hidden="true">↗</span></Link></div>
+            {!course.is_free && <div className="price-row"><label htmlFor={`price-${course.id}`}>Price in dollars</label><input id={`price-${course.id}`} type="number" min="0.5" step="0.01" defaultValue={((course.price_cents || 0) / 100).toFixed(2)} /><button className="secondary" disabled={busy || !course.stripe_price_id} onClick={() => { const input = document.getElementById(`price-${course.id}`) as HTMLInputElement; void act({ action: "set-price", courseId: course.id, priceCents: Math.round(Number(input.value) * 100) }, `${course.title} price updated`); }}>{course.stripe_price_id ? "Update live price" : "Stripe price unavailable"}</button></div>}
+            <div className="publish-row"><span className={`publish-status ${isFullyPublished ? "complete" : ""}`}>{isFullyPublished ? "All lessons published" : isFullyUnpublished ? "Course unpublished" : `${unpublished} lesson${unpublished === 1 ? "" : "s"} unpublished`}</span><div className="publish-actions">{!isFullyPublished && lessons.length > 0 && <button className="secondary" disabled={busy} onClick={() => void act({ action: "set-course-published", courseId: course.id, published: true }, `${course.title} published`)}>Publish {isFullyUnpublished ? "all" : "remaining"}</button>}{!isFullyUnpublished && <button className="secondary danger" disabled={busy} onClick={() => confirm(`Unpublish every lesson in ${course.title}?`) && void act({ action: "set-course-published", courseId: course.id, published: false }, `${course.title} unpublished`)}>Unpublish all</button>}</div></div>
+            <details className="lessons"><summary>Manage {lessons.length} lessons</summary>{lessons.map((lesson) => <div className="lesson" key={lesson.id}><span>{lesson.sort_order}. {lesson.title}</span><span className="muted">{lesson.video_id ? "Video" : "No video"}{!lesson.content?.trim() ? " · Empty" : ""}</span><button className={`secondary ${lesson.published ? "danger" : ""}`} disabled={busy} onClick={() => void act({ action: "set-lesson-published", lessonId: lesson.id, published: !lesson.published }, lesson.published ? `${lesson.title} unpublished` : `${lesson.title} published`)}>{lesson.published ? "Unpublish" : "Publish"}</button></div>)}</details>
+          </article>;
+        })}
+      </section>
+    </>}
+  </AdminStyled></Layout>;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const supabase = createServerSideClient(context);
-  const { data: { user } } = await supabase.auth.getUser();
+  const supabase = createServerSideClient(context); const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { redirect: { destination: "/login?redirect=/admin", permanent: false } };
   if (!isAdminUser(user)) return { notFound: true };
   return { props: {} };
 };
 
-const AdminStyled = styled.div`
-  width:min(1180px,calc(100% - 2rem));margin:0 auto;padding:3rem 0 6rem;color:${theme.colors.neutral[13]};
-  header{display:flex;justify-content:space-between;gap:2rem;align-items:end;margin-bottom:2rem}h1{font-size:clamp(2rem,5vw,4rem);margin:.2rem 0}.eyebrow{color:${theme.colors.green};text-transform:uppercase;letter-spacing:.12em}nav{position:sticky;top:${theme.sizes.header};z-index:2;display:flex;gap:1rem;background:#111;padding:1rem 0}nav a{color:${theme.colors.green}}section{${theme.utils.cards.darker};margin:1.5rem 0}button{background:${theme.colors.green};border:0;border-radius:6px;padding:.75rem 1rem;font-weight:700;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}.danger{background:#733;color:white}.small{padding:.5rem .7rem}input{width:100%;box-sizing:border-box;background:#171717;border:1px solid #555;border-radius:6px;color:white;padding:.7rem}.message{padding:1rem;background:#173c34;border:1px solid ${theme.colors.green};border-radius:8px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}label{display:grid;gap:.4rem}.checks{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0}.checks label{display:flex}.checks input{width:auto}.table{margin-top:1rem}.tr{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:1rem;padding:.8rem 0;border-top:1px solid #444}.tr.head{color:#999;text-transform:uppercase;font-size:.8rem}.tr em{display:block;font-style:normal;margin:.2rem 0}.course{border-top:1px solid #555;padding:1.2rem 0}.course-title,.price,.actions,.lesson{display:flex;align-items:center;justify-content:space-between;gap:1rem}.course-title h3{margin-bottom:.25rem}.course-title p{margin:0;color:#aaa}.course-title a{color:${theme.colors.green}}.price{justify-content:flex-start;margin:1rem 0}.price label{max-width:180px}.actions{justify-content:flex-start;margin-bottom:1rem}.lesson{padding:.6rem;border-top:1px solid #3b3b3b}.lesson span:first-child{flex:1}@media(max-width:${theme.breakpoints.md}){header,.course-title{align-items:start;flex-direction:column}.form-grid{grid-template-columns:1fr}.tr{grid-template-columns:1fr}.tr.head{display:none}.lesson{align-items:flex-start;flex-wrap:wrap}nav{top:${theme.sizes.headerMobile};overflow:auto}}
+const AdminStyled = styled.main`
+  width:min(1180px,calc(100% - 2rem));margin:0 auto;padding:3rem 0 6rem;color:#f1f1f1;
+  header{margin-bottom:2rem;max-width:760px}h1{font-size:clamp(2rem,5vw,4rem);margin:.2rem 0}.eyebrow{color:#9ff3dc;text-transform:uppercase;letter-spacing:.12em;font-weight:700}header p:last-child{color:#d3d3d3;font-size:1.05rem}
+  nav{position:sticky;top:${theme.sizes.header};z-index:2;display:flex;gap:.5rem;background:#111;padding:.75rem 0}nav a{color:#081c16;background:#9ff3dc;padding:.6rem .9rem;border-radius:6px;font-weight:800;text-decoration:none}nav a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #f6d86b;outline-offset:3px}
+  section{background:#262626;border:1px solid #4d4d4d;padding:1.5rem 2rem;border-radius:12px;box-shadow:${theme.utils.shadows.dark};margin:1.5rem 0}h2,h3{color:#fff}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1rem}.section-heading h2{margin:0}.section-heading p{color:#c7c7c7;margin:.3rem 0 0}.search{width:min(360px,100%);color:#f1f1f1;font-weight:700}.search input{margin-top:.4rem;width:100%}
+  button{background:#9ff3dc;color:#081c16;border:1px solid transparent;border-radius:6px;padding:.7rem .9rem;font-weight:800;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.secondary{padding:.55rem .75rem}.danger{background:#8f2d35;color:#fff;border-color:#e49ca2}.notice{padding:1rem;border-radius:8px;font-weight:700}.notice.success{background:#163d32;border:1px solid #9ff3dc}.notice.error{background:#4b1e21;border:1px solid #efadb2}.loading{background:#262626;border:1px solid #555;border-radius:12px;padding:2rem}
+  input{box-sizing:border-box;background:#111;border:1px solid #858585;border-radius:6px;color:#fff;padding:.7rem;font:inherit}.muted{color:#c2c2c2}.user-list{border-top:1px solid #555}.user-record{border-bottom:1px solid #555}.user-row{display:grid;grid-template-columns:minmax(220px,1.2fr) minmax(240px,1.5fr) 140px 70px;align-items:center;gap:1rem;padding:1rem 0}.user-head{color:#c7c7c7;text-transform:uppercase;font-size:.78rem;font-weight:700}.identity,.access-summary{display:flex;flex-direction:column;gap:.3rem;min-width:0}.identity strong{overflow-wrap:anywhere}.identity small{color:#c7c7c7}.access-summary em{font-style:normal}.action-menu{position:relative;justify-self:end}.action-menu summary{list-style:none;width:42px;height:38px;display:grid;place-items:center;border:1px solid #858585;border-radius:6px;cursor:pointer;color:#fff;font-size:1.1rem}.action-menu summary::-webkit-details-marker{display:none}.menu-items{position:absolute;right:0;top:calc(100% + .4rem);z-index:4;width:220px;background:#111;border:1px solid #777;border-radius:8px;padding:.4rem;box-shadow:${theme.utils.shadows.dark}.menu-items button{display:block;width:100%;background:transparent;color:#fff;text-align:left;border:0}.menu-items button:hover{background:#333}.menu-items .menu-danger{color:#ffb4b9}.access-manager{background:#181818;border:1px solid #666;border-radius:8px;margin:0 0 1rem;padding:1rem}.access-manager h3{margin:0}.access-manager p{color:#c7c7c7;margin:.3rem 0 1rem}.access-courses{display:grid;gap:.65rem}.access-course{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:#252525;border:1px solid #4f4f4f;border-radius:7px;padding:.8rem}.access-course div{display:flex;flex-direction:column;gap:.2rem}.access-course div span{color:#c7c7c7}.status-badge{display:inline-flex;width:max-content;background:#305f52;color:#fff;border:1px solid #9ff3dc;border-radius:999px;padding:.25rem .55rem;font-size:.8rem;font-weight:800}.no-results{color:#d3d3d3;padding:1rem 0}
+  .course{border-top:1px solid #666;padding:1.4rem 0}.course:first-of-type{border-top:0}.course-title{display:flex;align-items:start;justify-content:space-between;gap:1rem}.title-line{display:flex;align-items:center;gap:.6rem}.course-title h3{margin:0}.course-title p{margin:.4rem 0 0;color:#c7c7c7}.course-title a{color:#9ff3dc;font-weight:800}.price-row{display:grid;grid-template-columns:auto 130px auto;align-items:center;justify-content:start;gap:.75rem;margin:1.2rem 0}.price-row label{font-weight:700}.price-row input{text-align:center}.publish-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:#1b1b1b;border:1px solid #555;border-radius:8px;padding:.8rem;margin:1rem 0}.publish-status{color:#e5cf7c;font-weight:700}.publish-status.complete{color:#9ff3dc}.publish-actions{display:flex;gap:.6rem}.lessons>summary{cursor:pointer;color:#9ff3dc;font-weight:800;padding:.7rem 0}.lesson{display:grid;grid-template-columns:1fr 180px auto;align-items:center;gap:1rem;padding:.7rem;border-top:1px solid #4d4d4d}
+  @media(max-width:${theme.breakpoints.md}){nav{top:${theme.sizes.headerMobile};overflow:auto}.section-heading,.course-title,.publish-row{align-items:stretch;flex-direction:column}.search{width:100%}.user-head{display:none}.user-row{grid-template-columns:1fr auto}.access-summary,.user-row>span:nth-child(3){grid-column:1/-1}.action-menu{grid-column:2;grid-row:1}.access-course{align-items:stretch;flex-direction:column}.price-row{grid-template-columns:1fr}.price-row input{width:100%;text-align:left}.publish-actions{flex-wrap:wrap}.lesson{grid-template-columns:1fr}.lesson button{justify-self:start}section{padding:1.25rem}.menu-items{right:0}}
 `;

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { requireApiAdmin } from "../../../lib/admin";
+import { isAdminUser, requireApiAdmin } from "../../../lib/admin";
 import { stripe } from "../../../lib/stripe/server";
 
 async function listAllUsers(service: any) {
@@ -31,6 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (result.error) throw result.error;
       }
       return res.status(200).json({
+        currentUserId: adminUser.id,
         users: users.map((user) => ({ id: user.id, email: user.email, created_at: user.created_at, last_sign_in_at: user.last_sign_in_at })),
         courses: coursesResult.data,
         lessons: lessonsResult.data,
@@ -48,11 +49,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (action === "grant") {
       const email = String(req.body.email || "").trim().toLowerCase();
+      const targetUserId = String(req.body.userId || "").trim();
       const courseIds = Array.isArray(req.body.courseIds) ? req.body.courseIds.filter((id: unknown) => typeof id === "string") : [];
-      if (!email || !courseIds.length) return res.status(400).json({ error: "Email and at least one course are required" });
+      if ((!email && !targetUserId) || !courseIds.length) return res.status(400).json({ error: "A user and at least one course are required" });
       const users = await listAllUsers(service);
-      const target = users.find((candidate) => candidate.email?.toLowerCase() === email);
-      if (!target) return res.status(404).json({ error: "No account exists for that email. Ask them to sign up first." });
+      const target = users.find((candidate) => targetUserId ? candidate.id === targetUserId : candidate.email?.toLowerCase() === email);
+      if (!target) return res.status(404).json({ error: "That user account no longer exists." });
+      const { data: paidCourses, error: courseError } = await service.from("courses").select("id").in("id", courseIds).eq("is_free", false);
+      if (courseError) throw courseError;
+      if (paidCourses.length !== new Set(courseIds).size) return res.status(400).json({ error: "One or more courses cannot be granted." });
       const rows = courseIds.map((courseId: string) => ({
         user_id: target.id,
         course_id: courseId,
@@ -80,6 +85,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (!email) return res.status(400).json({ error: "Email is required" });
       const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://garnerguitar.com";
       const { error } = await service.auth.resetPasswordForEmail(email, { redirectTo: `${origin}/reset-password` });
+      if (error) throw error;
+      return res.status(200).json({ ok: true });
+    }
+
+    if (action === "delete-user") {
+      const userId = String(req.body.userId || "").trim();
+      if (!userId) return res.status(400).json({ error: "A user is required" });
+      if (userId === adminUser.id) return res.status(400).json({ error: "You cannot delete your own administrator account." });
+      const { data: targetResult, error: targetError } = await service.auth.admin.getUserById(userId);
+      if (targetError || !targetResult?.user) return res.status(404).json({ error: "That user account no longer exists." });
+      if (isAdminUser(targetResult.user)) return res.status(400).json({ error: "Administrator accounts cannot be deleted here." });
+      const { error } = await service.auth.admin.deleteUser(userId);
       if (error) throw error;
       return res.status(200).json({ ok: true });
     }

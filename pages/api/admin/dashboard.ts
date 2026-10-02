@@ -80,6 +80,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json({ ok: true });
     }
 
+    if (["bulk-grant", "bulk-revoke", "bulk-reset-password", "bulk-delete-users"].includes(action)) {
+      const userIds = Array.isArray(req.body.userIds) ? Array.from(new Set(req.body.userIds.filter((id: unknown) => typeof id === "string" && id))) as string[] : [];
+      if (!userIds.length || userIds.length > 100) return res.status(400).json({ error: "Select between 1 and 100 users." });
+      const users = await listAllUsers(service);
+      const targets = users.filter((candidate) => userIds.includes(candidate.id));
+      if (targets.length !== userIds.length) return res.status(404).json({ error: "One or more selected users no longer exist." });
+
+      if (action === "bulk-grant" || action === "bulk-revoke") {
+        const courseId = String(req.body.courseId || "").trim();
+        const { data: course, error: courseError } = await service.from("courses").select("id,is_free").eq("id", courseId).single();
+        if (courseError || !course || course.is_free) return res.status(400).json({ error: "Choose a paid course." });
+        if (action === "bulk-grant") {
+          const now = new Date().toISOString();
+          const rows = userIds.map((userId) => ({ user_id: userId, course_id: courseId, granted_by: adminUser.id, reason: "Complimentary access", granted_at: now, revoked_at: null, revoked_by: null }));
+          const { error } = await service.from("course_access_grants").upsert(rows, { onConflict: "user_id,course_id" });
+          if (error) throw error;
+        } else {
+          const { error } = await service.from("course_access_grants").update({ revoked_at: new Date().toISOString(), revoked_by: adminUser.id }).in("user_id", userIds).eq("course_id", courseId).is("revoked_at", null);
+          if (error) throw error;
+        }
+        return res.status(200).json({ ok: true, count: userIds.length });
+      }
+
+      if (action === "bulk-reset-password") {
+        const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://garnerguitar.com";
+        for (const target of targets) {
+          if (!target.email) continue;
+          const { error } = await service.auth.resetPasswordForEmail(target.email, { redirectTo: `${origin}/reset-password` });
+          if (error) throw error;
+        }
+        return res.status(200).json({ ok: true, count: targets.length });
+      }
+
+      if (userIds.includes(adminUser.id)) return res.status(400).json({ error: "You cannot delete your own administrator account." });
+      if (targets.some((target) => isAdminUser(target))) return res.status(400).json({ error: "Administrator accounts cannot be deleted here." });
+      for (const userId of userIds) {
+        const { error } = await service.auth.admin.deleteUser(userId);
+        if (error) throw error;
+      }
+      return res.status(200).json({ ok: true, count: userIds.length });
+    }
+
     if (action === "reset-password") {
       const email = String(req.body.email || "").trim().toLowerCase();
       if (!email) return res.status(400).json({ error: "Email is required" });

@@ -1,0 +1,111 @@
+.admin {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 6rem;
+  color: #f1f1f1;
+
+  header { max-width: 760px; margin-bottom: 2rem; }
+  h1 { margin: .2rem 0; font-size: clamp(2rem, 5vw, 4rem); }
+  h2, h3 { color: #fff; }
+  header p:last-child { color: #d3d3d3; font-size: 1.05rem; }
+  :global(.eyebrow) { color: #9ff3dc; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+
+  nav { position: sticky; top: 150px; z-index: 2; display: flex; gap: .5rem; padding: .75rem 0; background: #111; }
+  nav a { padding: .6rem .9rem; border-radius: 6px; background: #9ff3dc; color: #081c16; font-weight: 800; text-decoration: none; }
+  nav a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px solid #f6d86b; outline-offset: 3px; }
+
+  section { min-width: 0; margin: 1.5rem 0; padding: 1.5rem 2rem; border: 1px solid #4d4d4d; border-radius: 12px; background: #262626; box-shadow: 0 8px 16px rgba(0, 0, 0, .35); }
+  button { min-height: 44px; padding: .7rem .9rem; border: 1px solid transparent; border-radius: 6px; background: #9ff3dc; color: #081c16; font-weight: 800; cursor: pointer; }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+  input { min-height: 44px; box-sizing: border-box; padding: .7rem; border: 1px solid #858585; border-radius: 6px; background: #111; color: #fff; font: inherit; }
+
+  :global(.section-heading) { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1rem; }
+  :global(.section-heading) h2 { margin: 0; }
+  :global(.section-heading) p { margin: .3rem 0 0; color: #c7c7c7; }
+  :global(.search) { width: min(360px, 100%); color: #f1f1f1; font-weight: 700; }
+  :global(.search) input { width: 100%; margin-top: .4rem; }
+  :global(.secondary) { padding: .55rem .75rem; }
+  :global(.danger) { border-color: #e49ca2; background: #8f2d35; color: #fff; }
+  :global(.notice) { padding: 1rem; border-radius: 8px; font-weight: 700; }
+  :global(.notice.success) { border: 1px solid #9ff3dc; background: #163d32; }
+  :global(.notice.error) { border: 1px solid #efadb2; background: #4b1e21; }
+  :global(.loading) { padding: 2rem; border: 1px solid #555; border-radius: 12px; background: #262626; }
+  :global(.muted) { color: #c2c2c2; }
+
+  :global(.user-list) { border-top: 1px solid #555; }
+  :global(.user-record) { border-bottom: 1px solid #555; }
+  :global(.user-row) { display: grid; grid-template-columns: minmax(220px, 1.2fr) minmax(240px, 1.5fr) 140px 70px; align-items: center; gap: 1rem; padding: 1rem 0; }
+  :global(.user-head) { color: #c7c7c7; font-size: .78rem; font-weight: 700; text-transform: uppercase; }
+  :global(.identity), :global(.access-summary) { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+  :global(.identity) strong, :global(.access-summary) em { overflow-wrap: anywhere; }
+  :global(.identity) small { color: #c7c7c7; }
+  :global(.access-summary) em { font-style: normal; }
+  :global(.no-results) { padding: 1rem 0; color: #d3d3d3; }
+
+  :global(.action-menu) { position: relative; justify-self: end; }
+  :global(.action-menu) summary { display: grid; width: 44px; height: 44px; border: 1px solid #858585; border-radius: 6px; color: #fff; font-size: 1.1rem; cursor: pointer; list-style: none; place-items: center; }
+  :global(.action-menu) summary::-webkit-details-marker { display: none; }
+  :global(.menu-items) { position: absolute; top: calc(100% + .4rem); right: 0; z-index: 4; width: min(220px, calc(100vw - 2rem)); padding: .4rem; border: 1px solid #777; border-radius: 8px; background: #111; box-shadow: 0 8px 16px rgba(0, 0, 0, .35); }
+  :global(.menu-items) button { display: block; width: 100%; border: 0; background: transparent; color: #fff; text-align: left; }
+  :global(.menu-items) button:hover { background: #333; }
+  :global(.menu-items) :global(.menu-danger) { color: #ffb4b9; }
+
+  :global(.access-manager) { min-width: 0; margin: 0 0 1rem; padding: 1rem; border: 1px solid #666; border-radius: 8px; background: #181818; }
+  :global(.access-manager) h3 { margin: 0; overflow-wrap: anywhere; }
+  :global(.access-manager) p { margin: .3rem 0 1rem; color: #c7c7c7; }
+  :global(.access-courses) { display: grid; gap: .65rem; }
+  :global(.access-course) { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem; border: 1px solid #4f4f4f; border-radius: 7px; background: #252525; }
+  :global(.access-course) div { display: flex; min-width: 0; flex-direction: column; gap: .2rem; }
+  :global(.access-course) strong { overflow-wrap: anywhere; }
+  :global(.access-course) div span { color: #c7c7c7; }
+  :global(.status-badge) { display: inline-flex; width: max-content; max-width: 100%; padding: .25rem .55rem; border: 1px solid #9ff3dc; border-radius: 999px; background: #305f52; color: #fff; font-size: .8rem; font-weight: 800; }
+
+  :global(.course) { min-width: 0; padding: 1.4rem 0; border-top: 1px solid #666; }
+  :global(.course):first-of-type { border-top: 0; }
+  :global(.course-title) { display: flex; min-width: 0; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  :global(.title-line) { display: flex; min-width: 0; align-items: center; gap: .6rem; }
+  :global(.course-title) h3 { margin: 0; overflow-wrap: anywhere; }
+  :global(.course-title) p { margin: .4rem 0 0; color: #c7c7c7; }
+  :global(.course-title) a { color: #9ff3dc; font-weight: 800; }
+  :global(.price-row) { display: grid; grid-template-columns: auto 130px auto; align-items: center; justify-content: start; gap: .75rem; margin: 1.2rem 0; }
+  :global(.price-row) label { font-weight: 700; }
+  :global(.price-row) input { text-align: center; }
+  :global(.publish-row) { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1rem 0; padding: .8rem; border: 1px solid #555; border-radius: 8px; background: #1b1b1b; }
+  :global(.publish-status) { color: #e5cf7c; font-weight: 700; }
+  :global(.publish-status.complete) { color: #9ff3dc; }
+  :global(.publish-actions) { display: flex; gap: .6rem; }
+  :global(.lessons) > summary { display: flex; min-height: 44px; align-items: center; padding: .7rem 0; color: #9ff3dc; font-weight: 800; cursor: pointer; }
+  :global(.lesson) { display: grid; grid-template-columns: 1fr 180px auto; align-items: center; gap: 1rem; padding: .7rem; border-top: 1px solid #4d4d4d; }
+}
+
+@media (max-width: 768px) {
+  .admin {
+    width: min(calc(100% - 1rem), 1180px);
+    padding: 2rem 0 4rem;
+
+    nav { top: 135px; overflow-x: auto; }
+    :global(.section-heading), :global(.course-title), :global(.publish-row) { align-items: stretch; flex-direction: column; }
+    :global(.search) { width: 100%; }
+    :global(.user-head) { display: none; }
+    :global(.user-row) { grid-template-columns: minmax(0, 1fr) auto; }
+    :global(.access-summary), :global(.user-row) > span:nth-child(3) { grid-column: 1 / -1; }
+    :global(.action-menu) { grid-row: 1; grid-column: 2; }
+    :global(.access-course) { align-items: stretch; flex-direction: column; }
+    :global(.price-row) { grid-template-columns: minmax(0, 1fr); }
+    :global(.price-row) input { width: 100%; text-align: left; }
+    :global(.publish-actions) { display: grid; grid-template-columns: 1fr; }
+    :global(.lesson) { grid-template-columns: minmax(0, 1fr); padding-inline: 0; }
+    :global(.lesson) span { overflow-wrap: anywhere; }
+    :global(.lesson) button { justify-self: stretch; }
+    section { padding: 1.25rem; }
+  }
+}
+
+@media (max-width: 480px) {
+  .admin {
+    h1 { font-size: 2.25rem; }
+    section { padding: 1rem; }
+    :global(.title-line) { align-items: flex-start; flex-direction: column; }
+    :global(.course-title) a, :global(.price-row) button, :global(.access-course) button { width: 100%; text-align: center; }
+  }
+}

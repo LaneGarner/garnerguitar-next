@@ -59,10 +59,11 @@
   :global(.action-menu) { position: relative; justify-self: end; }
   :global(.action-menu) summary { display: grid; width: 44px; height: 44px; border: 1px solid #858585; border-radius: 6px; color: #fff; font-size: 1.1rem; cursor: pointer; list-style: none; place-items: center; }
   :global(.action-menu) summary::-webkit-details-marker { display: none; }
-  :global(.menu-items) { position: absolute; top: calc(100% + .4rem); right: 0; z-index: 4; width: min(220px, calc(100vw - 2rem)); padding: .4rem; border: 1px solid #777; border-radius: 8px; background: #111; box-shadow: 0 8px 16px rgba(0, 0, 0, .35); }
-  :global(.menu-items) button { display: block; width: 100%; border: 0; background: transparent; color: #fff; text-align: left; }
-  :global(.menu-items) button:hover { background: #333; }
-  :global(.menu-items) :global(.menu-danger) { color: #ffb4b9; }
+  :global(.action-menu)[open] summary { border-color: #9ff3dc; background: #303030; }
+  :global(.menu-items) { position: absolute; top: calc(100% + .4rem); right: 0; z-index: 4; width: min(230px, calc(100vw - 2rem)); padding: .35rem; border: 1px solid #777; border-radius: 8px; background: #181818; box-shadow: 0 12px 28px rgba(0, 0, 0, .5); }
+  :global(.menu-items) button { display: block; width: 100%; min-height: 40px; padding: .65rem .75rem; border: 0; border-radius: 4px; background: transparent; color: #fff; font-size: .95rem; font-weight: 600; line-height: 1.3; text-align: left; white-space: nowrap; }
+  :global(.menu-items) button:hover, :global(.menu-items) button:focus-visible { background: #333; }
+  :global(.menu-items) :global(.menu-danger) { margin-top: .25rem; border-top: 1px solid #555; border-radius: 0 0 4px 4px; color: #ffb4b9; }
 
   :global(.access-manager) { min-width: 0; margin: 0 0 1rem; padding: 1rem; border: 1px solid #666; border-radius: 8px; background: #181818; }
   :global(.access-manager) h3 { margin: 0; overflow-wrap: anywhere; }

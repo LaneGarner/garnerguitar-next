@@ -19,6 +19,8 @@ export default function AdminPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [search, setSearch] = useState("");
   const [managedUserId, setManagedUserId] = useState<string | null>(null);
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+  const [bulkCourseId, setBulkCourseId] = useState("");
   const [notice, setNotice] = useState<Notice>(null);
   const [busy, setBusy] = useState(false);
 
@@ -53,15 +55,24 @@ export default function AdminPage() {
       if (!response.ok) throw new Error(body.error || "Operation failed");
       setNotice({ kind: "success", text: success });
       await load();
+      return true;
     } catch (error) {
       setNotice({ kind: "error", text: error instanceof Error ? error.message : "Operation failed" });
       setBusy(false);
+      return false;
     }
   };
 
   const filteredUsers = useMemo(() => (data?.users || []).filter((user) => user.email?.toLowerCase().includes(search.trim().toLowerCase())), [data, search]);
+  const selectedUsers = useMemo(() => (data?.users || []).filter((user) => selectedUserIds.includes(user.id)), [data, selectedUserIds]);
+  const allFilteredSelected = filteredUsers.length > 0 && filteredUsers.every((user) => selectedUserIds.includes(user.id));
   const courseName = (id: string) => data?.courses.find((course) => course.id === id)?.title || "Unknown course";
   const copy = async (value: string, label: string) => { await navigator.clipboard.writeText(value); setNotice({ kind: "success", text: `${label} copied` }); };
+  const toggleUser = (userId: string) => setSelectedUserIds((current) => current.includes(userId) ? current.filter((id) => id !== userId) : [...current, userId]);
+  const toggleVisibleUsers = () => setSelectedUserIds((current) => allFilteredSelected ? current.filter((id) => !filteredUsers.some((user) => user.id === id)) : Array.from(new Set([...current, ...filteredUsers.map((user) => user.id)])));
+  const bulkAct = async (payload: Record<string, unknown>, success: string) => {
+    if (await act({ ...payload, userIds: selectedUserIds }, success)) setSelectedUserIds([]);
+  };
   const deleteUser = (user: AdminUser, accessCount: number) => {
     const consequence = accessCount ? ` This will also remove ${accessCount} access record${accessCount === 1 ? "" : "s"}.` : "";
     if (confirm(`Permanently delete ${user.email}?${consequence} This cannot be undone.`)) void act({ action: "delete-user", userId: user.id }, `${user.email} was deleted`);
@@ -74,12 +85,13 @@ export default function AdminPage() {
       <nav aria-label="Admin sections"><a href="#users">Users</a><a href="#courses">Courses</a></nav>
       <section id="users" aria-labelledby="users-title">
         <div className="section-heading"><div><h2 id="users-title">Users</h2><p>{data.users.length} total users</p></div><label className="search">Search users<input type="search" placeholder="Search by email" value={search} onChange={(event) => setSearch(event.target.value)} /></label></div>
-        <div className="user-list"><div className="user-row user-head" aria-hidden="true"><span>User</span><span>Course access</span><span>Last sign-in</span><span>Actions</span></div>
+        {selectedUsers.length > 0 && <div className="bulk-toolbar" aria-label="Bulk user actions"><div className="bulk-heading"><strong>{selectedUsers.length} selected</strong><button className="clear-selection" type="button" onClick={() => setSelectedUserIds([])}>Clear</button></div><div className="bulk-course-actions"><label htmlFor="bulk-course">Course</label><select id="bulk-course" value={bulkCourseId} onChange={(event) => setBulkCourseId(event.target.value)}><option value="">Choose a course</option>{data.courses.filter((course) => !course.is_free).map((course) => <option key={course.id} value={course.id}>{course.title}</option>)}</select><button disabled={busy || !bulkCourseId} onClick={() => void bulkAct({ action: "bulk-grant", courseId: bulkCourseId }, `Course access granted to ${selectedUsers.length} user${selectedUsers.length === 1 ? "" : "s"}`)}>Grant access</button><button className="secondary" disabled={busy || !bulkCourseId} onClick={() => confirm(`Revoke complimentary access to ${courseName(bulkCourseId)} for the selected users? Purchased access will not be affected.`) && void bulkAct({ action: "bulk-revoke", courseId: bulkCourseId }, `Complimentary access revoked for selected users`)}>Revoke grants</button></div><div className="bulk-other-actions"><button className="secondary" disabled={busy} onClick={() => confirm(`Send password reset emails to ${selectedUsers.length} selected user${selectedUsers.length === 1 ? "" : "s"}?`) && void bulkAct({ action: "bulk-reset-password" }, `Password resets sent to ${selectedUsers.length} user${selectedUsers.length === 1 ? "" : "s"}`)}>Send password resets</button><button className="secondary" disabled={busy} onClick={() => void copy(selectedUsers.map((user) => user.email).join(", "), `${selectedUsers.length} email${selectedUsers.length === 1 ? "" : "s"}`)}>Copy emails</button><button className="secondary danger" disabled={busy || selectedUserIds.includes(data.currentUserId)} onClick={() => confirm(`Permanently delete ${selectedUsers.length} selected user${selectedUsers.length === 1 ? "" : "s"}? Their access records will also be removed. This cannot be undone.`) && void bulkAct({ action: "bulk-delete-users" }, `${selectedUsers.length} user${selectedUsers.length === 1 ? "" : "s"} deleted`)}>Delete selected</button></div></div>}
+        <div className="user-list"><div className="user-row user-head"><label className="select-user"><input type="checkbox" checked={allFilteredSelected} onChange={toggleVisibleUsers} aria-label={allFilteredSelected ? "Deselect all visible users" : "Select all visible users"} /><span className="sr-only">Select all visible users</span></label><span>User</span><span>Course access</span><span>Last sign-in</span><span>Actions</span></div>
           {filteredUsers.map((user) => {
             const purchases = data.purchases.filter((purchase) => purchase.user_id === user.id);
             const grants = data.grants.filter((grant) => grant.user_id === user.id && !grant.revoked_at);
             const isManaged = managedUserId === user.id;
-            return <div className="user-record" key={user.id}><div className="user-row">
+            return <div className="user-record" key={user.id}><div className="user-row"><label className="select-user"><input type="checkbox" checked={selectedUserIds.includes(user.id)} onChange={() => toggleUser(user.id)} aria-label={`Select ${user.email}`} /><span className="sr-only">Select {user.email}</span></label>
               <span className="identity"><strong>{user.email}</strong><small>Joined {new Date(user.created_at).toLocaleDateString()}</small></span>
               <span className="access-summary">{purchases.map((purchase) => <em key={purchase.id}>Purchased · {courseName(purchase.course_id)}</em>)}{grants.map((grant) => <em key={grant.id}>Granted · {courseName(grant.course_id)}</em>)}{!purchases.length && !grants.length && <span className="muted">No paid-course access</span>}</span>
               <span>{user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleDateString() : <span className="muted">Never</span>}</span>

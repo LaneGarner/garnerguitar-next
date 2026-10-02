@@ -32,6 +32,7 @@
   button { min-height: 44px; padding: .7rem .9rem; border: 1px solid transparent; border-radius: 6px; background: #9ff3dc; color: #081c16; font-weight: 800; cursor: pointer; }
   button:disabled { opacity: .55; cursor: not-allowed; }
   input { min-height: 44px; box-sizing: border-box; padding: .7rem; border: 1px solid #858585; border-radius: 6px; background: #111; color: #fff; font: inherit; }
+  select { min-height: 44px; box-sizing: border-box; padding: .65rem 2rem .65rem .75rem; border: 1px solid #858585; border-radius: 6px; background: #111; color: #fff; font: inherit; }
 
   :global(.section-heading) { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 1rem; }
   :global(.section-heading) h2 { margin: 0; }
@@ -50,13 +51,22 @@
 
   :global(.user-list) { border-top: 1px solid #555; }
   :global(.user-record) { border-bottom: 1px solid #555; }
-  :global(.user-row) { display: grid; grid-template-columns: minmax(220px, 1.2fr) minmax(240px, 1.5fr) 140px 70px; align-items: center; gap: 1rem; padding: 1rem 0; }
+  :global(.user-row) { display: grid; grid-template-columns: 44px minmax(220px, 1.2fr) minmax(240px, 1.5fr) 140px 70px; align-items: center; gap: 1rem; padding: 1rem 0; }
   :global(.user-head) { color: #c7c7c7; font-size: .78rem; font-weight: 700; text-transform: uppercase; }
+  :global(.select-user) { display: grid; width: 44px; height: 44px; cursor: pointer; place-items: center; }
+  :global(.select-user) input { width: 20px; min-height: 20px; height: 20px; margin: 0; padding: 0; accent-color: #9ff3dc; }
   :global(.identity), :global(.access-summary) { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
   :global(.identity) strong, :global(.access-summary) em { overflow-wrap: anywhere; }
   :global(.identity) small { color: #c7c7c7; }
   :global(.access-summary) em { font-style: normal; }
   :global(.no-results) { padding: 1rem 0; color: #d3d3d3; }
+  :global(.bulk-toolbar) { display: grid; gap: .8rem; margin-bottom: 1rem; padding: 1rem; border: 1px solid #6fd2b7; border-radius: 10px; background: #17372f; }
+  :global(.bulk-heading) { display: flex; align-items: center; justify-content: space-between; }
+  :global(.clear-selection) { min-height: 36px; padding: .35rem .6rem; background: transparent; color: #bfffea; text-decoration: underline; }
+  :global(.bulk-course-actions), :global(.bulk-other-actions) { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+  :global(.bulk-course-actions) label { font-weight: 700; }
+  :global(.bulk-course-actions) select { min-width: min(280px, 100%); flex: 1; }
+  :global(.bulk-other-actions) { padding-top: .8rem; border-top: 1px solid #47776a; }
 
   :global(.action-menu) { position: relative; justify-self: end; }
   :global(.action-menu) summary { display: grid; width: 44px; height: 44px; border: 1px solid #858585; border-radius: 6px; color: #fff; font-size: 1.1rem; cursor: pointer; list-style: none; place-items: center; }
@@ -116,9 +126,11 @@
     :global(.section-heading), :global(.course-title), :global(.setting-row) { align-items: stretch; flex-direction: column; }
     :global(.search) { width: 100%; }
     :global(.user-head) { display: none; }
-    :global(.user-row) { grid-template-columns: minmax(0, 1fr) auto; }
-    :global(.access-summary), :global(.user-row) > span:nth-child(3) { grid-column: 1 / -1; }
-    :global(.action-menu) { grid-row: 1; grid-column: 2; }
+    :global(.user-row) { grid-template-columns: 44px minmax(0, 1fr) auto; }
+    :global(.access-summary), :global(.user-row) > span:nth-child(4) { grid-column: 2 / -1; }
+    :global(.action-menu) { grid-row: 1; grid-column: 3; }
+    :global(.bulk-course-actions), :global(.bulk-other-actions) { align-items: stretch; flex-direction: column; }
+    :global(.bulk-course-actions) select, :global(.bulk-course-actions) button, :global(.bulk-other-actions) button { width: 100%; }
     :global(.access-course) { align-items: stretch; flex-direction: column; }
     :global(.course-stats) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     :global(.price-controls) { grid-template-columns: auto minmax(0, 1fr) auto; }
